@@ -44,10 +44,7 @@
 #include "lib/threadpool/threadPool/threadPool.h"
 #endif
 
-#ifndef _ORECT
-#define _ORECT
-#include "lib/OrionRect/OrionRect/OrionRect.h"
-#endif
+
 
 //////////////////
 #define PLAYER_HITBOX 1

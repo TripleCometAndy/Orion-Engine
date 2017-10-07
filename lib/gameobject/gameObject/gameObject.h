@@ -7,10 +7,7 @@
 #include "../../hitbox/hitbox/hitbox.h"
 #endif
 
-#ifndef _ORECT
-#define _ORECT
-#include "../../OrionRect/OrionRect/OrionRect.h"
-#endif
+
 
 
 #include <SDL2/SDL.h>
