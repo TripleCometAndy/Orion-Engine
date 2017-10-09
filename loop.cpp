@@ -44,7 +44,7 @@ int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 	}
 
 	////
-	background b(100, 100, screenWidth, screenHeight, "background_01", "images/background_test.png", "background", renderer, &uniformGrid);
+	background b(100, 100, 1360, 768, "background_01", "images/background_test.png", "background", renderer, &uniformGrid);
 	//wall leftWall(100, 100, 233, 576, "wall_01", "images/wall.png", "wall", renderer, &uniformGrid);
 	//wall rightWall(891, 100, 233, 576, "wall_02", "images/wall.png", "wall", renderer, &uniformGrid);
 	player p(700, 400, 222, 344, "ship_01", "images/spriteSheetPlayer.png", "ship", renderer, &uniformGrid, timeFactor);

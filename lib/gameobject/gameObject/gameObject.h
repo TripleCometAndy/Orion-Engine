@@ -7,11 +7,17 @@
 #include "../../hitbox/hitbox/hitbox.h"
 #endif
 
+#ifdef _WIN32
+#include <SDL.h>
+#include <SDL_image.h>
 
-
-
+#else
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#endif
+
+
+
 
 #ifndef _INPUTHANDLER
 #define _INPUTHANDLER
@@ -72,7 +78,7 @@ public:
 
 	// Rendering Functions //
 	bool load_files(SDL_Renderer *);
-	void show(unsigned int relativeX, unsigned int relativeY, SDL_Renderer *, double xRenderCoordFactor, double yRenderCoordFactor);
+	void show(int relativeX, int relativeY, SDL_Renderer *, double xRenderCoordFactor, double yRenderCoordFactor);
 
 
 	//getters//

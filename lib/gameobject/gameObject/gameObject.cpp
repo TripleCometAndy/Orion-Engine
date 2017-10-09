@@ -75,41 +75,49 @@ bool gameObject::load_files(SDL_Renderer * gRenderer){
 
 
 //render gameObject to screen. Precondition: relativeX and relativeY are greater than or equal to 0//
-void gameObject::show(unsigned int relativeX, unsigned int relativeY, SDL_Renderer * gRenderer, double xRenderCoordFactor, double yRenderCoordFactor){
+void gameObject::show(int relativeX, int relativeY, SDL_Renderer * gRenderer, double xRenderCoordFactor, double yRenderCoordFactor){
 
 	double xRenderReal = x * xRenderCoordFactor;
-	int xRenderInt = (int)floor(xRenderReal);
-	if((xRenderReal - xRenderInt) >= 0.5){
+	int xRenderInt = (int)(floor(xRenderReal));
+	if ((xRenderReal - xRenderInt) >= 0.5) {
 
 		xRenderInt++;
 
 	}
 
 	double yRenderReal = y * yRenderCoordFactor;
-	int yRenderInt = (int)floor(yRenderReal);
-	if((yRenderReal - yRenderInt) >= 0.5){
+	int yRenderInt = (int)(floor(yRenderReal));
+	if ((yRenderReal - yRenderInt) >= 0.5) {
 
 		yRenderInt++;
 
 	}
-	SDL_Rect renderQuad;
-	if(name.compare("background_01") != 0){
-		renderQuad = { xRenderInt - relativeX, yRenderInt - relativeY, width, height };
+	SDL_Rect renderQuad = { x - relativeX , y - relativeY, width, height };
+	SDL_Rect renderQuadBG = { xRenderInt - relativeX, yRenderInt - relativeY, width, height };
+	if (name.compare("background_01") != 0) {
+		if (clip != NULL)
+		{
+			renderQuadBG.w = clip->w;
+			renderQuadBG.h = clip->h;
+		}
+		SDL_RenderCopy(gRenderer, image, clip, &renderQuadBG);
 	}
-	else{
+	else {
 
-		renderQuad = { x - relativeX, y - relativeY, width, height };
+		if (clip != NULL)
+		{
+			renderQuad.w = clip->w;
+			renderQuad.h = clip->h;
+		}
+		SDL_RenderCopy(gRenderer, image, clip, &renderQuad);
+		
 
 	}
 	//Set clip rendering dimensions
-	if (clip != NULL)
-	{
-		renderQuad.w = clip->w;
-		renderQuad.h = clip->h;
-	}
-	//if(changedPosition){
-		SDL_RenderCopy(gRenderer, image, clip, &renderQuad);
-	//}
+	
+	
+	
+	
 }
 
 //getter for this object's hitboxes. stored in a vector//

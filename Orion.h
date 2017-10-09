@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 #include <iostream>
 #include <vector>
@@ -12,7 +13,14 @@
 ////////////////////////////////////
 #include <cmath>
 #include <ctime>
+
+#ifdef _WIN32
+#include <windows.h>
+#include "windowsFunctions.h"
+
+#else
 #include <X11/Xlib.h>
+#endif
 
 #ifndef _UGRID
 #define _UGRID

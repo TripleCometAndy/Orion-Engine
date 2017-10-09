@@ -446,6 +446,13 @@ void player::handleInput(SDL_Event &e, SDL_Joystick* gGameController){
 		int xDirRight = 3;
 		int yDirRight = 3;
 
+		if ((int)e.jaxis.axis == 0) {
+
+			cout << "Axis" << endl;
+
+		}
+		
+
 		xDirLeft = SDL_JoystickGetAxis(gGameController, 0);
 		yDirLeft = SDL_JoystickGetAxis(gGameController, 1);
 

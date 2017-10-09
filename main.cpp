@@ -13,8 +13,8 @@ int main(int argc, char **argv){
 	bool debugSingleStep = false;
 	bool debugDecouple = false;
 
-	int screenWidth = 800;
-	int screenHeight = 600;
+	int screenWidth = 1360;
+	int screenHeight = 768;
 
 
 	if (checkOptions(&FPS, &fullScreen, &debugMode, &keylogger, &debugSingleStep, &debugDecouple)){
@@ -22,12 +22,13 @@ int main(int argc, char **argv){
 		if (fullScreen){
 
 			//Windows//
-
+			/*
 			Display* disp = XOpenDisplay(NULL);
 			Screen*  scrn = DefaultScreenOfDisplay(disp);
 			screenHeight = scrn->height;
 			screenWidth  = scrn->width;
-
+			*/
+			setScreenDimension(&screenWidth, &screenHeight);
 
 		}
 		else{
