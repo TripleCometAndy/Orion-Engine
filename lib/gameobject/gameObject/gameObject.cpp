@@ -77,6 +77,7 @@ bool gameObject::load_files(SDL_Renderer * gRenderer){
 //render gameObject to screen. Precondition: relativeX and relativeY are greater than or equal to 0//
 void gameObject::show(int relativeX, int relativeY, SDL_Renderer * gRenderer, double xRenderCoordFactor, double yRenderCoordFactor){
 
+	
 	double xRenderReal = x * xRenderCoordFactor;
 	unsigned int xRenderInt = (int)(floor(xRenderReal));
 	if ((xRenderReal - xRenderInt) >= 0.5) {
@@ -115,8 +116,46 @@ void gameObject::show(int relativeX, int relativeY, SDL_Renderer * gRenderer, do
 	}
 	//Set clip rendering dimensions
 	
+	/*
+	double xRenderReal = x * xRenderCoordFactor;
+	int xRenderInt = (int)(floor(xRenderReal));
+	if ((xRenderReal - xRenderInt) >= 0.5) {
+
+		xRenderInt++;
+
+	}
+
+	double yRenderReal = y * yRenderCoordFactor;
+	int yRenderInt = (int)(floor(yRenderReal));
+	if ((yRenderReal - yRenderInt) >= 0.5) {
+
+		yRenderInt++;
+
+	}
+	SDL_Rect renderQuad = { x - relativeX , y - relativeY, width, height };
+	SDL_Rect renderQuadBG = { xRenderInt - relativeX, yRenderInt - relativeY, width, height };
+	if (name.compare("background_01") != 0) {
+		if (clip != NULL)
+		{
+			renderQuadBG.w = clip->w;
+			renderQuadBG.h = clip->h;
+		}
+		SDL_RenderCopy(gRenderer, image, clip, &renderQuadBG);
+	}
+	else {
+
+		if (clip != NULL)
+		{
+			renderQuad.w = clip->w;
+			renderQuad.h = clip->h;
+		}
+		SDL_RenderCopy(gRenderer, image, clip, &renderQuad);
+
+
+	}
+	//Set clip rendering dimensions
 	
-	
+	*/
 	
 }
 
