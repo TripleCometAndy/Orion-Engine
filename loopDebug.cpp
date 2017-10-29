@@ -8,7 +8,8 @@ int loopDebug(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 	double timeFactor = 0;
   int frameCount = 0;
 
-
+  cout << screenWidth << endl;
+  cout << screenHeight << endl;
 	SDL_Joystick* gGameController = NULL;
 
 	Mix_Music * music = NULL;

@@ -14,7 +14,7 @@ void renderAll(vector<gameObject *> gameObjects, SDL_Renderer * renderer, double
   for (int i = 0 ; i < numObjects; i++){
 
 
-    (*p)->show(100, 100, renderer, xRenderCoordFactor, yRenderCoordFactor);
+    (*p)->show(200, 200, renderer, xRenderCoordFactor, yRenderCoordFactor);
 
     p++;
 

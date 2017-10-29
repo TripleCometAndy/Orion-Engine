@@ -13,8 +13,8 @@ int main(int argc, char **argv){
 	bool debugSingleStep = false;
 	bool debugDecouple = false;
 
-	int screenWidth = 1360;
-	int screenHeight = 768;
+	int screenWidth = 1920;
+	int screenHeight = 1280;
 
 
 	if (checkOptions(&FPS, &fullScreen, &debugMode, &keylogger, &debugSingleStep, &debugDecouple)){
@@ -29,6 +29,9 @@ int main(int argc, char **argv){
 			screenWidth  = scrn->width;
 			*/
 			setScreenDimension(&screenWidth, &screenHeight);
+
+			screenWidth = 1920;
+			screenHeight = 1280;
 
 		}
 		else{

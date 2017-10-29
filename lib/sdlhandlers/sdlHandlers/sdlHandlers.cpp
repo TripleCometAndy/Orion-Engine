@@ -20,7 +20,7 @@ bool init(int width, int height, SDL_Window ** gWindow, SDL_Renderer ** gRendere
 		}
 
 		//Create window
-
+		
 		if (SDL_NumJoysticks() < 1)
 		{
 			(*hasController) = false;
@@ -47,7 +47,7 @@ bool init(int width, int height, SDL_Window ** gWindow, SDL_Renderer ** gRendere
 		}
 
 
-
+		//
 		if (fullScreen){
 
 			(*gWindow) = SDL_CreateWindow("Orion Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN || SDL_WINDOW_FULLSCREEN_DESKTOP);
@@ -58,7 +58,7 @@ bool init(int width, int height, SDL_Window ** gWindow, SDL_Renderer ** gRendere
 			(*gWindow) = SDL_CreateWindow("Orion Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
 
 		}
-
+		
 		if (gWindow == NULL)
 		{
 			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
