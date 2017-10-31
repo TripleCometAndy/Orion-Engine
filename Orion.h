@@ -96,27 +96,10 @@ public:
 	void handleInput(SDL_Event& e, SDL_Joystick* gGameController);
 	void handleInputDebug(char c);
 	void handleStateChanges(vector<gameObject *> *, uGrid *, thread_pool * pool);
+	void handleStateChangesSingleThreaded(vector<gameObject *> *, uGrid *);
 
-	void enactStateChanges(vector <gameObject *> *, SDL_Renderer * renderer, uGrid *, thread_pool * pool);
-	void printDebugInformation();
-
-};
-
-class wall : public gameObject{
-
-private:
-
-	SDL_Rect frames[1];
-
-
-public:
-
-//
-	wall(int, int, int, int, string, string, string, SDL_Renderer *, uGrid * uniformGrid);
-
-	void handleInput(SDL_Event& e, SDL_Joystick* gGameController);
-	void handleStateChanges(vector<gameObject *> *, uGrid *);
 	void enactStateChanges(vector <gameObject *> *, SDL_Renderer * renderer, uGrid *);
+	void printDebugInformation();
 
 };
 
@@ -230,7 +213,8 @@ public:
 	void handleInput(SDL_Event& e, SDL_Joystick* gGameController);
 	void handleInputDebug(char c);
 	void handleStateChanges(vector<gameObject *> *, uGrid *, thread_pool * pool);
-	void enactStateChanges(vector<gameObject *> *, SDL_Renderer * renderer, uGrid *, thread_pool * pool);
+	void handleStateChangesSingleThreaded(vector<gameObject *> *, uGrid *);
+	void enactStateChanges(vector<gameObject *> *, SDL_Renderer * renderer, uGrid *);
 	void getAttackOneInfo();
 	void getAttackTwoInfo();
 	void getAttackThreeInfo();
@@ -296,3 +280,4 @@ int loopDebug(int FPS, int screenWidth, int screenHeight, bool fullScreen);
 int loopDebugSingleStep(int FPS, int screenWidth, int screenHeight, bool fullScreen);
 int loopDebug_SDLDecoupled(int FPS, int screenWidth, int screenHeight, bool fullScreen);
 void getJoystickInfo(float * radius, float * angle, int xDir, int yDir);
+int loopDebugSingleThreaded(int FPS, int screenWidth, int screenHeight, bool fullScreen);

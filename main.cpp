@@ -12,26 +12,28 @@ int main(int argc, char **argv){
 	bool keylogger = false;
 	bool debugSingleStep = false;
 	bool debugDecouple = false;
+	bool singleThread = false;
+
 
 	int screenWidth = 1360;
 	int screenHeight = 768;
 
 
-	if (checkOptions(&FPS, &fullScreen, &debugMode, &keylogger, &debugSingleStep, &debugDecouple)){
+	if (checkOptions(&FPS, &fullScreen, &debugMode, &keylogger, &debugSingleStep, &debugDecouple, &singleThread)){
 
 		if (fullScreen){
 
 			//Windows//
-			/*
+
 			Display* disp = XOpenDisplay(NULL);
 			Screen*  scrn = DefaultScreenOfDisplay(disp);
 			screenHeight = scrn->height;
 			screenWidth  = scrn->width;
-			*/
-			setScreenDimension(&screenWidth, &screenHeight);
 
-			screenWidth = 1366;
-			screenHeight = 768;
+			//setScreenDimension(&screenWidth, &screenHeight);
+
+			//screenWidth = 1360;
+			//screenHeight = 768;
 
 		}
 		else{
@@ -57,7 +59,7 @@ int main(int argc, char **argv){
 		loopWrite(FPS, screenWidth, screenHeight, fullScreen);
 
 	}
-	else if(debugMode == true && keylogger == false){
+	else if(debugMode == true && keylogger == false && singleThread == false){
 
 
 		loopDebug(FPS, screenWidth, screenHeight, fullScreen);
@@ -71,6 +73,12 @@ int main(int argc, char **argv){
 	else if(debugDecouple == true && keylogger == false){
 
 		loopDebug_SDLDecoupled(FPS, screenWidth, screenHeight, fullScreen);
+
+	}
+	else if(debugMode == true && keylogger == false && singleThread == true){
+
+		loopDebugSingleThreaded(FPS, screenWidth, screenHeight, fullScreen);
+
 
 	}
 

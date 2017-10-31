@@ -1,6 +1,6 @@
 #include "enactAllStateChanges.h"
 //
-void enactAllStateChanges(vector<gameObject *> gameObjects, SDL_Renderer * renderer, uGrid * uniformGrid, thread_pool * pool){
+void enactAllStateChanges(vector<gameObject *> gameObjects, SDL_Renderer * renderer, uGrid * uniformGrid){
 
   gameObject ** p = gameObjects.data();
 
@@ -10,7 +10,7 @@ void enactAllStateChanges(vector<gameObject *> gameObjects, SDL_Renderer * rende
 
 
 
-    (*p)->enactStateChanges(&gameObjects, renderer, uniformGrid, pool);
+    (*p)->enactStateChanges(&gameObjects, renderer, uniformGrid);
 
     p++;
   }

@@ -451,7 +451,7 @@ void player::handleInput(SDL_Event &e, SDL_Joystick* gGameController){
 			cout << "Axis" << endl;
 
 		}
-		
+
 
 		xDirLeft = SDL_JoystickGetAxis(gGameController, 0);
 		yDirLeft = SDL_JoystickGetAxis(gGameController, 1);
@@ -803,7 +803,211 @@ void player::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformG
 
 }
 
-void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * renderer, uGrid * uniformGrid, thread_pool * pool){
+void player::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uGrid * uniformGrid){
+
+	xMove = 0;
+
+	processInputs();
+
+
+
+	if(attackOne == -1 && attackTwo == -1 && attackThree == -1 && (rightTriggerHandler == 1) && jumping == false){
+
+		futureWalking = false;
+		futureShielding = false;
+		angleAttack = angleRight;
+		getAttackOneInfo();
+		futureAttackOne = 0;
+		futureShielding = false;
+
+	}
+	else if(attackOne >= 20 && attackOne < 50 && attackTwo == -1 && attackThree == -1 && (rightTriggerHandler == 3) && jumping == false){
+
+		futureWalking = false;
+		futureShielding = false;
+		angleAttack = angleRight;
+		getAttackTwoInfo();
+		futureAttackTwo = 0;
+		futureShielding = false;
+
+	}
+	else if(attackTwo >= 0 && attackTwo < 20 && attackThree == -1 && (rightTriggerHandler == 5) && jumping == false){
+
+		futureWalking = false;
+		futureShielding = false;
+		angleAttack = angleRight;
+		getAttackThreeInfo();
+		futureAttackThree = 0;
+		futureShielding = false;
+
+	}
+	else if(jumping && rightTriggerHandler == 1){
+
+		getAttackTwoInfo();
+		futureAirAttack = true;
+		futureAirAttackTimer = 0;
+
+
+	}
+
+	if(rJoystick && lBumper){
+
+		futureShielding = true;
+
+	}
+	else{
+
+		futureShielding = false;
+
+	}
+
+	if(jumping){
+
+		handleJump();
+
+	}
+	if(shielding){
+
+		if(jumping && futureJumping){
+
+			handleShieldAir();
+
+		}
+		else if(futureBashing || shieldBashing){
+
+				handleShield();
+
+				switch(bashTimer){
+					case 0:
+					bashNum = 1;
+					break;
+					case 4:
+					bashNum = 2;
+					break;
+					case 5:
+					bashNum = 3;
+					break;
+					case 10:
+					bashNum = 2;
+					break;
+					case 11:
+					bashNum = 1;
+					break;
+					case 15:
+					bashNum = 0;
+					futureBashing = false;
+					break;
+				}
+				bashTimer++;
+
+		}
+		else{
+
+			handleShield();
+
+		}
+
+
+
+
+	}
+	if(direction == true){
+		if(walking){
+			if(shielding){
+				xMove = -8*(1/timeFactor)/(METERS_TO_PIXELS);
+			}
+			else{
+
+				xMove = -13*(1/timeFactor)/(METERS_TO_PIXELS);
+
+			}
+		}
+		else if(attackOne != -1){
+
+			groundAttackOneLeft();
+
+		}
+		else if(attackTwo != -1){
+
+			groundAttackTwoLeft();
+
+		}
+		else if(attackThree != -1){
+
+			groundAttackThreeLeft();
+
+		}
+		else if(airAttackTimer != -1){
+
+			airAttackLeft();
+
+
+		}
+
+	}
+	else{
+
+		if(walking){
+
+			if(shielding){
+				xMove = 8*(1/timeFactor)/(METERS_TO_PIXELS);
+			}
+			else{
+
+				xMove = 13*(1/timeFactor)/(METERS_TO_PIXELS);
+
+			}
+
+		}
+		else if(attackOne != -1){
+
+			groundAttackOneRight();
+
+		}
+		else if(attackTwo != -1){
+
+			groundAttackTwoRight();
+
+		}
+		else if(attackThree != -1){
+
+			groundAttackThreeRight();
+		}
+		else if(airAttackTimer != -1){
+
+			airAttackRight();
+		}
+	}
+
+	int xMoveInt = 0;
+	xMove = xMove * timeFactor;
+	xMove = xMove * METERS_TO_PIXELS;
+	xMove = xMove * attackPercent;
+	xMove = xMove * 0.5;
+	xMove = xMove + deltaX;
+	xMoveInt = (int)floor(xMove);
+	deltaX = xMove - xMoveInt;
+
+	futureX += xMoveInt;
+
+	hitbox future;
+	future.top = futureY;
+	future.bottom = futureY + height;
+	future.left = futureX;
+	future.right = futureX + width;
+	future.name = "future";
+	future.parentName = name;
+
+
+	if (uniformGrid->findNameSingleThread(future, LEFT_WALL) || uniformGrid->findNameSingleThread(future, RIGHT_WALL)){
+
+		futureX = x;
+
+	}
+
+}
+
+void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * renderer, uGrid * uniformGrid){
 
 	attackOne = futureAttackOne;
 	attackTwo = futureAttackTwo;
@@ -996,7 +1200,7 @@ void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * re
 
 	move(futureX - x, futureY - y);
 
-	uniformGrid->update(hitboxes, pool);
+	uniformGrid->update(hitboxes);
 
 
 }

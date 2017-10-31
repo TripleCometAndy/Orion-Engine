@@ -1,6 +1,6 @@
 #include "Orion.h"
 
-int loopDebugSingleStep(int FPS, int screenWidth, int screenHeight, bool fullScreen){
+int loopDebugSingleThreaded(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 
   bool hasController = false;
 
@@ -8,11 +8,13 @@ int loopDebugSingleStep(int FPS, int screenWidth, int screenHeight, bool fullScr
 	double timeFactor = 0;
   int frameCount = 0;
 
+  cout << screenWidth << endl;
+  cout << screenHeight << endl;
 	SDL_Joystick* gGameController = NULL;
 
 	Mix_Music * music = NULL;
 
-  cout << "Pingas" << endl;
+  cout << "Start" << endl;
 
 	inputHandler iH("Inputs.txt", false);
 
@@ -21,14 +23,15 @@ int loopDebugSingleStep(int FPS, int screenWidth, int screenHeight, bool fullScr
 
   //this is used when regulating upper bound for frame rate.
   int TICKS_PER_FRAME = 1000 / FPS;
+  double xRenderCoordFactor = (double)screenWidth/(double)xScale;
+  double yRenderCoordFactor = (double)screenHeight/(double)yScale;
 
 
   //The frame rate regulator
   Timer fps;
 
   timeFactor = 1/(double)FPS;
-  double xRenderCoordFactor = (double)screenWidth/(double)xScale;
-  double yRenderCoordFactor = (double)screenHeight/(double)yScale;
+
 
   //Initialize main window and renderer
   SDL_Renderer * renderer = NULL;
@@ -39,7 +42,7 @@ int loopDebugSingleStep(int FPS, int screenWidth, int screenHeight, bool fullScr
   vector<gameObject *> objects;
 
 
-  uGrid uniformGrid(screenWidth + 200, screenHeight + 200);
+  uGrid uniformGrid(1360 + 200, 768 + 200);
 
 
   //Initialize SDL systems//
@@ -48,10 +51,10 @@ int loopDebugSingleStep(int FPS, int screenWidth, int screenHeight, bool fullScr
     return 1;
   }
 
-  background b(100, 100, screenWidth, screenHeight, "background_01", "images/background_test.png", "background", renderer, &uniformGrid);
+  background b(100, 100, 1360, 768, "background_01", "images/background_test.png", "background", renderer, &uniformGrid);
 	//wall leftWall(100, 100, 233, 576, "wall_01", "images/wall.png", "wall", renderer, &uniformGrid);
 	//wall rightWall(891, 100, 233, 576, "wall_02", "images/wall.png", "wall", renderer, &uniformGrid);
-	player p(600, 500, 222, 344, "ship_01", "images/spriteSheetPlayer.png", "ship", renderer, &uniformGrid, timeFactor);
+	player p(700, 400, 222, 344, "ship_01", "images/spriteSheetPlayer.png", "ship", renderer, &uniformGrid, timeFactor);
 
 
   //Camera camera(0, 0, 1024, 768);
@@ -76,38 +79,29 @@ int loopDebugSingleStep(int FPS, int screenWidth, int screenHeight, bool fullScr
 
   //pause flag//
   bool paused = false;
-
+  bool tiger = true;
   //Quit flag//
   bool quit = false;
 
-
+  double totalTime = 0;
+  //ProfilerStart("ls.prof");
   while (quit == false){
 
-    bool iterateFrame = false;
-
+    clock_t begin = clock();
     fps.start();
 
     if(iH.isActionFrame()){
-
-      handleEventsRead_SingleStepActionFrame(&quit, &paused, objects, &iH, frameCount, &iterateFrame);
-    }
-    else{
-
-      handleEventsRead_SingleStep(&iterateFrame, &quit);
-
+      handleEventsRead(&quit, &paused, objects, &iH, frameCount);
     }
 
 
     if (!paused){
 
-      if(iterateFrame){
 
-        handleAllStateChangesSingleThreaded(objects, &uniformGrid);
+      handleAllStateChangesSingleThreaded(objects, &uniformGrid);
 
 
-        enactAllStateChanges(objects, renderer, &uniformGrid);
-      }
-
+      enactAllStateChanges(objects, renderer, &uniformGrid);
 
       cleanLoop(objects);
 
@@ -116,8 +110,20 @@ int loopDebugSingleStep(int FPS, int screenWidth, int screenHeight, bool fullScr
         //Play the music
         Mix_PlayMusic(music, -1);
       }
+      //if(tiger){
 
-      renderAll(objects, renderer, xRenderCoordFactor, yRenderCoordFactor);
+        renderAll(objects, renderer, xRenderCoordFactor, yRenderCoordFactor);
+      //  tiger = false;
+    //  }
+    //  else{
+//
+    //    tiger = true;
+
+  //    }
+
+      clock_t end = clock();
+    	double elapsed_secs = double(end - begin)/CLOCKS_PER_SEC;
+      totalTime += elapsed_secs;
 
       //If frame finished early
       int frameTicks = fps.get_ticks();
@@ -135,17 +141,15 @@ int loopDebugSingleStep(int FPS, int screenWidth, int screenHeight, bool fullScr
 
 
     }
-    if(iterateFrame){
-
-      frameCount++;
-      cout << frameCount << endl;
-    }
-
+    frameCount++;
     iH.updateCurrentFrame(frameCount);
+
   }
   //uniformGrid.printGridInfo();
+  //p.printDebugInformation();
+  cout << "Elapsed Time: " << totalTime << endl;
   cout << "Frame Drops: " << frameDrops << endl;
-
+  //ProfilerStop();
   close(objects, renderer, window);
 
   return 0;

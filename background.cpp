@@ -129,7 +129,11 @@ void background::handleStateChanges(vector<gameObject *> * objects, uGrid * unif
 
 }
 
-void background::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * renderer, uGrid * uniformGrid, thread_pool * pool){
+void background::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uGrid * uniformGrid){
+
+}
+
+void background::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * renderer, uGrid * uniformGrid){
 
 	//uniformGrid->update(hitboxes);
 

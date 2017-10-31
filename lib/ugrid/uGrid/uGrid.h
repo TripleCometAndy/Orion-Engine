@@ -32,14 +32,14 @@ public:
 	void clearGrid();
 	void findAndDeleteHitbox(hitbox hitboxToDelete, int x, int y);
 
-	void deleteHitbox_xPyN(hitbox hitboxToDelete, int xIgnore, int yIgnore, thread_pool * pool);
-	void deleteHitbox_xNyN(hitbox hitboxToDelete, int xIgnore, int yIgnore, thread_pool * pool);
-	void deleteHitbox_xPyP(hitbox hitboxToDelete, int xIgnore, int yIgnore, thread_pool * pool);
-	void deleteHitbox_xNyP(hitbox hitboxToDelete, int xIgnore, int yIgnore, thread_pool * pool);
-	void deleteHitbox_xPyZ(hitbox hitboxToDelete, int xIgnore, thread_pool * pool);
-	void deleteHitbox_xNyZ(hitbox hitboxToDelete, int xIgnore, thread_pool * pool);
-	void deleteHitbox_xZyN(hitbox hitboxToDelete, int yIgnore, thread_pool * pool);
-	void deleteHitbox_xZyP(hitbox hitboxToDelete, int yIgnore, thread_pool * pool);
+	void deleteHitbox_xPyN(hitbox hitboxToDelete, int xIgnore, int yIgnore);
+	void deleteHitbox_xNyN(hitbox hitboxToDelete, int xIgnore, int yIgnore);
+	void deleteHitbox_xPyP(hitbox hitboxToDelete, int xIgnore, int yIgnore);
+	void deleteHitbox_xNyP(hitbox hitboxToDelete, int xIgnore, int yIgnore);
+	void deleteHitbox_xPyZ(hitbox hitboxToDelete, int xIgnore);
+	void deleteHitbox_xNyZ(hitbox hitboxToDelete, int xIgnore);
+	void deleteHitbox_xZyN(hitbox hitboxToDelete, int yIgnore);
+	void deleteHitbox_xZyP(hitbox hitboxToDelete, int yIgnore);
 
 	void addReference_xPyN(hitbox hitboxAdd, int xIgnore, int yIgnore);
 	void addReference_xNyN(hitbox hitboxAdd, int xIgnore, int yIgnore);
@@ -52,8 +52,9 @@ public:
 //
 	void addReferenceNoIgnore(hitbox hitboxAdd);
 
-	void update(vector<hitbox> hitboxes, thread_pool * pool);
+	void update(vector<hitbox> hitboxes);
 	bool findName(hitbox & source, int ID, thread_pool * pool);
+	bool findNameSingleThread(hitbox & source, int ID);
 	void printGridInfo();
 	void destruct();
 	void getName(hitbox source, string name, vector<hitbox> * retrieve);

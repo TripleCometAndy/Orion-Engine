@@ -112,7 +112,8 @@ public:
 	virtual void handleInput(SDL_Event& e, SDL_Joystick* gGameController) = 0;
 	virtual void handleInputDebug(char c) = 0;
 	virtual void handleStateChanges(vector<gameObject *> *, uGrid *, thread_pool * pool) = 0;
-	virtual void enactStateChanges(vector<gameObject *> *, SDL_Renderer *, uGrid *, thread_pool * pool) = 0;
+	virtual void handleStateChangesSingleThreaded(vector<gameObject *> *, uGrid *) = 0;
+	virtual void enactStateChanges(vector<gameObject *> *, SDL_Renderer *, uGrid *) = 0;
 	virtual void printDebugInformation() = 0;
 
 	void changeActiveState(bool);

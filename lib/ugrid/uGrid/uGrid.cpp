@@ -93,7 +93,7 @@ void uGrid::findAndDeleteHitbox(hitbox hitboxToDelete, int x, int y){
 
 }
 
-void uGrid::deleteHitbox_xPyN(hitbox hitboxToDelete, int xIgnore, int yIgnore, thread_pool * pool){
+void uGrid::deleteHitbox_xPyN(hitbox hitboxToDelete, int xIgnore, int yIgnore){
 
   //cout << "Iguana" << endl;
 //  cout << "X Ignore = " << xIgnore << endl;
@@ -129,7 +129,7 @@ void uGrid::deleteHitbox_xPyN(hitbox hitboxToDelete, int xIgnore, int yIgnore, t
 
 }
 
-void uGrid::deleteHitbox_xNyN(hitbox hitboxToDelete, int xIgnore, int yIgnore, thread_pool * pool){
+void uGrid::deleteHitbox_xNyN(hitbox hitboxToDelete, int xIgnore, int yIgnore){
 
   //cout << "Juice" << endl;
   //cout << "xIgnore: " << xIgnore << endl;
@@ -163,7 +163,7 @@ void uGrid::deleteHitbox_xNyN(hitbox hitboxToDelete, int xIgnore, int yIgnore, t
 
 }
 
-void uGrid::deleteHitbox_xPyP(hitbox hitboxToDelete, int xIgnore, int yIgnore, thread_pool * pool){
+void uGrid::deleteHitbox_xPyP(hitbox hitboxToDelete, int xIgnore, int yIgnore){
 
   //cout << "Kale" << endl;
   //cout << "xIgnore: " << xIgnore << endl;
@@ -199,7 +199,7 @@ void uGrid::deleteHitbox_xPyP(hitbox hitboxToDelete, int xIgnore, int yIgnore, t
 
 }
 
-void uGrid::deleteHitbox_xNyP(hitbox hitboxToDelete, int xIgnore, int yIgnore, thread_pool * pool){
+void uGrid::deleteHitbox_xNyP(hitbox hitboxToDelete, int xIgnore, int yIgnore){
 
   //cout << "Lizard" << endl;
   //cout << "xIgnore: " << xIgnore << endl;
@@ -234,7 +234,7 @@ void uGrid::deleteHitbox_xNyP(hitbox hitboxToDelete, int xIgnore, int yIgnore, t
 
 }
 
-void uGrid::deleteHitbox_xPyZ(hitbox hitboxToDelete, int xIgnore, thread_pool * pool){
+void uGrid::deleteHitbox_xPyZ(hitbox hitboxToDelete, int xIgnore){
 
   //cout << "Mango" << endl;
   //cout << "xIgnore: " << xIgnore << endl;
@@ -268,7 +268,7 @@ void uGrid::deleteHitbox_xPyZ(hitbox hitboxToDelete, int xIgnore, thread_pool * 
 
 }
 
-void uGrid::deleteHitbox_xNyZ(hitbox hitboxToDelete, int xIgnore, thread_pool * pool){
+void uGrid::deleteHitbox_xNyZ(hitbox hitboxToDelete, int xIgnore){
 
   //cout << "Nutmeg" << endl;
   //cout << "xIgnore: " << xIgnore << endl;
@@ -302,7 +302,7 @@ void uGrid::deleteHitbox_xNyZ(hitbox hitboxToDelete, int xIgnore, thread_pool * 
 
 }
 
-void uGrid::deleteHitbox_xZyN(hitbox hitboxToDelete, int yIgnore, thread_pool * pool){
+void uGrid::deleteHitbox_xZyN(hitbox hitboxToDelete, int yIgnore){
 
   //cout << "Octopus" << endl;
   //cout << "yIgnore: " << yIgnore << endl;
@@ -335,7 +335,7 @@ void uGrid::deleteHitbox_xZyN(hitbox hitboxToDelete, int yIgnore, thread_pool * 
 
 }
 
-void uGrid::deleteHitbox_xZyP(hitbox hitboxToDelete, int yIgnore, thread_pool * pool){
+void uGrid::deleteHitbox_xZyP(hitbox hitboxToDelete, int yIgnore){
 
   //cout << "Porcupine" << endl;
   //cout << "yIgnore: " << yIgnore << endl;
@@ -665,7 +665,7 @@ void uGrid::addReferenceNoIgnore(hitbox hitboxAdd){
 
 
 
-void uGrid::update(vector<hitbox> hitboxes, thread_pool * pool){
+void uGrid::update(vector<hitbox> hitboxes){
 
   //cycle through hitboxes, deleting them from the grid and adding their updated position//
   int numHitboxes = hitboxes.size();
@@ -751,56 +751,56 @@ void uGrid::update(vector<hitbox> hitboxes, thread_pool * pool){
 
       if(xMPositive && yMNegative){
 
-        deleteHitbox_xPyN(*p, x5, y6, pool);
+        deleteHitbox_xPyN(*p, x5, y6);
         addReference_xPyN(*p, x6, y5);
         //cout << "Apple" << endl;
 
       }
       else if(xMNegative && yMNegative){
 
-        deleteHitbox_xNyN(*p, x6, y6, pool);
+        deleteHitbox_xNyN(*p, x6, y6);
         addReference_xNyN(*p, x5, y5);
         //cout << "Banana" << endl;
 
       }
       else if(xMPositive && yMPositive){
 
-        deleteHitbox_xPyP(*p, x5, y5, pool);
+        deleteHitbox_xPyP(*p, x5, y5);
         addReference_xPyP(*p, x6, y6);
         //cout << "Carror" << endl;
 
       }
       else if(xMNegative && yMPositive){
 
-        deleteHitbox_xNyP(*p, x6, y5, pool);
+        deleteHitbox_xNyP(*p, x6, y5);
         addReference_xNyP(*p, x5, y6);
         //cout << "Dinner" << endl;
 
       }
       else if(xMPositive && yMZero){
 
-        deleteHitbox_xPyZ(*p, x5, pool);
+        deleteHitbox_xPyZ(*p, x5);
         addReference_xPyZ(*p, x6);
         //cout << "Eggplant" << endl;
 
       }
       else if(xMNegative && yMZero){
 
-        deleteHitbox_xNyZ(*p, x6, pool);
+        deleteHitbox_xNyZ(*p, x6);
         addReference_xNyZ(*p, x5);
         //cout << "Fireworks" << endl;
 
       }
       else if(xMZero && yMNegative){
 
-        deleteHitbox_xZyN(*p, y6, pool);
+        deleteHitbox_xZyN(*p, y6);
         addReference_xZyN(*p, y5);
         //cout << "Grapeape" << endl;
 
       }
       else if(xMZero && yMPositive){
 
-        deleteHitbox_xZyP(*p, y5, pool);
+        deleteHitbox_xZyP(*p, y5);
         addReference_xZyP(*p, y6);
         //cout << "Hamburger" << endl;
 
@@ -980,7 +980,23 @@ bool uGrid::findName(hitbox & source, int ID, thread_pool * pool){
     return false;
   }
 
-  /*
+
+
+
+
+}
+
+bool uGrid::findNameSingleThread(hitbox & source, int ID){
+
+  int x = source.left;
+  int y = source.top;
+  int width = source.right - x;
+  int height = source.bottom - y;
+  hitbox * p;
+  int vSize;
+  int xPlusWidth = x + width;
+  int yPlusHeight = y + height;
+
   for(int i = y; i < yPlusHeight; i++){
 
     for(int j = x; j < xPlusWidth; j++){
@@ -1007,9 +1023,6 @@ bool uGrid::findName(hitbox & source, int ID, thread_pool * pool){
   }
 
   return false;
-
-  */
-
 
 
 }

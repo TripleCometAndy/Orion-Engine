@@ -101,7 +101,7 @@ int loopDebug(int FPS, int screenWidth, int screenHeight, bool fullScreen){
       handleAllStateChanges(objects, &uniformGrid, &pool);
 
 
-      enactAllStateChanges(objects, renderer, &uniformGrid, &pool);
+      enactAllStateChanges(objects, renderer, &uniformGrid);
 
       cleanLoop(objects);
 

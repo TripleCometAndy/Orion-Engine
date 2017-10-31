@@ -36,16 +36,16 @@ int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 
 	uGrid uniformGrid(1360 + 200, 768 + 200);
 
-	
+
 	//Initialize SDL systems//
 	if (init(screenWidth, screenHeight, &window, &renderer, fullScreen, &gGameController, &hasController) == false)
 	{
 		return 1;
 	}
-	
+
 	////
 	background b(100, 100, 1360, 768, "background_01", "images/background_test.png", "background", renderer, &uniformGrid);
-	
+
 	//wall leftWall(100, 100, 233, 576, "wall_01", "images/wall.png", "wall", renderer, &uniformGrid);
 	//wall rightWall(891, 100, 233, 576, "wall_02", "images/wall.png", "wall", renderer, &uniformGrid);
 	player p(700, 400, 222, 344, "ship_01", "images/spriteSheetPlayer.png", "ship", renderer, &uniformGrid, timeFactor);
@@ -56,8 +56,8 @@ int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 	objects.push_back(&b);
 
 	objects.push_back(&p);
-	
-	
+
+
 	if(loadAllFiles(objects, renderer)){
 
 		//no problems in loading files//
@@ -92,7 +92,7 @@ int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 			handleAllStateChanges(objects, &uniformGrid, &pool);
 
 
-			enactAllStateChanges(objects, renderer, &uniformGrid, &pool);
+			enactAllStateChanges(objects, renderer, &uniformGrid);
 
 			cleanLoop(objects);
 

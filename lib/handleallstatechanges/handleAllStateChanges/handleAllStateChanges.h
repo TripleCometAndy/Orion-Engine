@@ -9,3 +9,4 @@
 #endif
 
 void handleAllStateChanges(vector<gameObject *> gameObjects, uGrid * uniformGrid, thread_pool * pool);
+void handleAllStateChangesSingleThreaded(vector<gameObject *> gameObjects, uGrid * uniformGrid);

@@ -8,4 +8,4 @@
 #include "../uGrid/uGrid.h"
 #endif
 
-void enactAllStateChanges(vector<gameObject *> gameObjects, SDL_Renderer * renderer, uGrid * uniformGrid, thread_pool * pool);
+void enactAllStateChanges(vector<gameObject *> gameObjects, SDL_Renderer * renderer, uGrid * uniformGrid);

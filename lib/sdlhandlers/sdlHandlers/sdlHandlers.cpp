@@ -20,7 +20,7 @@ bool init(int width, int height, SDL_Window ** gWindow, SDL_Renderer ** gRendere
 		}
 
 		//Create window
-		
+
 		if (SDL_NumJoysticks() < 1)
 		{
 			(*hasController) = false;
@@ -58,7 +58,7 @@ bool init(int width, int height, SDL_Window ** gWindow, SDL_Renderer ** gRendere
 			(*gWindow) = SDL_CreateWindow("Orion Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
 
 		}
-		
+
 		if (gWindow == NULL)
 		{
 			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -131,7 +131,7 @@ void close(vector<gameObject *> gameObjects, SDL_Renderer * gRenderer, SDL_Windo
 }
 
 
-bool checkOptions(int * FPS, bool * fullscreen, bool * debugMode, bool * logKeys, bool * debugSingleStep, bool * decouple){
+bool checkOptions(int * FPS, bool * fullscreen, bool * debugMode, bool * logKeys, bool * debugSingleStep, bool * decouple, bool * singleThread){
 
 	string line;
 	ifstream options("Options.txt");
@@ -212,6 +212,10 @@ bool checkOptions(int * FPS, bool * fullscreen, bool * debugMode, bool * logKeys
 
 				(*decouple) = true;
 
+			}
+			if(line.compare("single") == 0){
+
+				*(singleThread) = false;
 			}
 
 

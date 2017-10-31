@@ -1,4 +1,4 @@
-OBJS = background.o gameObject.o uGrid.o main.o Timer.o sdlHandlers.o player.o handleEvents.o handleAllStateChanges.o enactAllStateChanges.o cleanLoop.o  renderAll.o loadAllFiles.o loop.o inputHandler.o loopWrite.o loopDebug.o loopDebugSingleStep.o loopDebug_SDLDecoupled.o
+OBJS = background.o gameObject.o uGrid.o main.o Timer.o sdlHandlers.o player.o handleEvents.o handleAllStateChanges.o enactAllStateChanges.o cleanLoop.o  renderAll.o loadAllFiles.o loop.o inputHandler.o loopWrite.o loopDebug.o loopDebugSingleStep.o loopDebug_SDLDecoupled.o loopDebugSingleThreaded.o
 CC = g++
 CFLAGS = -std=c++11 -Wall -O3  -c -g
 
@@ -61,3 +61,6 @@ loopDebugSingleStep.o : loopDebugSingleStep.cpp Orion.h
 
 loopDebug_SDLDecoupled.o : loopDebug_SDLDecoupled.cpp Orion.h
 	$(CC) $(CFLAGS) loopDebug_SDLDecoupled.cpp
+
+loopDebugSingleThreaded.o : loopDebugSingleThreaded.cpp Orion.h
+	$(CC) $(CFLAGS) loopDebugSingleThreaded.cpp

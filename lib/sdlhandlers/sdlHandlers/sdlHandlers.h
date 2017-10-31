@@ -23,5 +23,5 @@ using namespace std;
 
 bool init(int width, int height, SDL_Window ** gWindow, SDL_Renderer ** gRenderer, bool fullScreen, SDL_Joystick** gGameController, bool * hasController);
 void close(vector<gameObject *> gameObjects, SDL_Renderer * gRenderer, SDL_Window * gWindow);
-bool checkOptions(int * FPS, bool * fullscreen, bool * debugMode, bool * logKeys, bool * debugSingleStep, bool * decouple);
+bool checkOptions(int * FPS, bool * fullscreen, bool * debugMode, bool * logKeys, bool * debugSingleStep, bool * decouple, bool * singleThread);
 void GetDesktopResolution(int& horizontal, int& vertical);
