@@ -2,6 +2,7 @@
 
 int loopDebugSingleThreaded(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 
+	cout << "Single" << endl;
   bool hasController = false;
 
 	int frameDrops = 0;
@@ -87,6 +88,8 @@ int loopDebugSingleThreaded(int FPS, int screenWidth, int screenHeight, bool ful
   //ProfilerStart("ls.prof");
   while (quit == false){
 
+	  cout << "----------------" << endl;
+	  cout << frameCount << ":" << endl;
     clock_t begin = clock();
     fps.start();
 
@@ -97,9 +100,9 @@ int loopDebugSingleThreaded(int FPS, int screenWidth, int screenHeight, bool ful
 
     if (!paused){
 
-
+		cout << "Top" << endl;
       handleAllStateChangesSingleThreaded(objects, &uniformGrid);
-
+	  
 
       enactAllStateChanges(objects, renderer, &uniformGrid);
 
@@ -110,19 +113,13 @@ int loopDebugSingleThreaded(int FPS, int screenWidth, int screenHeight, bool ful
         //Play the music
         Mix_PlayMusic(music, -1);
       }
-      //if(tiger){
-
+   
+	  
         renderAll(objects, renderer, xRenderCoordFactor, yRenderCoordFactor);
-      //  tiger = false;
-    //  }
-    //  else{
-//
-    //    tiger = true;
-
-  //    }
+		
 
       clock_t end = clock();
-    	double elapsed_secs = double(end - begin)/CLOCKS_PER_SEC;
+	double elapsed_secs = double(end - begin)/CLOCKS_PER_SEC;
       totalTime += elapsed_secs;
 
       //If frame finished early
@@ -141,6 +138,7 @@ int loopDebugSingleThreaded(int FPS, int screenWidth, int screenHeight, bool ful
 
 
     }
+
     frameCount++;
     iH.updateCurrentFrame(frameCount);
 

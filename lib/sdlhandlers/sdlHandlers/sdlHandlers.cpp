@@ -215,7 +215,7 @@ bool checkOptions(int * FPS, bool * fullscreen, bool * debugMode, bool * logKeys
 			}
 			if(line.compare("single") == 0){
 
-				*(singleThread) = false;
+				*(singleThread) = true;
 			}
 
 

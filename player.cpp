@@ -904,13 +904,14 @@ void player::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uG
 		else{
 
 			handleShield();
-
+			
 		}
 
 
 
 
 	}
+	
 	if(direction == true){
 		if(walking){
 			if(shielding){
@@ -978,7 +979,7 @@ void player::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uG
 			airAttackRight();
 		}
 	}
-
+	
 	int xMoveInt = 0;
 	xMove = xMove * timeFactor;
 	xMove = xMove * METERS_TO_PIXELS;
@@ -998,13 +999,13 @@ void player::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uG
 	future.name = "future";
 	future.parentName = name;
 
-
+	
 	if (uniformGrid->findNameSingleThread(future, LEFT_WALL) || uniformGrid->findNameSingleThread(future, RIGHT_WALL)){
 
 		futureX = x;
 
 	}
-
+	
 }
 
 void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * renderer, uGrid * uniformGrid){

@@ -823,7 +823,7 @@ bool findNameThreadOne(int id, int x, int y, vector<hitbox> ** &uniformGrid, int
 
     for(int j = x; j < xPlusWidth; j += 4){
 
-      int vSize = uniformGrid[i][j].size();
+      int vSize = uniformGrid[j][i].size();
 
       p = uniformGrid[j][i].data();
 
@@ -857,7 +857,7 @@ bool findNameThreadTwo(int id, int x, int y, vector<hitbox> ** &uniformGrid, int
 
     for(int j = x; j < xPlusWidth; j += 4){
 
-      int vSize = uniformGrid[i][j].size();
+      int vSize = uniformGrid[j][i].size();
 
       p = uniformGrid[j][i].data();
 
@@ -891,7 +891,7 @@ bool findNameThreadThree(int id, int x, int y, vector<hitbox> ** &uniformGrid, i
 
     for(int j = x; j < xPlusWidth; j += 4){
 
-      int vSize = uniformGrid[i][j].size();
+      int vSize = uniformGrid[j][i].size();
 
       p = uniformGrid[j][i].data();
 
@@ -926,7 +926,7 @@ bool findNameThreadFour(int id, int x, int y, vector<hitbox> ** &uniformGrid, in
 
     for(int j = x; j < xPlusWidth; j += 4){
 
-      int vSize = uniformGrid[i][j].size();
+      int vSize = uniformGrid[j][i].size();
 
       p = uniformGrid[j][i].data();
 
@@ -988,6 +988,8 @@ bool uGrid::findName(hitbox & source, int ID, thread_pool * pool){
 
 bool uGrid::findNameSingleThread(hitbox & source, int ID){
 
+
+	cout << "Bottom" << endl;
   int x = source.left;
   int y = source.top;
   int width = source.right - x;
@@ -1001,7 +1003,7 @@ bool uGrid::findNameSingleThread(hitbox & source, int ID){
 
     for(int j = x; j < xPlusWidth; j++){
 
-      int vSize = uniformGrid[i][j].size();
+      int vSize = uniformGrid[j][i].size();
       p = uniformGrid[j][i].data();
 
       for(int k = 0; k < vSize; k++){

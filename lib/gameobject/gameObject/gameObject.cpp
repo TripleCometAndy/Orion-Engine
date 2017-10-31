@@ -93,6 +93,8 @@ void gameObject::show(int relativeX, int relativeY, SDL_Renderer * gRenderer, do
 		yRenderInt++;
 
 	}
+	
+	
 	SDL_Rect renderQuadBG = { x - relativeX , y - relativeY, width, height };
 	SDL_Rect renderQuad = { xRenderInt - relativeX, yRenderInt - relativeY, width, height };
 	if (name.compare("background_01") != 0) {
@@ -101,6 +103,8 @@ void gameObject::show(int relativeX, int relativeY, SDL_Renderer * gRenderer, do
 			renderQuad.w = clip->w;
 			renderQuad.h = clip->h;
 		}
+
+		
 		SDL_RenderCopy(gRenderer, image, clip, &renderQuad);
 	}
 	else {
@@ -110,6 +114,7 @@ void gameObject::show(int relativeX, int relativeY, SDL_Renderer * gRenderer, do
 			renderQuad.w = clip->w;
 			renderQuad.h = clip->h;
 		}
+		
 		SDL_RenderCopy(gRenderer, image, clip, &renderQuadBG);
 		
 

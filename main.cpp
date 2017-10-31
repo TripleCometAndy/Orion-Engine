@@ -25,15 +25,15 @@ int main(int argc, char **argv){
 
 			//Windows//
 
-			Display* disp = XOpenDisplay(NULL);
-			Screen*  scrn = DefaultScreenOfDisplay(disp);
-			screenHeight = scrn->height;
-			screenWidth  = scrn->width;
+			//Display* disp = XOpenDisplay(NULL);
+			//Screen*  scrn = DefaultScreenOfDisplay(disp);
+			//screenHeight = scrn->height;
+			//screenWidth  = scrn->width;
 
 			//setScreenDimension(&screenWidth, &screenHeight);
 
-			//screenWidth = 1360;
-			//screenHeight = 768;
+			screenWidth = 1360;
+			screenHeight = 768;
 
 		}
 		else{

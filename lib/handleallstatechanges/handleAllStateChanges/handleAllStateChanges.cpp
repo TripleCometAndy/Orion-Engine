@@ -26,7 +26,7 @@ void handleAllStateChangesSingleThreaded(vector<gameObject *> gameObjects, uGrid
   for (int i = 0 ; i < numObjects; i++){
 
     (*p)->handleStateChangesSingleThreaded(&gameObjects, uniformGrid);
-
+	
     p++;
   }
 

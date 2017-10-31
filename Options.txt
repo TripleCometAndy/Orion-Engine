@@ -1,4 +1,3 @@
 FPS60
 true
-dSingleStep
-single
+debug
