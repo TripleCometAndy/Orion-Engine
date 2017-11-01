@@ -82,8 +82,11 @@ background::background(int xCoor, int yCoor, int gWidth, int gHeight, string n, 
 
 	frames[0].x = 0;
 	frames[0].y = 0;
-	frames[0].w = 1360;
-	frames[0].h = 768;
+	frames[0].w = 1920;
+	frames[0].h = 1280;
+
+	renderingWidth = 1920;
+	renderingHeight = 1280;
 
 	clip = &frames[currentClip];
 

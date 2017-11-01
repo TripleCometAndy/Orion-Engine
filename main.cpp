@@ -32,8 +32,8 @@ int main(int argc, char **argv){
 
 			//setScreenDimension(&screenWidth, &screenHeight);
 
-			screenWidth = 1360;
-			screenHeight = 768;
+			screenWidth = 1920;
+			screenHeight = 1280;
 
 		}
 		else{

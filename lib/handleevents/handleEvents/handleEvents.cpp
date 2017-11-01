@@ -547,11 +547,12 @@ void handleEventsRead(bool * quit, bool * paused, vector<gameObject *> gameObjec
       if(c == 'Q'){
 
         *quit = true;
-
+		exit(1);
       }
       if(c == 'E'){
 
         *quit = true;
+		exit(1);
 
 
       }

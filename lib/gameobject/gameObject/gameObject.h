@@ -60,6 +60,7 @@ protected:
 	float angleLeft;
 	float angleRight;
 	bool changedPosition;
+	unsigned int renderingWidth, renderingHeight;
 
 
 

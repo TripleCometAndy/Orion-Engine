@@ -95,8 +95,8 @@ void gameObject::show(int relativeX, int relativeY, SDL_Renderer * gRenderer, do
 	}
 	
 	
-	SDL_Rect renderQuadBG = { x - relativeX , y - relativeY, width, height };
-	SDL_Rect renderQuad = { xRenderInt - relativeX, yRenderInt - relativeY, width, height };
+	SDL_Rect renderQuadBG = { x - relativeX , y - relativeY, renderingWidth, renderingHeight };
+	SDL_Rect renderQuad = { xRenderInt - relativeX, yRenderInt - relativeY, renderingWidth, renderingHeight };
 	if (name.compare("background_01") != 0) {
 		if (clip != NULL)
 		{

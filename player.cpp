@@ -69,7 +69,8 @@ player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string f
 	direction = true;
 	futureDirection = true;
 
-
+	renderingWidth = 350;
+	renderingHeight = 700;
 
 	hitboxes.push_back(hitbox());
 	hitboxes[0].left = x;
