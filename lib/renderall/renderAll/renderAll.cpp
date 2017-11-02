@@ -2,25 +2,26 @@
 
 //
 
-void renderAll(vector<gameObject *> gameObjects, SDL_Renderer * renderer, double xRenderCoordFactor, double yRenderCoordFactor){
+void renderAll(vector<gameObject *> gameObjects, SDL_Renderer * renderer, double xRenderCoordFactor, double yRenderCoordFactor) {
 
-  gameObject ** p = gameObjects.data();
+	gameObject ** p = gameObjects.data();
 
-  int numObjects = gameObjects.size();
+	int numObjects = gameObjects.size();
 
-  SDL_SetRenderDrawColor(renderer, 0xAF, 0xBF, 0xCF, 0xFF);
-  SDL_RenderClear(renderer);
+	SDL_SetRenderDrawColor(renderer, 0xAF, 0xBF, 0xCF, 0xFF);
+	SDL_RenderClear(renderer);
 
-  for (int i = 0 ; i < numObjects; i++){
+	for (int i = 0 ; i < numObjects; i++) {
 
 
-    (*p)->show(100, 100, renderer, xRenderCoordFactor, yRenderCoordFactor);
+		(*p)->show(100, 100, renderer, xRenderCoordFactor, yRenderCoordFactor);
 
-    p++;
+		p++;
 
-  }
+	}
 
-  SDL_RenderPresent(renderer);
+	SDL_RenderPresent(renderer);
 
 
 }
+

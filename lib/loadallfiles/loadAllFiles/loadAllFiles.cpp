@@ -1,16 +1,16 @@
 #include "loadAllFiles.h"
 
-bool loadAllFiles(vector<gameObject *> objects, SDL_Renderer * renderer){
+bool loadAllFiles(vector<gameObject *> objects, SDL_Renderer * renderer) {
 
-  gameObject ** p = objects.data();
+	gameObject ** p = objects.data();
 
-  int numObjects = objects.size();
+	int numObjects = objects.size();
 
-  for(int i = 0; i < numObjects; i++){
+	for (int i = 0; i < numObjects; i++) {
 
-		if ((*p)->load_files(renderer) == false){
+		if ((*p)->load_files(renderer) == false) {
 
-      //there was an issue in loading the file//
+			//there was an issue in loading the file//
 			return false;
 
 		}
@@ -18,6 +18,8 @@ bool loadAllFiles(vector<gameObject *> objects, SDL_Renderer * renderer){
 		p++;
 
 	}
-  //no issues in loading files//
-  return true;
+
+	//no issues in loading files//
+	return true;
 }
+

@@ -7,4 +7,5 @@ void setScreenDimension(int * screenWidth, int * screenHeight) {
 	*screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
 
+
 }

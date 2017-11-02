@@ -14,9 +14,10 @@
 #endif
 
 using namespace std;
+
 using namespace ctpl;
 
-class uGrid{
+class uGrid {
 
 private:
 
@@ -66,3 +67,4 @@ public:
 };
 
 bool duplicateParentName(vector<hitbox> * retrieve, string parentName);
+

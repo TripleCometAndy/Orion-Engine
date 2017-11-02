@@ -1,154 +1,163 @@
 #include "Orion.h"
 
-int loopDebugSingleThreaded(int FPS, int screenWidth, int screenHeight, bool fullScreen){
+int loopDebugSingleThreaded(int FPS, int screenWidth, int screenHeight, bool fullScreen) {
 
 	cout << "Single" << endl;
-  bool hasController = false;
+	bool hasController = false;
 
 	int frameDrops = 0;
 	double timeFactor = 0;
-  int frameCount = 0;
+	int frameCount = 0;
 
-  cout << screenWidth << endl;
-  cout << screenHeight << endl;
+	cout << screenWidth << endl;
+	cout << screenHeight << endl;
 	SDL_Joystick* gGameController = NULL;
 
 	Mix_Music * music = NULL;
 
-  cout << "Start" << endl;
+	cout << "Start" << endl;
 
 	inputHandler iH("Inputs.txt", false);
 
-  iH.readActionFrame();
+	iH.readActionFrame();
 
 
-  //this is used when regulating upper bound for frame rate.
-  int TICKS_PER_FRAME = 1000 / FPS;
-  double xRenderCoordFactor = (double)screenWidth/(double)xScale;
-  double yRenderCoordFactor = (double)screenHeight/(double)yScale;
+	//this is used when regulating upper bound for frame rate.
+	int TICKS_PER_FRAME = 1000 / FPS;
+	double xRenderCoordFactor = (double)screenWidth/(double)xScale;
+	double yRenderCoordFactor = (double)screenHeight/(double)yScale;
 
 
-  //The frame rate regulator
-  Timer fps;
+	//The frame rate regulator
+	Timer fps;
 
-  timeFactor = 1/(double)FPS;
-
-
-  //Initialize main window and renderer
-  SDL_Renderer * renderer = NULL;
-  SDL_Window * window = NULL;
+	timeFactor = 1/(double)FPS;
 
 
-  //vector of pointers all game objects loaded//
-  vector<gameObject *> objects;
+	//Initialize main window and renderer
+	SDL_Renderer * renderer = NULL;
+	SDL_Window * window = NULL;
 
 
-  uGrid uniformGrid(1360 + 200, 768 + 200);
+	//vector of pointers all game objects loaded//
+	vector<gameObject *> objects;
 
 
-  //Initialize SDL systems//
-  if (init(screenWidth, screenHeight, &window, &renderer, fullScreen, &gGameController, &hasController) == false)
-  {
-    return 1;
-  }
+	uGrid uniformGrid(1360 + 200, 768 + 200);
 
-  background b(100, 100, 1360, 768, "background_01", "images/background_test.png", "background", renderer, &uniformGrid);
+
+	//Initialize SDL systems//
+
+	if (init(screenWidth, screenHeight, &window, &renderer, fullScreen, &gGameController, &hasController) == false) {
+		return 1;
+	}
+
+	background b(100, 100, 1360, 768, "background_01", "images/background_test.png", "background", renderer, &uniformGrid);
+
 	//wall leftWall(100, 100, 233, 576, "wall_01", "images/wall.png", "wall", renderer, &uniformGrid);
 	//wall rightWall(891, 100, 233, 576, "wall_02", "images/wall.png", "wall", renderer, &uniformGrid);
 	player p(700, 400, 222, 344, "ship_01", "images/spriteSheetPlayer.png", "ship", renderer, &uniformGrid, timeFactor);
 
 
-  //Camera camera(0, 0, 1024, 768);
+	//Camera camera(0, 0, 1024, 768);
 
-  objects.push_back(&b);
+	objects.push_back(&b);
 
-  objects.push_back(&p);
+	objects.push_back(&p);
 
-  if(loadAllFiles(objects, renderer)){
+	if (loadAllFiles(objects, renderer)) {
 
-    //no problems in loading files//
-
-
-  }
-  else{
-
-    //there was a problem in loading files//
-    return 1;
+		//no problems in loading files//
 
 
-  }
+	}
+	else {
 
-  //pause flag//
-  bool paused = false;
-  bool tiger = true;
-  //Quit flag//
-  bool quit = false;
-
-  double totalTime = 0;
-  //ProfilerStart("ls.prof");
-  while (quit == false){
-
-	  cout << "----------------" << endl;
-	  cout << frameCount << ":" << endl;
-    clock_t begin = clock();
-    fps.start();
-
-    if(iH.isActionFrame()){
-      handleEventsRead(&quit, &paused, objects, &iH, frameCount);
-    }
+		//there was a problem in loading files//
+		return 1;
 
 
-    if (!paused){
+	}
 
-		cout << "Top" << endl;
-      handleAllStateChangesSingleThreaded(objects, &uniformGrid);
-	  
+	//pause flag//
+	bool paused = false;
 
-      enactAllStateChanges(objects, renderer, &uniformGrid);
+	bool tiger = true;
 
-      cleanLoop(objects);
+	//Quit flag//
+	bool quit = false;
 
-      if (Mix_PlayingMusic() == 0)
-      {
-        //Play the music
-        Mix_PlayMusic(music, -1);
-      }
-   
-	  
-        renderAll(objects, renderer, xRenderCoordFactor, yRenderCoordFactor);
-		
+	double totalTime = 0;
 
-      clock_t end = clock();
-	double elapsed_secs = double(end - begin)/CLOCKS_PER_SEC;
-      totalTime += elapsed_secs;
+	//ProfilerStart("ls.prof");
+	while (quit == false) {
 
-      //If frame finished early
-      int frameTicks = fps.get_ticks();
-      if (frameTicks < TICKS_PER_FRAME)
-      {
-        //Wait remaining time
-        SDL_Delay(TICKS_PER_FRAME - frameTicks);
-      }
-      if(frameTicks > TICKS_PER_FRAME){
+		cout << "----------------" << endl;
+		cout << frameCount << ":" << endl;
+		clock_t begin = clock();
+		fps.start();
 
-        frameDrops++;
-        SDL_Delay(frameTicks - TICKS_PER_FRAME);
-
-      }
+		if (iH.isActionFrame()) {
+			handleEventsRead(&quit, &paused, objects, &iH, frameCount);
+		}
 
 
-    }
+		if (!paused) {
 
-    frameCount++;
-    iH.updateCurrentFrame(frameCount);
+			cout << "Top" << endl;
+			handleAllStateChangesSingleThreaded(objects, &uniformGrid);
 
-  }
-  //uniformGrid.printGridInfo();
-  //p.printDebugInformation();
-  cout << "Elapsed Time: " << totalTime << endl;
-  cout << "Frame Drops: " << frameDrops << endl;
-  //ProfilerStop();
-  close(objects, renderer, window);
 
-  return 0;
+			enactAllStateChanges(objects, renderer, &uniformGrid);
+
+			cleanLoop(objects);
+
+			if (Mix_PlayingMusic() == 0) {
+				//Play the music
+				Mix_PlayMusic(music, -1);
+			}
+
+
+			renderAll(objects, renderer, xRenderCoordFactor, yRenderCoordFactor);
+
+
+			clock_t end = clock();
+			double elapsed_secs = double(end - begin)/CLOCKS_PER_SEC;
+			totalTime += elapsed_secs;
+
+			//If frame finished early
+			int frameTicks = fps.get_ticks();
+
+			if (frameTicks < TICKS_PER_FRAME) {
+				//Wait remaining time
+				SDL_Delay(TICKS_PER_FRAME - frameTicks);
+			}
+
+			if (frameTicks > TICKS_PER_FRAME) {
+
+				frameDrops++;
+				SDL_Delay(frameTicks - TICKS_PER_FRAME);
+
+			}
+
+
+		}
+
+		frameCount++;
+
+		iH.updateCurrentFrame(frameCount);
+
+	}
+
+	//uniformGrid.printGridInfo();
+	//p.printDebugInformation();
+	cout << "Elapsed Time: " << totalTime << endl;
+
+	cout << "Frame Drops: " << frameDrops << endl;
+
+	//ProfilerStop();
+	close(objects, renderer, window);
+
+	return 0;
 }
+

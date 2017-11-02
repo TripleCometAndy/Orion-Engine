@@ -4,7 +4,7 @@
 
 
 //gameObject is abstract, so this constructor will never be called//
-gameObject::gameObject(){
+gameObject::gameObject() {
 
 
 
@@ -14,12 +14,11 @@ gameObject::gameObject(){
 
 
 //load image from file name, convert to texture, and store in gameObject's image member//
-bool gameObject::load_files(SDL_Renderer * gRenderer){
+bool gameObject::load_files(SDL_Renderer * gRenderer) {
 
 
 
-	if (image != NULL)
-	{
+	if (image != NULL) {
 
 
 		SDL_DestroyTexture(image);
@@ -34,22 +33,19 @@ bool gameObject::load_files(SDL_Renderer * gRenderer){
 
 	SDL_Surface* loadedSurface = IMG_Load(fileName.c_str());
 
-	if (loadedSurface == NULL)
-	{
+	if (loadedSurface == NULL) {
 		printf("Unable to load image %s! SDL_image Error: %s\n", fileName.c_str(), IMG_GetError());
 
 	}
-	else
-	{
+	else {
 		//Create texture from surface pixels
 		newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
-		if (newTexture == NULL)
-		{
+
+		if (newTexture == NULL) {
 			printf("Unable to create texture from %s! SDL Error: %s\n", fileName.c_str(), SDL_GetError());
 			return false;
 		}
-		else
-		{
+		else {
 			/*
 			//Get image dimensions
 			width = loadedSurface->w;
@@ -63,7 +59,8 @@ bool gameObject::load_files(SDL_Renderer * gRenderer){
 	}
 
 	image = newTexture;
-	if (image == NULL){
+
+	if (image == NULL) {
 
 		return false;
 
@@ -75,11 +72,12 @@ bool gameObject::load_files(SDL_Renderer * gRenderer){
 
 
 //render gameObject to screen. Precondition: relativeX and relativeY are greater than or equal to 0//
-void gameObject::show(int relativeX, int relativeY, SDL_Renderer * gRenderer, double xRenderCoordFactor, double yRenderCoordFactor){
+void gameObject::show(int relativeX, int relativeY, SDL_Renderer * gRenderer, double xRenderCoordFactor, double yRenderCoordFactor) {
 
-	
+
 	double xRenderReal = x * xRenderCoordFactor;
 	unsigned int xRenderInt = (int)(floor(xRenderReal));
+
 	if ((xRenderReal - xRenderInt) >= 0.5) {
 
 		xRenderInt++;
@@ -87,40 +85,42 @@ void gameObject::show(int relativeX, int relativeY, SDL_Renderer * gRenderer, do
 	}
 
 	double yRenderReal = y * yRenderCoordFactor;
+
 	unsigned int yRenderInt = (int)(floor(yRenderReal));
+
 	if ((yRenderReal - yRenderInt) >= 0.5) {
 
 		yRenderInt++;
 
 	}
-	
-	
+
+
 	SDL_Rect renderQuadBG = { x - relativeX , y - relativeY, renderingWidth, renderingHeight };
 	SDL_Rect renderQuad = { xRenderInt - relativeX, yRenderInt - relativeY, renderingWidth, renderingHeight };
+
 	if (name.compare("background_01") != 0) {
-		if (clip != NULL)
-		{
+		if (clip != NULL) {
 			renderQuad.w = clip->w;
 			renderQuad.h = clip->h;
 		}
 
-		
+
 		SDL_RenderCopy(gRenderer, image, clip, &renderQuad);
 	}
 	else {
 
-		if (clip != NULL)
-		{
+		if (clip != NULL) {
 			renderQuad.w = clip->w;
 			renderQuad.h = clip->h;
 		}
-		
+
 		SDL_RenderCopy(gRenderer, image, clip, &renderQuadBG);
-		
+
 
 	}
+
 	//Set clip rendering dimensions
-	
+
 	/*
 	double xRenderReal = x * xRenderCoordFactor;
 	int xRenderInt = (int)(floor(xRenderReal));
@@ -159,94 +159,97 @@ void gameObject::show(int relativeX, int relativeY, SDL_Renderer * gRenderer, do
 
 	}
 	//Set clip rendering dimensions
-	
+
 	*/
-	
+
 }
 
 //getter for this object's hitboxes. stored in a vector//
-vector<hitbox> gameObject::getHitboxes(){
+vector<hitbox> gameObject::getHitboxes() {
 
 	return hitboxes;
 
 }
 
 //returns this gameObject's stored image. This will usually come in the form of a sprite sheet//
-SDL_Texture * gameObject::getImage(){
+SDL_Texture * gameObject::getImage() {
 
 	return image;
 
 }
 
 //returns the x coordinate for gameObject//
-unsigned int gameObject::getX(){
+unsigned int gameObject::getX() {
 
 	return x;
 
 }
 
 //returns the y coordinate for gameObject//
-unsigned int gameObject::getY(){
+unsigned int gameObject::getY() {
 
 	return y;
 
 }
 
 //returns where x is to be updated to. a difference between x and futureX indicates movement in the x direction//
-unsigned int gameObject::getFutureX(){
+unsigned int gameObject::getFutureX() {
 
 	return futureX;
 
 }
 
 //returns where y is to be updated to. a difference between y and futureY indicates movement in the y direction//
-unsigned int gameObject::getFutureY(){
+unsigned int gameObject::getFutureY() {
 
 	return futureY;
 
 }
 
 //returns the gameObject's width. Precondition: width must be greater than or equal to zero//
-unsigned int gameObject::getWidth(){
+unsigned int gameObject::getWidth() {
 
 	return width;
 
 }
 
 //returns the gameObject's height. Precondition: height must be greater than or equal to zero
-unsigned int gameObject::getHeight(){
+unsigned int gameObject::getHeight() {
 
 	return height;
 
 }
 
 //returns the current clip of the object//
-SDL_Rect * gameObject::getClip(){
+SDL_Rect * gameObject::getClip() {
 
 	return clip;
 
 }
+
 //returns the clip that is to be used in the future//
-SDL_Rect * gameObject::getFutureClip(){
+SDL_Rect * gameObject::getFutureClip() {
 
 	return futureClip;
 
 }
+
 //returns the number of the current clip. this generally points to an array index of the clips. Precondition: greater than or equal to zero. Not out of bounds
-unsigned int gameObject::getCurrentClip(){
+unsigned int gameObject::getCurrentClip() {
 
 	return currentClip;
 
 }
+
 //returns the number of the current frame. this is useful in simple looping animations. Precondition: greater than or equal to zero. Not our of bounds//
-unsigned int gameObject::getCurrentFrame(){
+unsigned int gameObject::getCurrentFrame() {
 
 	return currentFrame;
 
 }
 
 //clears all memory in gameObject//
-void gameObject::destruct(){
+void gameObject::destruct() {
 
 	//Free loaded image
 	SDL_DestroyTexture(image);
@@ -261,26 +264,26 @@ void gameObject::destruct(){
 
 }
 
-void gameObject::addInput(string input){
+void gameObject::addInput(string input) {
 
 	inputs.push_back(input);
 
 
 }
 
-void gameObject::clearInputRecord(){
+void gameObject::clearInputRecord() {
 
 	inputs.clear();
 
 }
 
-void gameObject::clearStateChangeRecord(){
+void gameObject::clearStateChangeRecord() {
 
 	stateChanges.clear();
 
 }
 
-void gameObject::clearRectRecord(){
+void gameObject::clearRectRecord() {
 
 	//framesVec.clear();
 
@@ -288,7 +291,7 @@ void gameObject::clearRectRecord(){
 
 
 //moves hitboxes to new position. Precondition: new values do not rollover//
-void gameObject::move(int xDifference, int yDifference){
+void gameObject::move(int xDifference, int yDifference) {
 
 
 	//move the gameObject's hitboxes//
@@ -296,7 +299,7 @@ void gameObject::move(int xDifference, int yDifference){
 	hitbox * p = hitboxes.data();
 	int numHitboxes = hitboxes.size();
 
-	for(int i = 0; i < numHitboxes; i++){
+	for (int i = 0; i < numHitboxes; i++) {
 
 
 		(*p).pastLeft = (*p).left;
@@ -318,36 +321,42 @@ void gameObject::move(int xDifference, int yDifference){
 
 
 	}
+
 	x = futureX;
+
 	y = futureY;
 
 }
 
 //return name of object//
-string gameObject::getName(){
+string gameObject::getName() {
 
 	return name;
 
 
 }
+
 //return fileName of object's image//
-string gameObject::getFileName(){
+string gameObject::getFileName() {
 
 	return fileName;
 
 
 }
+
 //return type of object//
-string gameObject::getType(){
+string gameObject::getType() {
 
 	return type;
 
 
 }
+
 //add hitbox h to hitbox record//
-void gameObject::addHitbox(hitbox h){
+void gameObject::addHitbox(hitbox h) {
 
 	hitboxes.push_back(h);
 
 
 }
+

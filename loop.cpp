@@ -1,8 +1,8 @@
 #include "Orion.h"
 
-int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen){
+int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen) {
 
-  bool hasController = false;
+	bool hasController = false;
 
 	int frameDrops = 0;
 	double timeFactor = 0;
@@ -11,13 +11,13 @@ int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 
 	Mix_Music * music = NULL;
 
-  thread_pool pool(4);
+	thread_pool pool(4);
 
 
 	//this is used when regulating upper bound for frame rate.
 	int TICKS_PER_FRAME = 1000 / FPS;
-  double xRenderCoordFactor = (double)screenWidth/(double)xScale;
-  double yRenderCoordFactor = (double)screenHeight/(double)yScale;
+	double xRenderCoordFactor = (double)screenWidth/(double)xScale;
+	double yRenderCoordFactor = (double)screenHeight/(double)yScale;
 
 	//The frame rate regulator
 	Timer fps;
@@ -38,8 +38,8 @@ int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 
 
 	//Initialize SDL systems//
-	if (init(screenWidth, screenHeight, &window, &renderer, fullScreen, &gGameController, &hasController) == false)
-	{
+
+	if (init(screenWidth, screenHeight, &window, &renderer, fullScreen, &gGameController, &hasController) == false) {
 		return 1;
 	}
 
@@ -58,13 +58,13 @@ int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 	objects.push_back(&p);
 
 
-	if(loadAllFiles(objects, renderer)){
+	if (loadAllFiles(objects, renderer)) {
 
 		//no problems in loading files//
 
 
 	}
-	else{
+	else {
 
 		//there was a problem in loading files//
 		return 1;
@@ -79,7 +79,7 @@ int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 	bool quit = false;
 
 
-	while (quit == false){
+	while (quit == false) {
 
 		fps.start();
 
@@ -87,7 +87,7 @@ int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 
 
 
-		if (!paused){
+		if (!paused) {
 
 			handleAllStateChanges(objects, &uniformGrid, &pool);
 
@@ -96,8 +96,7 @@ int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 
 			cleanLoop(objects);
 
-			if (Mix_PlayingMusic() == 0)
-			{
+			if (Mix_PlayingMusic() == 0) {
 				//Play the music
 				Mix_PlayMusic(music, -1);
 			}
@@ -106,12 +105,13 @@ int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 
 			//If frame finished early
 			int frameTicks = fps.get_ticks();
-			if (frameTicks < TICKS_PER_FRAME)
-			{
+
+			if (frameTicks < TICKS_PER_FRAME) {
 				//Wait remaining time
 				SDL_Delay(TICKS_PER_FRAME - frameTicks);
 			}
-			if(frameTicks > TICKS_PER_FRAME){
+
+			if (frameTicks > TICKS_PER_FRAME) {
 
 				frameDrops++;
 				SDL_Delay(frameTicks - TICKS_PER_FRAME);
@@ -122,11 +122,13 @@ int loop(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 		}
 
 	}
+
 	//uniformGrid.printGridInfo();
 	cout << "Frame Drops: " << frameDrops << endl;
 
 	close(objects, renderer, window);
 
-  return 0;
+	return 0;
 
 }
+

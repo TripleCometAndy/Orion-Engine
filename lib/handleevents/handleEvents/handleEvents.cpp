@@ -2,862 +2,931 @@
 #define PI 3.14159265
 //
 
-void handleEvents(bool * quit, bool * paused, vector<gameObject *> gameObjects, SDL_Joystick* gGameController){
+void handleEvents(bool * quit, bool * paused, vector<gameObject *> gameObjects, SDL_Joystick* gGameController) {
 
-  SDL_Event e;
+	SDL_Event e;
 
-  gameObject ** p = gameObjects.data();
+	gameObject ** p = gameObjects.data();
 
-  int numObjects = gameObjects.size();
-
-
-
-  //Handle events on queue
-  while (SDL_PollEvent(&e) != 0)
-  {
-
-    p = gameObjects.data();
-
-
-    //User requests quit
-    if (e.type == SDL_QUIT)
-    {
-      *quit = true;
-    }
-
-    if (e.type == SDL_KEYDOWN){
-
-      if (e.key.keysym.sym == SDLK_ESCAPE){
-
-        *quit = true;
-
-
-      }
-      if (e.key.keysym.sym == SDLK_p){
-
-        if (*paused == true){
-
-          *paused = false;
-
-
-        }
-        else{
-
-          *paused = true;
-
-        }
-
-
-      }
-
-
-    }
-
-    if(e.type == SDL_JOYBUTTONDOWN){
-
-
-    }
+	int numObjects = gameObjects.size();
 
 
 
-    for (int i = 0; i < numObjects; i++){
+	//Handle events on queue
 
-      (*p)->handleInput(e, gGameController);
-      p++;
+	while (SDL_PollEvent(&e) != 0) {
 
-    }
+		p = gameObjects.data();
 
 
-  }
+		//User requests quit
+
+		if (e.type == SDL_QUIT) {
+			*quit = true;
+		}
+
+		if (e.type == SDL_KEYDOWN) {
+
+			if (e.key.keysym.sym == SDLK_ESCAPE) {
+
+				*quit = true;
+
+
+			}
+
+			if (e.key.keysym.sym == SDLK_p) {
+
+				if (*paused == true) {
+
+					*paused = false;
+
+
+				}
+				else {
+
+					*paused = true;
+
+				}
+
+
+			}
+
+
+		}
+
+		if (e.type == SDL_JOYBUTTONDOWN) {
+
+
+		}
+
+
+
+		for (int i = 0; i < numObjects; i++) {
+
+			(*p)->handleInput(e, gGameController);
+			p++;
+
+		}
+
+
+	}
 
 }
 
-void handleEventsWrite(bool * quit, bool * paused, vector<gameObject *> gameObjects, inputHandler * iH, int frameCount, SDL_Joystick* gGameController){
+void handleEventsWrite(bool * quit, bool * paused, vector<gameObject *> gameObjects, inputHandler * iH, int frameCount, SDL_Joystick* gGameController) {
 
-  SDL_Event e;
+	SDL_Event e;
 
-  gameObject ** p = gameObjects.data();
+	gameObject ** p = gameObjects.data();
 
-  int numObjects = gameObjects.size();
+	int numObjects = gameObjects.size();
 
-  bool first = true;
+	bool first = true;
 
-  bool leftJoystick = false;
-  bool rightJoystick = false;
-  bool leftJoystickRelease = false;
-  bool joystick2Held = false;
-  bool joystick2Release = false;
-  bool leftTriggerPress = false;
-  bool leftTriggerRelease = false;
-  bool rightTriggerPress = false;
-  bool rightTriggerRelease = false;
+	bool leftJoystick = false;
+	bool rightJoystick = false;
+	bool leftJoystickRelease = false;
+	bool joystick2Held = false;
+	bool joystick2Release = false;
+	bool leftTriggerPress = false;
+	bool leftTriggerRelease = false;
+	bool rightTriggerPress = false;
+	bool rightTriggerRelease = false;
 
-  //Handle events on queue
-  while (SDL_PollEvent(&e) != 0)
-  {
+	//Handle events on queue
 
-    p = gameObjects.data();
+	while (SDL_PollEvent(&e) != 0) {
 
+		p = gameObjects.data();
 
-    //User requests quit
 
-      if (e.type == SDL_KEYDOWN){
+		//User requests quit
 
-        if(e.key.keysym.sym == SDLK_p){
+		if (e.type == SDL_KEYDOWN) {
 
-          if (*paused == true){
+			if (e.key.keysym.sym == SDLK_p) {
 
-            *paused = false;
+				if (*paused == true) {
 
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
+					*paused = false;
 
-            iH->addInputToFile("PAUSE");
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-          }
-          else{
+					iH->addInputToFile("PAUSE");
 
-            *paused = true;
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
-            iH->addInputToFile("PAUSE");
+				}
+				else {
 
-          }
+					*paused = true;
 
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
+					iH->addInputToFile("PAUSE");
 
+				}
 
-        }
 
 
-      }
 
+			}
 
 
-      if(*paused == false){
+		}
 
-        if (e.type == SDL_QUIT)
-        {
-          *quit = true;
-          if(first){
-            iH->addNewLine();
-            iH->addFrameCount();
-            first = false;
-          }
-          iH->addInputToFile("QUIT");
-        }
 
-        if (e.type == SDL_KEYDOWN){
 
-          if (e.key.keysym.sym == SDLK_ESCAPE){
+		if (*paused == false) {
 
-            *quit = true;
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
-            iH->addInputToFile("ESCAPE");
+			if (e.type == SDL_QUIT) {
+				*quit = true;
 
+				if (first) {
+					iH->addNewLine();
+					iH->addFrameCount();
+					first = false;
+				}
 
+				iH->addInputToFile("QUIT");
+			}
 
-          }
+			if (e.type == SDL_KEYDOWN) {
 
-          if (e.key.keysym.sym == SDLK_LEFT){
+				if (e.key.keysym.sym == SDLK_ESCAPE) {
 
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
-      			iH->addInputToFile("LEFT_PRESS");
+					*quit = true;
 
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-      		}
+					iH->addInputToFile("ESCAPE");
 
-      		if (e.key.keysym.sym == SDLK_RIGHT){
 
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
-      			iH->addInputToFile("RIGHT_PRESS");
 
+				}
 
-      		}
+				if (e.key.keysym.sym == SDLK_LEFT) {
 
-          if (e.key.keysym.sym == SDLK_UP){
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
-      			iH->addInputToFile("UP_PRESS");
+					iH->addInputToFile("LEFT_PRESS");
 
 
-      		}
+				}
 
-      		if (e.key.keysym.sym == SDLK_DOWN){
+				if (e.key.keysym.sym == SDLK_RIGHT) {
 
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
-      			iH->addInputToFile("DOWN_PRESS");
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
+					iH->addInputToFile("RIGHT_PRESS");
 
-      		}
 
-        }
-        if (e.type == SDL_KEYUP){
+				}
 
-          if (e.key.keysym.sym == SDLK_LEFT){
+				if (e.key.keysym.sym == SDLK_UP) {
 
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
-      			iH->addInputToFile("LEFT_RELEASE");
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
+					iH->addInputToFile("UP_PRESS");
 
-      		}
 
-      		if (e.key.keysym.sym == SDLK_RIGHT){
+				}
 
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
-      			iH->addInputToFile("RIGHT_RELEASE");
+				if (e.key.keysym.sym == SDLK_DOWN) {
 
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-      		}
+					iH->addInputToFile("DOWN_PRESS");
 
-          if (e.key.keysym.sym == SDLK_UP){
 
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
-      			iH->addInputToFile("UP_RELEASE");
+				}
 
+			}
 
-      		}
+			if (e.type == SDL_KEYUP) {
 
-      		if (e.key.keysym.sym == SDLK_DOWN){
+				if (e.key.keysym.sym == SDLK_LEFT) {
 
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
-      			iH->addInputToFile("DOWN_RELEASE");
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
+					iH->addInputToFile("LEFT_RELEASE");
 
-      		}
 
+				}
 
+				if (e.key.keysym.sym == SDLK_RIGHT) {
 
-        }
-        if(e.type == SDL_JOYBUTTONDOWN){
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
+					iH->addInputToFile("RIGHT_RELEASE");
 
 
-      		if(e.jbutton.button == 5){
+				}
 
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
+				if (e.key.keysym.sym == SDLK_UP) {
 
-            iH->addInputToFile("RIGHT_BUMPER_PRESS");
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-      		}
-          if(e.jbutton.button == 0){
+					iH->addInputToFile("UP_RELEASE");
 
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
 
-            iH->addInputToFile("A_BUTTON_PRESS");
+				}
 
-      		}
-          if(e.jbutton.button == 4){
+				if (e.key.keysym.sym == SDLK_DOWN) {
 
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-            iH->addInputToFile("LEFT_BUMPER_PRESS");
+					iH->addInputToFile("DOWN_RELEASE");
 
-      		}
-          if(e.jbutton.button == 10){
 
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
+				}
 
-            iH->addInputToFile("RIGHT_STICK_CLICK");
 
-      		}
-      	}
-        if(e.type == SDL_JOYBUTTONUP){
 
-          if(first){
-            iH->addNewLine();
-            iH->addFrameCount();
-            first = false;
-          }
-      		if(e.jbutton.button == 4){
+			}
 
-      			iH->addInputToFile("LEFT_BUMPER_RELEASE");
+			if (e.type == SDL_JOYBUTTONDOWN) {
 
-      		}
 
 
-      	}
-        if(e.type == SDL_JOYAXISMOTION){
+				if (e.jbutton.button == 5) {
 
-      		int xDirLeft = 3;
-      		int yDirLeft = 3;
-      		int xDirRight = 3;
-      		int yDirRight = 3;
-          float radiusLeft = 0;
-          float radiusRight = 0;
-          float angleLeft = 0;
-          float angleRight = 0;
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-      		xDirLeft = SDL_JoystickGetAxis(gGameController, 0);
-      		yDirLeft = SDL_JoystickGetAxis(gGameController, 1);
+					iH->addInputToFile("RIGHT_BUMPER_PRESS");
 
-      		int leftTrigger = SDL_JoystickGetAxis(gGameController, 2);
-      		int rightTrigger = SDL_JoystickGetAxis(gGameController, 5);
-      		//cout << rightTrigger << endl;
+				}
 
-      		xDirRight = SDL_JoystickGetAxis(gGameController, 3);
-      		yDirRight = SDL_JoystickGetAxis(gGameController, 4);
+				if (e.jbutton.button == 0) {
 
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-      		getJoystickInfo2(&radiusLeft, &angleLeft, xDirLeft, yDirLeft);
-      		getJoystickInfo2(&radiusRight, &angleRight, xDirRight, yDirRight);
+					iH->addInputToFile("A_BUTTON_PRESS");
 
+				}
 
-      		if(radiusLeft > 5000 && ((angleLeft >= 0 && angleLeft <= 90) || (angleLeft >= 270 && angleLeft <= 360)) && !leftJoystick){
+				if (e.jbutton.button == 4) {
 
-            leftJoystick = true;
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
-            string temp;
-            string a;
-            ostringstream strs;
-            strs << angleLeft;
-            a = strs.str();
-            temp += "JOYSTICK_LEFT";
-            temp += a;
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-      			iH->addInputToFile(temp);
+					iH->addInputToFile("LEFT_BUMPER_PRESS");
 
-      		}
-      		else if(radiusLeft > 5000 && !leftJoystick){
+				}
 
-            leftJoystick = true;
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
-            string temp;
-            string a;
-            ostringstream strs;
-            strs << angleLeft;
-            a = strs.str();
-            temp += "JOYSTICK_RIGHT";
-            temp += a;
-      			iH->addInputToFile(temp);
+				if (e.jbutton.button == 10) {
 
-      		}
-      		else if(radiusLeft < 5000 && !leftJoystickRelease){
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-            leftJoystickRelease = true;
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
+					iH->addInputToFile("RIGHT_STICK_CLICK");
 
-      			iH->addInputToFile("JOYSTICK_RELEASE");
+				}
+			}
 
+			if (e.type == SDL_JOYBUTTONUP) {
 
-      		}
+				if (first) {
+					iH->addNewLine();
+					iH->addFrameCount();
+					first = false;
+				}
 
-      		if(radiusRight > 5000 && !rightJoystick){
+				if (e.jbutton.button == 4) {
 
-            rightJoystick = true;
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
+					iH->addInputToFile("LEFT_BUMPER_RELEASE");
 
-            string temp;
-            string a;
-            ostringstream strs;
-            strs << angleRight;
-            a = strs.str();
-            temp += "JOYSTICK2_HELD";
-            temp += a;
+				}
 
-      			iH->addInputToFile(temp);
 
-      		}
-      		else if(radiusRight < 5000 && !joystick2Release){
-            joystick2Release = true;
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
+			}
 
-      			iH->addInputToFile("JOYSTICK2_RELEASE");
+			if (e.type == SDL_JOYAXISMOTION) {
 
+				int xDirLeft = 3;
+				int yDirLeft = 3;
+				int xDirRight = 3;
+				int yDirRight = 3;
+				float radiusLeft = 0;
+				float radiusRight = 0;
+				float angleLeft = 0;
+				float angleRight = 0;
 
-      		}
+				xDirLeft = SDL_JoystickGetAxis(gGameController, 0);
+				yDirLeft = SDL_JoystickGetAxis(gGameController, 1);
 
-      		if(leftTrigger >= 32667 && !leftTriggerPress){
+				int leftTrigger = SDL_JoystickGetAxis(gGameController, 2);
+				int rightTrigger = SDL_JoystickGetAxis(gGameController, 5);
+				//cout << rightTrigger << endl;
 
-            leftTriggerPress = true;
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
+				xDirRight = SDL_JoystickGetAxis(gGameController, 3);
+				yDirRight = SDL_JoystickGetAxis(gGameController, 4);
 
 
-      			iH->addInputToFile("LEFT_TRIGGER_PRESS");
+				getJoystickInfo2(&radiusLeft, &angleLeft, xDirLeft, yDirLeft);
+				getJoystickInfo2(&radiusRight, &angleRight, xDirRight, yDirRight);
 
 
-      		}
-      		if(rightTrigger >= 32667 && !rightTriggerPress){
+				if (radiusLeft > 5000 && ((angleLeft >= 0 && angleLeft <= 90) || (angleLeft >= 270 && angleLeft <= 360)) && !leftJoystick) {
 
-            rightTriggerPress = true;
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
+					leftJoystick = true;
 
-      			iH->addInputToFile("RIGHT_TRIGGER_PRESS");
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-      		}
-      		if(leftTrigger <= 5000 && !leftTriggerRelease){
+					string temp;
 
-            leftTriggerRelease = true;
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
+					string a;
+					ostringstream strs;
+					strs << angleLeft;
+					a = strs.str();
+					temp += "JOYSTICK_LEFT";
+					temp += a;
 
-      			iH->addInputToFile("LEFT_TRIGGER_RELEASE");
+					iH->addInputToFile(temp);
 
+				}
+				else if (radiusLeft > 5000 && !leftJoystick) {
 
-      		}
-      		if(rightTrigger <= 5000 && !rightTriggerRelease){
-            rightTriggerRelease = true;
-            if(first){
-              iH->addNewLine();
-              iH->addFrameCount();
-              first = false;
-            }
+					leftJoystick = true;
 
-      			iH->addInputToFile("RIGHT_TRIGGER_RELEASE");
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
+					string temp;
 
-      		}
+					string a;
+					ostringstream strs;
+					strs << angleLeft;
+					a = strs.str();
+					temp += "JOYSTICK_RIGHT";
+					temp += a;
+					iH->addInputToFile(temp);
 
-      	}
+				}
+				else if (radiusLeft < 5000 && !leftJoystickRelease) {
 
+					leftJoystickRelease = true;
 
-      }
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-    if(e.type == SDL_JOYAXISMOTION){
+					iH->addInputToFile("JOYSTICK_RELEASE");
 
 
-    }
+				}
 
+				if (radiusRight > 5000 && !rightJoystick) {
 
+					rightJoystick = true;
 
-    for (int i = 0; i < numObjects; i++){
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-      (*p)->handleInput(e, gGameController);
-      p++;
+					string temp;
 
-    }
+					string a;
+					ostringstream strs;
+					strs << angleRight;
+					a = strs.str();
+					temp += "JOYSTICK2_HELD";
+					temp += a;
 
+					iH->addInputToFile(temp);
 
-  }
+				}
+				else if (radiusRight < 5000 && !joystick2Release) {
+					joystick2Release = true;
 
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-}
+					iH->addInputToFile("JOYSTICK2_RELEASE");
 
-void handleEventsRead(bool * quit, bool * paused, vector<gameObject *> gameObjects, inputHandler * iH, int frameCount){
 
+				}
 
-  gameObject ** p = gameObjects.data();
+				if (leftTrigger >= 32667 && !leftTriggerPress) {
 
-  int numObjects = gameObjects.size();
-  char c;
-  string line;
-  float angleLeft = 0;
-  float angleRight = 0;
-  c = iH->nextChar();
-  //cout << c << endl;
-  while(c != 0){
+					leftTriggerPress = true;
 
-    if(c == '\n'){
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-      iH->readActionFrame();
-      return;
 
-    }
-    else{
+					iH->addInputToFile("LEFT_TRIGGER_PRESS");
 
-      if(c == 'Q'){
 
-        *quit = true;
-		exit(1);
-      }
-      if(c == 'E'){
+				}
 
-        *quit = true;
-		exit(1);
+				if (rightTrigger >= 32667 && !rightTriggerPress) {
 
+					rightTriggerPress = true;
 
-      }
-      if(c == 'P'){
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-        if (*paused == true){
+					iH->addInputToFile("RIGHT_TRIGGER_PRESS");
 
-          *paused = false;
+				}
 
+				if (leftTrigger <= 5000 && !leftTriggerRelease) {
 
-        }
-        else{
+					leftTriggerRelease = true;
 
-          *paused = true;
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-        }
+					iH->addInputToFile("LEFT_TRIGGER_RELEASE");
 
-      }
-      if(c == 'C'){
 
-        //read in (
-        c = iH->nextChar();
-        c = iH->nextChar();
-        string temp;
-        while(c != ')'){
+				}
 
-          temp += c;
-          c = iH->nextChar();
+				if (rightTrigger <= 5000 && !rightTriggerRelease) {
+					rightTriggerRelease = true;
 
-        }
-        angleLeft = stof(temp);
-        c = 'C';
+					if (first) {
+						iH->addNewLine();
+						iH->addFrameCount();
+						first = false;
+					}
 
-      }
-      if(c == 'F'){
+					iH->addInputToFile("RIGHT_TRIGGER_RELEASE");
 
-        //read in (
-        c = iH->nextChar();
-        c = iH->nextChar();
-        string temp;
-        while(c != ')'){
 
-          temp += c;
-          c = iH->nextChar();
+				}
 
-        }
-        angleLeft = stof(temp);
+			}
 
-        c = 'F';
 
-      }
-      if(c == 'H'){
+		}
 
-        //read in (
-        c = iH->nextChar();
-        c = iH->nextChar();
-        string temp;
-        while(c != ')'){
+		if (e.type == SDL_JOYAXISMOTION) {
 
-          temp += c;
-          c = iH->nextChar();
 
-        }
+		}
 
-        angleRight = stof(temp);
 
-        c = 'H';
 
-      }
+		for (int i = 0; i < numObjects; i++) {
 
-      for (int i = 0; i < numObjects; i++){
-        (*p)->setAngleLeft(angleLeft);
-        (*p)->setAngleRight(angleRight);
-        (*p)->handleInputDebug(c);
-        p++;
+			(*p)->handleInput(e, gGameController);
+			p++;
 
-      }
-      p = gameObjects.data();
+		}
 
-    }
-    c = iH->nextChar();
-  }
 
-}
-
-void handleEventsRead_SingleStepActionFrame(bool * quit, bool * paused, vector<gameObject *> gameObjects, inputHandler * iH, int frameCount, bool * iterateFrame){
-
-
-  gameObject ** p = gameObjects.data();
-
-  SDL_Event e;
-
-  //Handle events on queue
-  while (SDL_PollEvent(&e) != 0)
-  {
-
-    if (e.type == SDL_KEYDOWN){
-
-      if (e.key.keysym.sym == SDLK_SPACE){
-
-          *iterateFrame = true;
-
-      }
-      if (e.key.keysym.sym == SDLK_ESCAPE){
-
-        *quit = true;
-
-
-      }
-    }
-
-
-  }
-
-
-  if(*(iterateFrame) == true){
-    int numObjects = gameObjects.size();
-    char c;
-    string line;
-    float angleLeft = 0;
-    float angleRight = 0;
-    c = iH->nextChar();
-    //cout << c << endl;
-    while(c != 0){
-
-      if(c == '\n'){
-
-        iH->readActionFrame();
-        return;
-
-      }
-      else{
-
-        if(c == 'Q'){
-
-          *quit = true;
-
-        }
-        if(c == 'E'){
-
-          *quit = true;
-          exit(1);
-
-        }
-        if(c == 'P'){
-
-          if (*paused == true){
-
-            *paused = false;
-
-
-          }
-          else{
-
-            *paused = true;
-
-          }
-
-        }
-        if(c == 'C'){
-
-          //read in (
-          c = iH->nextChar();
-          c = iH->nextChar();
-          string temp;
-          while(c != ')'){
-
-            temp += c;
-            c = iH->nextChar();
-
-          }
-          angleLeft = stof(temp);
-          c = 'C';
-
-        }
-        if(c == 'F'){
-
-          //read in (
-          c = iH->nextChar();
-          c = iH->nextChar();
-          string temp;
-          while(c != ')'){
-
-            temp += c;
-            c = iH->nextChar();
-
-          }
-          angleLeft = stof(temp);
-
-          c = 'F';
-
-        }
-        if(c == 'H'){
-
-          //read in (
-          c = iH->nextChar();
-          c = iH->nextChar();
-          string temp;
-          while(c != ')'){
-
-            temp += c;
-            c = iH->nextChar();
-
-          }
-
-          angleRight = stof(temp);
-
-          c = 'H';
-
-        }
-
-        for (int i = 0; i < numObjects; i++){
-          (*p)->setAngleLeft(angleLeft);
-          (*p)->setAngleRight(angleRight);
-          (*p)->handleInputDebug(c);
-          p++;
-
-        }
-        p = gameObjects.data();
-
-      }
-      c = iH->nextChar();
-    }
-
-  }
-
-}
-
-void handleEventsRead_SingleStep(bool * iterateFrame, bool * quit){
-
-  SDL_Event e;
-
-  //Handle events on queue
-  while (SDL_PollEvent(&e) != 0)
-  {
-
-    if (e.type == SDL_KEYDOWN){
-
-      if (e.key.keysym.sym == SDLK_SPACE){
-
-          *iterateFrame = true;
-
-      }
-      if (e.key.keysym.sym == SDLK_ESCAPE){
-
-        *quit = true;
-
-
-      }
-    }
-
-  }
+	}
 
 
 }
 
-void getJoystickInfo2(float * radiusLeft, float * angleLeft, int xDir, int yDir){
+void handleEventsRead(bool * quit, bool * paused, vector<gameObject *> gameObjects, inputHandler * iH, int frameCount) {
+
+
+	gameObject ** p = gameObjects.data();
+
+	int numObjects = gameObjects.size();
+	char c;
+	string line;
+	float angleLeft = 0;
+	float angleRight = 0;
+	c = iH->nextChar();
+	//cout << c << endl;
+
+	while (c != 0) {
+
+		if (c == '\n') {
+
+			iH->readActionFrame();
+			return;
+
+		}
+		else {
+
+			if (c == 'Q') {
+
+				*quit = true;
+				exit(1);
+			}
+
+			if (c == 'E') {
+
+				*quit = true;
+				exit(1);
+
+
+			}
+
+			if (c == 'P') {
+
+				if (*paused == true) {
+
+					*paused = false;
+
+
+				}
+				else {
+
+					*paused = true;
+
+				}
+
+			}
+
+			if (c == 'C') {
+
+				//read in (
+				c = iH->nextChar();
+				c = iH->nextChar();
+				string temp;
+
+				while (c != ')') {
+
+					temp += c;
+					c = iH->nextChar();
+
+				}
+
+				angleLeft = stof(temp);
+
+				c = 'C';
+
+			}
+
+			if (c == 'F') {
+
+				//read in (
+				c = iH->nextChar();
+				c = iH->nextChar();
+				string temp;
+
+				while (c != ')') {
+
+					temp += c;
+					c = iH->nextChar();
+
+				}
+
+				angleLeft = stof(temp);
+
+				c = 'F';
+
+			}
+
+			if (c == 'H') {
+
+				//read in (
+				c = iH->nextChar();
+				c = iH->nextChar();
+				string temp;
+
+				while (c != ')') {
+
+					temp += c;
+					c = iH->nextChar();
+
+				}
+
+				angleRight = stof(temp);
+
+				c = 'H';
+
+			}
+
+			for (int i = 0; i < numObjects; i++) {
+				(*p)->setAngleLeft(angleLeft);
+				(*p)->setAngleRight(angleRight);
+				(*p)->handleInputDebug(c);
+				p++;
+
+			}
+
+			p = gameObjects.data();
+
+		}
+
+		c = iH->nextChar();
+	}
+
+}
+
+void handleEventsRead_SingleStepActionFrame(bool * quit, bool * paused, vector<gameObject *> gameObjects, inputHandler * iH, int frameCount, bool * iterateFrame) {
+
+
+	gameObject ** p = gameObjects.data();
+
+	SDL_Event e;
+
+	//Handle events on queue
+
+	while (SDL_PollEvent(&e) != 0) {
+
+		if (e.type == SDL_KEYDOWN) {
+
+			if (e.key.keysym.sym == SDLK_SPACE) {
+
+				*iterateFrame = true;
+
+			}
+
+			if (e.key.keysym.sym == SDLK_ESCAPE) {
+
+				*quit = true;
+
+
+			}
+		}
+
+
+	}
+
+
+	if (*(iterateFrame) == true) {
+		int numObjects = gameObjects.size();
+		char c;
+		string line;
+		float angleLeft = 0;
+		float angleRight = 0;
+		c = iH->nextChar();
+		//cout << c << endl;
+
+		while (c != 0) {
+
+			if (c == '\n') {
+
+				iH->readActionFrame();
+				return;
+
+			}
+			else {
+
+				if (c == 'Q') {
+
+					*quit = true;
+
+				}
+
+				if (c == 'E') {
+
+					*quit = true;
+					exit(1);
+
+				}
+
+				if (c == 'P') {
+
+					if (*paused == true) {
+
+						*paused = false;
+
+
+					}
+					else {
+
+						*paused = true;
+
+					}
+
+				}
+
+				if (c == 'C') {
+
+					//read in (
+					c = iH->nextChar();
+					c = iH->nextChar();
+					string temp;
+
+					while (c != ')') {
+
+						temp += c;
+						c = iH->nextChar();
+
+					}
+
+					angleLeft = stof(temp);
+
+					c = 'C';
+
+				}
+
+				if (c == 'F') {
+
+					//read in (
+					c = iH->nextChar();
+					c = iH->nextChar();
+					string temp;
+
+					while (c != ')') {
+
+						temp += c;
+						c = iH->nextChar();
+
+					}
+
+					angleLeft = stof(temp);
+
+					c = 'F';
+
+				}
+
+				if (c == 'H') {
+
+					//read in (
+					c = iH->nextChar();
+					c = iH->nextChar();
+					string temp;
+
+					while (c != ')') {
+
+						temp += c;
+						c = iH->nextChar();
+
+					}
+
+					angleRight = stof(temp);
+
+					c = 'H';
+
+				}
+
+				for (int i = 0; i < numObjects; i++) {
+					(*p)->setAngleLeft(angleLeft);
+					(*p)->setAngleRight(angleRight);
+					(*p)->handleInputDebug(c);
+					p++;
+
+				}
+
+				p = gameObjects.data();
+
+			}
+
+			c = iH->nextChar();
+		}
+
+	}
+
+}
+
+void handleEventsRead_SingleStep(bool * iterateFrame, bool * quit) {
+
+	SDL_Event e;
+
+	//Handle events on queue
+
+	while (SDL_PollEvent(&e) != 0) {
+
+		if (e.type == SDL_KEYDOWN) {
+
+			if (e.key.keysym.sym == SDLK_SPACE) {
+
+				*iterateFrame = true;
+
+			}
+
+			if (e.key.keysym.sym == SDLK_ESCAPE) {
+
+				*quit = true;
+
+
+			}
+		}
+
+	}
+
+
+}
+
+void getJoystickInfo2(float * radiusLeft, float * angleLeft, int xDir, int yDir) {
 
 	*radiusLeft = (float)sqrt(abs((long)(xDir*xDir) + (long)(yDir*yDir)));
 
 
 
-	if(xDir == 0){
+	if (xDir == 0) {
 
-		if(yDir > 0){
+		if (yDir > 0) {
 
 			*angleLeft = 90;
 
 		}
-		else if(yDir < 0){
+		else if (yDir < 0) {
 
 			*angleLeft = 270;
 
 		}
-		else if(yDir == 0){
+		else if (yDir == 0) {
 
 			*angleLeft = 0;
 
 		}
 
 	}
-	else if(yDir == 0){
+	else if (yDir == 0) {
 
-		if(xDir > 0){
+		if (xDir > 0) {
 
 			*angleLeft = 0;
 
 		}
-		else if(xDir < 0){
+		else if (xDir < 0) {
 
 			*angleLeft = 180;
 
 		}
 
 	}
-	else{
+	else {
 
-		if(xDir * -1 < 0 && yDir * -1 < 0){
+		if (xDir * -1 < 0 && yDir * -1 < 0) {
 
 			*angleLeft = atan((double)((double)yDir)/(double)xDir) * 180 / PI;
 
 			//cout << "Angle: " << *angle << endl;
 
 		}
-		else if(xDir * -1 > 0 && yDir * -1 < 0){
+		else if (xDir * -1 > 0 && yDir * -1 < 0) {
 
 
 			*angleLeft = atan((double)((double)yDir)/(double)xDir) * 180 / PI;
@@ -865,7 +934,7 @@ void getJoystickInfo2(float * radiusLeft, float * angleLeft, int xDir, int yDir)
 			*angleLeft = 180 - abs(*angleLeft);
 
 		}
-		else if(xDir * -1 > 0 && yDir * -1 > 0){
+		else if (xDir * -1 > 0 && yDir * -1 > 0) {
 
 
 			*angleLeft = atan((double)((double)yDir)/(double)xDir) * 180 / PI;
@@ -873,7 +942,7 @@ void getJoystickInfo2(float * radiusLeft, float * angleLeft, int xDir, int yDir)
 			*angleLeft += 180;
 
 		}
-		else if(xDir * -1 < 0 && yDir * -1 > 0){
+		else if (xDir * -1 < 0 && yDir * -1 > 0) {
 
 
 			*angleLeft = atan((double)((double)yDir)/(double)xDir) * 180 / PI;
@@ -1030,3 +1099,4 @@ void handleEvents(bool * quit, bool * paused, vector<gameObject *> gameObjects, 
 
 }
 */
+

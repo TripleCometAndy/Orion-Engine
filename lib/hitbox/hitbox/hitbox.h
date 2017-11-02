@@ -2,7 +2,7 @@
 
 using namespace std;
 
-struct hitbox{
+struct hitbox {
 	unsigned int left; //left bound of the hitbox//
 	unsigned int right; //right bound of the hitbox//
 	unsigned int top; //top bound of the hitbox//
@@ -26,3 +26,4 @@ struct hitbox{
 	//vector<int> collidingWithID;
 
 };
+

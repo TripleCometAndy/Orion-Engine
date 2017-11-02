@@ -1,17 +1,17 @@
 #include "Orion.h"
 
-int loopWrite(int FPS, int screenWidth, int screenHeight, bool fullScreen){
+int loopWrite(int FPS, int screenWidth, int screenHeight, bool fullScreen) {
 
-  bool hasController = false;
+	bool hasController = false;
 
 	int frameDrops = 0;
 	double timeFactor = 0;
-  int frameCount = 0;
-  thread_pool pool(4);
+	int frameCount = 0;
+	thread_pool pool(4);
 	SDL_Joystick* gGameController = NULL;
 
 	Mix_Music * music = NULL;
-  remove("Inputs.txt");
+	remove("Inputs.txt");
 	inputHandler iH("Inputs.txt", true);
 
 
@@ -38,12 +38,13 @@ int loopWrite(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 
 
 	//Initialize SDL systems//
-	if (init(screenWidth, screenHeight, &window, &renderer, fullScreen, &gGameController, &hasController) == false)
-	{
+
+	if (init(screenWidth, screenHeight, &window, &renderer, fullScreen, &gGameController, &hasController) == false) {
 		return 1;
 	}
 
-  background b(100, 100, screenWidth, screenHeight, "background_01", "images/background_test.png", "background", renderer, &uniformGrid);
+	background b(100, 100, screenWidth, screenHeight, "background_01", "images/background_test.png", "background", renderer, &uniformGrid);
+
 	//wall leftWall(100, 100, 233, 576, "wall_01", "images/wall.png", "wall", renderer, &uniformGrid);
 	//wall rightWall(891, 100, 233, 576, "wall_02", "images/wall.png", "wall", renderer, &uniformGrid);
 	player p(600, 500, 222, 344, "ship_01", "images/spriteSheetPlayer.png", "ship", renderer, &uniformGrid, timeFactor);
@@ -55,13 +56,13 @@ int loopWrite(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 
 	objects.push_back(&p);
 
-	if(loadAllFiles(objects, renderer)){
+	if (loadAllFiles(objects, renderer)) {
 
 		//no problems in loading files//
 
 
 	}
-	else{
+	else {
 
 		//there was a problem in loading files//
 		return 1;
@@ -76,23 +77,22 @@ int loopWrite(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 	bool quit = false;
 
 
-	while (quit == false){
+	while (quit == false) {
 
 		fps.start();
 
 		handleEventsWrite(&quit, &paused, objects, &iH, frameCount, gGameController);
 
-    if (!paused){
+		if (!paused) {
 
 			handleAllStateChanges(objects, &uniformGrid, &pool);
 
 
-		  enactAllStateChanges(objects, renderer, &uniformGrid);
+			enactAllStateChanges(objects, renderer, &uniformGrid);
 
 			cleanLoop(objects);
 
-			if (Mix_PlayingMusic() == 0)
-			{
+			if (Mix_PlayingMusic() == 0) {
 				//Play the music
 				Mix_PlayMusic(music, -1);
 			}
@@ -101,12 +101,13 @@ int loopWrite(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 
 			//If frame finished early
 			int frameTicks = fps.get_ticks();
-			if (frameTicks < TICKS_PER_FRAME)
-			{
+
+			if (frameTicks < TICKS_PER_FRAME) {
 				//Wait remaining time
 				SDL_Delay(TICKS_PER_FRAME - frameTicks);
 			}
-			if(frameTicks > TICKS_PER_FRAME){
+
+			if (frameTicks > TICKS_PER_FRAME) {
 
 				frameDrops++;
 				SDL_Delay(frameTicks - TICKS_PER_FRAME);
@@ -115,13 +116,17 @@ int loopWrite(int FPS, int screenWidth, int screenHeight, bool fullScreen){
 
 
 		}
-    frameCount++;
-    iH.updateCurrentFrame(frameCount);
+
+		frameCount++;
+
+		iH.updateCurrentFrame(frameCount);
 	}
+
 	//uniformGrid.printGridInfo();
 	cout << "Frame Drops: " << frameDrops << endl;
 
 	close(objects, renderer, window);
 
-  return 0;
+	return 0;
 }
+

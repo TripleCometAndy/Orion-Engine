@@ -1,7 +1,7 @@
 #include "Orion.h"
 
 
-int main(int argc, char **argv){
+int main(int argc, char **argv) {
 
 
 	clock_t begin = clock();
@@ -19,9 +19,9 @@ int main(int argc, char **argv){
 	int screenHeight = 768;
 
 
-	if (checkOptions(&FPS, &fullScreen, &debugMode, &keylogger, &debugSingleStep, &debugDecouple, &singleThread)){
+	if (checkOptions(&FPS, &fullScreen, &debugMode, &keylogger, &debugSingleStep, &debugDecouple, &singleThread)) {
 
-		if (fullScreen){
+		if (fullScreen) {
 
 			//Windows//
 
@@ -36,46 +36,46 @@ int main(int argc, char **argv){
 			screenHeight = 1280;
 
 		}
-		else{
+		else {
 
 
 
 		}
 
 	}
-	else{
+	else {
 
 		FPS = 60;
 
 	}
 
-	if(debugMode == false && keylogger == false && debugSingleStep == false && debugDecouple == false){
+	if (debugMode == false && keylogger == false && debugSingleStep == false && debugDecouple == false) {
 
 		loop(FPS, screenWidth, screenHeight, fullScreen);
 
 	}
-	else if(debugMode == false && keylogger == true){
+	else if (debugMode == false && keylogger == true) {
 
 		loopWrite(FPS, screenWidth, screenHeight, fullScreen);
 
 	}
-	else if(debugMode == true && keylogger == false && singleThread == false){
+	else if (debugMode == true && keylogger == false && singleThread == false) {
 
 
 		loopDebug(FPS, screenWidth, screenHeight, fullScreen);
 
 	}
-	else if(debugSingleStep == true && keylogger == false){
+	else if (debugSingleStep == true && keylogger == false) {
 
 		loopDebugSingleStep(FPS, screenWidth, screenHeight, fullScreen);
 
 	}
-	else if(debugDecouple == true && keylogger == false){
+	else if (debugDecouple == true && keylogger == false) {
 
 		loopDebug_SDLDecoupled(FPS, screenWidth, screenHeight, fullScreen);
 
 	}
-	else if(debugMode == true && keylogger == false && singleThread == true){
+	else if (debugMode == true && keylogger == false && singleThread == true) {
 
 		loopDebugSingleThreaded(FPS, screenWidth, screenHeight, fullScreen);
 
@@ -83,8 +83,10 @@ int main(int argc, char **argv){
 	}
 
 	clock_t end = clock();
+
 	double elapsed_secs = double(end - begin)/CLOCKS_PER_SEC;
 	cout << "Elapsed Secs: " << elapsed_secs << endl;
 
 	return 0;
 }
+

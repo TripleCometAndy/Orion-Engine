@@ -1,7 +1,7 @@
 #include "Orion.h"
 
 
-background::background(int xCoor, int yCoor, int gWidth, int gHeight, string n, string file, string t, SDL_Renderer * renderer, uGrid * uniformGrid){
+background::background(int xCoor, int yCoor, int gWidth, int gHeight, string n, string file, string t, SDL_Renderer * renderer, uGrid * uniformGrid) {
 
 
 
@@ -101,22 +101,14 @@ background::background(int xCoor, int yCoor, int gWidth, int gHeight, string n, 
 	uniformGrid->addReferenceNoIgnore(c);
 	c = hitboxes[4];
 	uniformGrid->addReferenceNoIgnore(c);
-//uniformGrid->update(hitboxes);
+	//uniformGrid->update(hitboxes);
 
 
 
 }
 
-void background::handleInput(SDL_Event& e, SDL_Joystick* gGameController){
+void background::handleInput(SDL_Event& e, SDL_Joystick* gGameController) {
 
-
-
-
-
-}
-
-
-void background::handleInputDebug(char c){
 
 
 
@@ -124,26 +116,35 @@ void background::handleInputDebug(char c){
 }
 
 
+void background::handleInputDebug(char c) {
 
-void background::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformGrid, thread_pool * pool){
+
+
+
+}
+
+
+
+void background::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformGrid, thread_pool * pool) {
 
 
 
 
 }
 
-void background::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uGrid * uniformGrid){
+void background::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uGrid * uniformGrid) {
 
 }
 
-void background::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * renderer, uGrid * uniformGrid){
+void background::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * renderer, uGrid * uniformGrid) {
 
 	//uniformGrid->update(hitboxes);
 
 }
 
-void background::printDebugInformation(){
+void background::printDebugInformation() {
 
 
 
 }
+
