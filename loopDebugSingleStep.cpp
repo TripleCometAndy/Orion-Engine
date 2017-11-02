@@ -1,152 +1,156 @@
 #include "Orion.h"
 
-int loopDebugSingleStep(int FPS, int screenWidth, int screenHeight, bool fullScreen){
+int loopDebugSingleStep(int FPS, int screenWidth, int screenHeight, bool fullScreen) {
 
-  bool hasController = false;
+	bool hasController = false;
 
 	int frameDrops = 0;
 	double timeFactor = 0;
-  int frameCount = 0;
+	int frameCount = 0;
 
 	SDL_Joystick* gGameController = NULL;
 
 	Mix_Music * music = NULL;
 
-  cout << "Pingas" << endl;
+	cout << "Pingas" << endl;
 
 	inputHandler iH("Inputs.txt", false);
 
-  iH.readActionFrame();
+	iH.readActionFrame();
 
 
-  //this is used when regulating upper bound for frame rate.
-  int TICKS_PER_FRAME = 1000 / FPS;
+	//this is used when regulating upper bound for frame rate.
+	int TICKS_PER_FRAME = 1000 / FPS;
 
 
-  //The frame rate regulator
-  Timer fps;
+	//The frame rate regulator
+	Timer fps;
 
-  timeFactor = 1/(double)FPS;
-  double xRenderCoordFactor = (double)screenWidth/(double)xScale;
-  double yRenderCoordFactor = (double)screenHeight/(double)yScale;
+	timeFactor = 1/(double)FPS;
+	double xRenderCoordFactor = (double)screenWidth/(double)xScale;
+	double yRenderCoordFactor = (double)screenHeight/(double)yScale;
 
-  //Initialize main window and renderer
-  SDL_Renderer * renderer = NULL;
-  SDL_Window * window = NULL;
-
-
-  //vector of pointers all game objects loaded//
-  vector<gameObject *> objects;
+	//Initialize main window and renderer
+	SDL_Renderer * renderer = NULL;
+	SDL_Window * window = NULL;
 
 
-  uGrid uniformGrid(screenWidth + 200, screenHeight + 200);
+	//vector of pointers all game objects loaded//
+	vector<gameObject *> objects;
 
 
-  //Initialize SDL systems//
-  if (init(screenWidth, screenHeight, &window, &renderer, fullScreen, &gGameController, &hasController) == false)
-  {
-    return 1;
-  }
+	uGrid uniformGrid(screenWidth + 200, screenHeight + 200);
 
-  background b(100, 100, screenWidth, screenHeight, "background_01", "images/background_test.png", "background", renderer, &uniformGrid);
+
+	//Initialize SDL systems//
+
+	if (init(screenWidth, screenHeight, &window, &renderer, fullScreen, &gGameController, &hasController) == false) {
+		return 1;
+	}
+
+	background b(100, 100, screenWidth, screenHeight, "background_01", "images/background_test.png", "background", renderer, &uniformGrid);
+
 	//wall leftWall(100, 100, 233, 576, "wall_01", "images/wall.png", "wall", renderer, &uniformGrid);
 	//wall rightWall(891, 100, 233, 576, "wall_02", "images/wall.png", "wall", renderer, &uniformGrid);
 	player p(600, 500, 222, 344, "ship_01", "images/spriteSheetPlayer.png", "ship", renderer, &uniformGrid, timeFactor);
 
 
-  //Camera camera(0, 0, 1024, 768);
+	//Camera camera(0, 0, 1024, 768);
 
-  objects.push_back(&b);
+	objects.push_back(&b);
 
-  objects.push_back(&p);
+	objects.push_back(&p);
 
-  if(loadAllFiles(objects, renderer)){
+	if (loadAllFiles(objects, renderer)) {
 
-    //no problems in loading files//
-
-
-  }
-  else{
-
-    //there was a problem in loading files//
-    return 1;
+		//no problems in loading files//
 
 
-  }
+	}
+	else {
 
-  //pause flag//
-  bool paused = false;
-
-  //Quit flag//
-  bool quit = false;
+		//there was a problem in loading files//
+		return 1;
 
 
-  while (quit == false){
+	}
 
-    bool iterateFrame = false;
+	//pause flag//
+	bool paused = false;
 
-    fps.start();
-
-    if(iH.isActionFrame()){
-
-      handleEventsRead_SingleStepActionFrame(&quit, &paused, objects, &iH, frameCount, &iterateFrame);
-    }
-    else{
-
-      handleEventsRead_SingleStep(&iterateFrame, &quit);
-
-    }
+	//Quit flag//
+	bool quit = false;
 
 
-    if (!paused){
+	while (quit == false) {
 
-      if(iterateFrame){
+		bool iterateFrame = false;
 
-        handleAllStateChangesSingleThreaded(objects, &uniformGrid);
+		fps.start();
 
+		if (iH.isActionFrame()) {
 
-        enactAllStateChanges(objects, renderer, &uniformGrid);
-      }
+			handleEventsRead_SingleStepActionFrame(&quit, &paused, objects, &iH, frameCount, &iterateFrame);
+		}
+		else {
 
+			handleEventsRead_SingleStep(&iterateFrame, &quit);
 
-      cleanLoop(objects);
-
-      if (Mix_PlayingMusic() == 0)
-      {
-        //Play the music
-        Mix_PlayMusic(music, -1);
-      }
-
-      renderAll(objects, renderer, xRenderCoordFactor, yRenderCoordFactor);
-
-      //If frame finished early
-      int frameTicks = fps.get_ticks();
-      if (frameTicks < TICKS_PER_FRAME)
-      {
-        //Wait remaining time
-        SDL_Delay(TICKS_PER_FRAME - frameTicks);
-      }
-      if(frameTicks > TICKS_PER_FRAME){
-
-        frameDrops++;
-        SDL_Delay(frameTicks - TICKS_PER_FRAME);
-
-      }
+		}
 
 
-    }
-    if(iterateFrame){
+		if (!paused) {
 
-      frameCount++;
-      cout << frameCount << endl;
-    }
+			if (iterateFrame) {
 
-    iH.updateCurrentFrame(frameCount);
-  }
-  //uniformGrid.printGridInfo();
-  cout << "Frame Drops: " << frameDrops << endl;
+				handleAllStateChangesSingleThreaded(objects, &uniformGrid);
 
-  close(objects, renderer, window);
 
-  return 0;
+				enactAllStateChanges(objects, renderer, &uniformGrid);
+			}
+
+
+			cleanLoop(objects);
+
+			if (Mix_PlayingMusic() == 0) {
+				//Play the music
+				Mix_PlayMusic(music, -1);
+			}
+
+			renderAll(objects, renderer, xRenderCoordFactor, yRenderCoordFactor);
+
+			//If frame finished early
+			int frameTicks = fps.get_ticks();
+
+			if (frameTicks < TICKS_PER_FRAME) {
+				//Wait remaining time
+				SDL_Delay(TICKS_PER_FRAME - frameTicks);
+			}
+
+			if (frameTicks > TICKS_PER_FRAME) {
+
+				frameDrops++;
+				SDL_Delay(frameTicks - TICKS_PER_FRAME);
+
+			}
+
+
+		}
+
+		if (iterateFrame) {
+
+			frameCount++;
+			cout << frameCount << endl;
+		}
+
+		iH.updateCurrentFrame(frameCount);
+	}
+
+	//uniformGrid.printGridInfo();
+	cout << "Frame Drops: " << frameDrops << endl;
+
+	close(objects, renderer, window);
+
+	return 0;
 }
+

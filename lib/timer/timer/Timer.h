@@ -8,8 +8,8 @@
 
 
 
-class Timer
-{
+class Timer {
+
 private:
 	//The clock time when the timer started
 	int startTicks;
@@ -21,6 +21,7 @@ private:
 	bool paused;
 	bool started;
 //
+
 public:
 	//Initializes variables
 	Timer();
@@ -38,3 +39,4 @@ public:
 	bool is_started();
 	bool is_paused();
 };
+

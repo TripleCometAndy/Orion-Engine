@@ -36,7 +36,7 @@
 
 using namespace std;
 
-class gameObject{
+class gameObject {
 
 protected:
 
@@ -122,17 +122,19 @@ public:
 	void move(int, int);
 	void addHitbox(hitbox h);
 	void extractClipsFromXML(string xmlFileName);
-	void setAngleLeft(float angle){
+	void setAngleLeft(float angle) {
 
 		angleLeft = angle;
 
 	}
 
-	void setAngleRight(float angle){
+	void setAngleRight(float angle) {
 
 		angleRight = angle;
 
 	}
+
 //
 
 };
+

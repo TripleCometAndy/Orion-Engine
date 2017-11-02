@@ -1,6 +1,6 @@
 #include "Orion.h"
 
-player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string file, string t, SDL_Renderer * renderer, uGrid * uniformGrid, double TIME){
+player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string file, string t, SDL_Renderer * renderer, uGrid * uniformGrid, double TIME) {
 
 	x = xCoor;
 	y = yCoor;
@@ -10,13 +10,13 @@ player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string f
 	rJoystick = false;
 	lBumper = false;
 
-  stateTimer = 0;
-  attackTimer = 0;
+	stateTimer = 0;
+	attackTimer = 0;
 
 	deltaX = 0;
 	deltaY = 0;
 
-  futureX = x;
+	futureX = x;
 	futureY = y;
 	currentClip = 0;
 
@@ -30,7 +30,7 @@ player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string f
 
 	xPress = false;
 
-  image = NULL;
+	image = NULL;
 	shieldSheet = NULL;
 	swordSheet = NULL;
 
@@ -119,8 +119,7 @@ player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string f
 
 	attackInfoFlipper = false;
 
-	if (shieldSheet != NULL)
-	{
+	if (shieldSheet != NULL) {
 
 
 		SDL_DestroyTexture(shieldSheet);
@@ -135,22 +134,19 @@ player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string f
 
 	SDL_Surface* loadedSurface = IMG_Load("images/spriteSheetShieldSmaller.png");
 
-	if (loadedSurface == NULL)
-	{
+	if (loadedSurface == NULL) {
 		printf("Unable to load image %s! SDL_image Error: %s\n", "images/spriteSheetShield.png", IMG_GetError());
 
 	}
-	else
-	{
+	else {
 		//Create texture from surface pixels
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (newTexture == NULL)
-		{
+
+		if (newTexture == NULL) {
 			printf("Unable to create texture from %s! SDL Error: %s\n", "images/spriteSheetShield.png", SDL_GetError());
 			exit(1);
 		}
-		else
-		{
+		else {
 			/*
 			//Get image dimensions
 			width = loadedSurface->w;
@@ -165,7 +161,7 @@ player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string f
 
 	shieldSheet = newTexture;
 
-	if(swordSheet != NULL){
+	if (swordSheet != NULL) {
 
 		SDL_DestroyTexture(swordSheet);
 		swordSheet = NULL;
@@ -174,25 +170,24 @@ player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string f
 
 
 	}
+
 	newTexture = NULL;
+
 	loadedSurface = IMG_Load("images/spriteSheetPlayer.png");
 
-	if (loadedSurface == NULL)
-	{
+	if (loadedSurface == NULL) {
 		printf("Unable to load image %s! SDL_image Error: %s\n", "images/spriteSheetPlayer.png", IMG_GetError());
 
 	}
-	else
-	{
+	else {
 		//Create texture from surface pixels
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (newTexture == NULL)
-		{
+
+		if (newTexture == NULL) {
 			printf("Unable to create texture from %s! SDL Error: %s\n", "images/spriteSheetPlayer.png", SDL_GetError());
 			exit(1);
 		}
-		else
-		{
+		else {
 			/*
 			//Get image dimensions
 			width = loadedSurface->w;
@@ -211,22 +206,19 @@ player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string f
 	newTexture = NULL;
 	loadedSurface = IMG_Load("images/spriteSheetAttackWithValues.png");
 
-	if (loadedSurface == NULL)
-	{
+	if (loadedSurface == NULL) {
 		printf("Unable to load image %s! SDL_image Error: %s\n", "images/spriteSheetShieldBash3.png", IMG_GetError());
 
 	}
-	else
-	{
+	else {
 		//Create texture from surface pixels
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (newTexture == NULL)
-		{
+
+		if (newTexture == NULL) {
 			printf("Unable to create texture from %s! SDL Error: %s\n", "images/spriteSheetShieldBash3.png", SDL_GetError());
 			exit(1);
 		}
-		else
-		{
+		else {
 			/*
 			//Get image dimensions
 			width = loadedSurface->w;
@@ -244,22 +236,19 @@ player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string f
 	newTexture = NULL;
 	loadedSurface = IMG_Load("images/spriteSheetShieldBash3.png");
 
-	if (loadedSurface == NULL)
-	{
+	if (loadedSurface == NULL) {
 		printf("Unable to load image %s! SDL_image Error: %s\n", "images/spriteSheetAttack.png", IMG_GetError());
 
 	}
-	else
-	{
+	else {
 		//Create texture from surface pixels
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (newTexture == NULL)
-		{
+
+		if (newTexture == NULL) {
 			printf("Unable to create texture from %s! SDL Error: %s\n", "images/spriteSheetAttack.png", SDL_GetError());
 			exit(1);
 		}
-		else
-		{
+		else {
 			/*
 			//Get image dimensions
 			width = loadedSurface->w;
@@ -277,22 +266,19 @@ player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string f
 	newTexture = NULL;
 	loadedSurface = IMG_Load("images/spriteSheetShieldBash1.png");
 
-	if (loadedSurface == NULL)
-	{
+	if (loadedSurface == NULL) {
 		printf("Unable to load image %s! SDL_image Error: %s\n", "images/spriteSheetBash1.png", IMG_GetError());
 
 	}
-	else
-	{
+	else {
 		//Create texture from surface pixels
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (newTexture == NULL)
-		{
+
+		if (newTexture == NULL) {
 			printf("Unable to create texture from %s! SDL Error: %s\n", "images/spriteSheetBash1.png", SDL_GetError());
 			exit(1);
 		}
-		else
-		{
+		else {
 			/*
 			//Get image dimensions
 			width = loadedSurface->w;
@@ -310,22 +296,19 @@ player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string f
 	newTexture = NULL;
 	loadedSurface = IMG_Load("images/spriteSheetShieldBash2.png");
 
-	if (loadedSurface == NULL)
-	{
+	if (loadedSurface == NULL) {
 		printf("Unable to load image %s! SDL_image Error: %s\n", "images/spriteSheetShieldBash2.png", IMG_GetError());
 
 	}
-	else
-	{
+	else {
 		//Create texture from surface pixels
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (newTexture == NULL)
-		{
+
+		if (newTexture == NULL) {
 			printf("Unable to create texture from %s! SDL Error: %s\n", "images/spriteSheetShieldBash2.png", SDL_GetError());
 			exit(1);
 		}
-		else
-		{
+		else {
 			/*
 			//Get image dimensions
 			width = loadedSurface->w;
@@ -343,22 +326,19 @@ player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string f
 	newTexture = NULL;
 	loadedSurface = IMG_Load("images/spriteSheetShieldDown.png");
 
-	if (loadedSurface == NULL)
-	{
+	if (loadedSurface == NULL) {
 		printf("Unable to load image %s! SDL_image Error: %s\n", "images/spriteSheetShieldDown.png", IMG_GetError());
 
 	}
-	else
-	{
+	else {
 		//Create texture from surface pixels
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (newTexture == NULL)
-		{
+
+		if (newTexture == NULL) {
 			printf("Unable to create texture from %s! SDL Error: %s\n", "images/spriteSheetShieldDown.png", SDL_GetError());
 			exit(1);
 		}
-		else
-		{
+		else {
 			/*
 			//Get image dimensions
 			width = loadedSurface->w;
@@ -374,21 +354,21 @@ player::player(int xCoor, int yCoor, int gWidth, int gHeight, string n, string f
 	airShieldSheet = newTexture;
 
 
-extractClipsFromXML("images/neutral.xml", 0);
+	extractClipsFromXML("images/neutral.xml", 0);
 
 ///////////////////////////////
 
 
 
-extractClipsFromXML("images/shield.xml", 56);
+	extractClipsFromXML("images/shield.xml", 56);
 
 ///////////////////////////////////////////
 
-extractClipsFromXML("images/attack.xml", 98);
+	extractClipsFromXML("images/attack.xml", 98);
 
 //////////////////////////////////
 
-extractClipsFromXML("images/shieldDown.xml", 224);
+	extractClipsFromXML("images/shieldDown.xml", 224);
 
 	//cout << framesVec.size() << endl;
 	clip = &frames[currentClip];
@@ -400,29 +380,32 @@ extractClipsFromXML("images/shieldDown.xml", 224);
 
 }
 
-void player::handleInput(SDL_Event &e, SDL_Joystick* gGameController){
+void player::handleInput(SDL_Event &e, SDL_Joystick* gGameController) {
 
-	if(e.type == SDL_JOYBUTTONDOWN){
+	if (e.type == SDL_JOYBUTTONDOWN) {
 
 
 
-		if(e.jbutton.button == 5){
+		if (e.jbutton.button == 5) {
 
 			addInput("RIGHT_BUMPER_PRESS");
 
 		}
-		if(e.jbutton.button == 0){
+
+		if (e.jbutton.button == 0) {
 
 			addInput("A_BUTTON_PRESS");
 
 		}
-		if(e.jbutton.button == 4){
+
+		if (e.jbutton.button == 4) {
 
 
 			addInput("LEFT_BUMPER_PRESS");
 
 		}
-		if(e.jbutton.button == 10){
+
+		if (e.jbutton.button == 10) {
 
 
 			addInput("RIGHT_STICK_CLICK");
@@ -430,9 +413,10 @@ void player::handleInput(SDL_Event &e, SDL_Joystick* gGameController){
 
 		}
 	}
-	if(e.type == SDL_JOYBUTTONUP){
 
-		if(e.jbutton.button == 4){
+	if (e.type == SDL_JOYBUTTONUP) {
+
+		if (e.jbutton.button == 4) {
 
 			addInput("LEFT_BUMPER_RELEASE");
 
@@ -440,7 +424,8 @@ void player::handleInput(SDL_Event &e, SDL_Joystick* gGameController){
 
 
 	}
-	if(e.type == SDL_JOYAXISMOTION){
+
+	if (e.type == SDL_JOYAXISMOTION) {
 
 		int xDirLeft = 3;
 		int yDirLeft = 3;
@@ -455,6 +440,7 @@ void player::handleInput(SDL_Event &e, SDL_Joystick* gGameController){
 
 
 		xDirLeft = SDL_JoystickGetAxis(gGameController, 0);
+
 		yDirLeft = SDL_JoystickGetAxis(gGameController, 1);
 
 		int leftTrigger = SDL_JoystickGetAxis(gGameController, 2);
@@ -469,53 +455,56 @@ void player::handleInput(SDL_Event &e, SDL_Joystick* gGameController){
 		getJoystickInfo(&radiusRight, &angleRight, xDirRight, yDirRight);
 
 
-		if(radiusLeft > 5000 && ((angleLeft >= 0 && angleLeft <= 90) || (angleLeft >= 270 && angleLeft <= 360))){
+		if (radiusLeft > 5000 && ((angleLeft >= 0 && angleLeft <= 90) || (angleLeft >= 270 && angleLeft <= 360))) {
 
 			addInput("JOYSTICK_LEFT");
 
 		}
-		else if(radiusLeft > 5000){
+		else if (radiusLeft > 5000) {
 
 			addInput("JOYSTICK_RIGHT");
 
 		}
-		else if(radiusLeft < 5000){
+		else if (radiusLeft < 5000) {
 
 			addInput("JOYSTICK_RELEASE");
 
 
 		}
 
-		if(radiusRight > 5000){
+		if (radiusRight > 5000) {
 
 			addInput("JOYSTICK2_HELD");
 
 		}
-		else if(radiusRight < 5000){
+		else if (radiusRight < 5000) {
 
 			addInput("JOYSTICK2_RELEASE");
 
 
 		}
 
-		if(leftTrigger >= 32667){
+		if (leftTrigger >= 32667) {
 
 			addInput("LEFT_TRIGGER_PRESS");
 
 
 		}
-		if(rightTrigger >= 32667){
+
+		if (rightTrigger >= 32667) {
 
 			addInput("RIGHT_TRIGGER_PRESS");
 
 		}
-		if(leftTrigger <= 5000){
+
+		if (leftTrigger <= 5000) {
 
 			addInput("LEFT_TRIGGER_RELEASE");
 
 
 		}
-		if(rightTrigger <= 5000){
+
+		if (rightTrigger <= 5000) {
 
 			addInput("RIGHT_TRIGGER_RELEASE");
 
@@ -527,80 +516,93 @@ void player::handleInput(SDL_Event &e, SDL_Joystick* gGameController){
 
 }
 
-void player::handleInputDebug(char c){
+void player::handleInputDebug(char c) {
 
 
 
-	if(c == 'B'){
+	if (c == 'B') {
 
 		addInput("RIGHT_BUMPER_PRESS");
 
 	}
-	if(c == 'A'){
+
+	if (c == 'A') {
 
 
 		addInput("A_BUTTON_PRESS");
 
 	}
-	if(c == 'O'){
+
+	if (c == 'O') {
 
 		addInput("LEFT_BUMPER_PRESS");
 
 	}
-	if(c == 'S'){
+
+	if (c == 'S') {
 
 		addInput("RIGHT_STICK_CLICK");
 
 	}
-	if(c == 'o'){
+
+	if (c == 'o') {
 
 		addInput("LEFT_BUMPER_RELEASE");
 	}
-	if(c == 'C'){
+
+	if (c == 'C') {
 
 		addInput("JOYSTICK_LEFT");
 
 	}
-	if(c == 'F'){
+
+	if (c == 'F') {
 
 		addInput("JOYSTICK_RIGHT");
 
 	}
-	if(c == 'G'){
+
+	if (c == 'G') {
 
 		addInput("JOYSTICK_RELEASE");
 
 	}
-	if(c == 'H'){
+
+	if (c == 'H') {
 
 		addInput("JOYSTICK2_HELD");
 
 	}
-	if(c == 'h'){
+
+	if (c == 'h') {
 
 		addInput("JOYSTICK2_RELEASE");
 	}
-	if(c == 'I'){
+
+	if (c == 'I') {
 
 		addInput("LEFT_TRIGGER_PRESS");
 
 	}
-	if(c == 'J'){
+
+	if (c == 'J') {
 
 		addInput("RIGHT_TRIGGER_PRESS");
 	}
-	if(c == 'i'){
+
+	if (c == 'i') {
 
 		addInput("LEFT_TRIGGER_RELEASE");
 	}
-	if(c == 'j'){
+
+	if (c == 'j') {
 
 		addInput("RIGHT_TRIGGER_RELEASE");
 	}
 
 }
 
-void player::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformGrid, thread_pool * pool){
+void player::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformGrid, thread_pool * pool) {
 
 	xMove = 0;
 
@@ -608,7 +610,7 @@ void player::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformG
 
 
 
-	if(attackOne == -1 && attackTwo == -1 && attackThree == -1 && (rightTriggerHandler == 1) && jumping == false){
+	if (attackOne == -1 && attackTwo == -1 && attackThree == -1 && (rightTriggerHandler == 1) && jumping == false) {
 
 		futureWalking = false;
 		futureShielding = false;
@@ -618,7 +620,7 @@ void player::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformG
 		futureShielding = false;
 
 	}
-	else if(attackOne >= 20 && attackOne < 50 && attackTwo == -1 && attackThree == -1 && (rightTriggerHandler == 3) && jumping == false){
+	else if (attackOne >= 20 && attackOne < 50 && attackTwo == -1 && attackThree == -1 && (rightTriggerHandler == 3) && jumping == false) {
 
 		futureWalking = false;
 		futureShielding = false;
@@ -628,7 +630,7 @@ void player::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformG
 		futureShielding = false;
 
 	}
-	else if(attackTwo >= 0 && attackTwo < 20 && attackThree == -1 && (rightTriggerHandler == 5) && jumping == false){
+	else if (attackTwo >= 0 && attackTwo < 20 && attackThree == -1 && (rightTriggerHandler == 5) && jumping == false) {
 
 		futureWalking = false;
 		futureShielding = false;
@@ -638,7 +640,7 @@ void player::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformG
 		futureShielding = false;
 
 	}
-	else if(jumping && rightTriggerHandler == 1){
+	else if (jumping && rightTriggerHandler == 1) {
 
 		getAttackTwoInfo();
 		futureAirAttack = true;
@@ -647,58 +649,66 @@ void player::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformG
 
 	}
 
-	if(rJoystick && lBumper){
+	if (rJoystick && lBumper) {
 
 		futureShielding = true;
 
 	}
-	else{
+	else {
 
 		futureShielding = false;
 
 	}
 
-	if(jumping){
+	if (jumping) {
 
 		handleJump();
 
 	}
-	if(shielding){
 
-		if(jumping && futureJumping){
+	if (shielding) {
+
+		if (jumping && futureJumping) {
 
 			handleShieldAir();
 
 		}
-		else if(futureBashing || shieldBashing){
+		else if (futureBashing || shieldBashing) {
 
-				handleShield();
+			handleShield();
 
-				switch(bashTimer){
-					case 0:
+			switch (bashTimer) {
+
+				case 0:
 					bashNum = 1;
 					break;
-					case 4:
+
+				case 4:
 					bashNum = 2;
 					break;
-					case 5:
+
+				case 5:
 					bashNum = 3;
 					break;
-					case 10:
+
+				case 10:
 					bashNum = 2;
 					break;
-					case 11:
+
+				case 11:
 					bashNum = 1;
 					break;
-					case 15:
+
+				case 15:
 					bashNum = 0;
 					futureBashing = false;
 					break;
-				}
-				bashTimer++;
+			}
+
+			bashTimer++;
 
 		}
-		else{
+		else {
 
 			handleShield();
 
@@ -708,33 +718,34 @@ void player::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformG
 
 
 	}
-	if(direction == true){
-		if(walking){
-			if(shielding){
+
+	if (direction == true) {
+		if (walking) {
+			if (shielding) {
 				xMove = -8*(1/timeFactor)/(METERS_TO_PIXELS);
 			}
-			else{
+			else {
 
 				xMove = -13*(1/timeFactor)/(METERS_TO_PIXELS);
 
 			}
 		}
-		else if(attackOne != -1){
+		else if (attackOne != -1) {
 
 			groundAttackOneLeft();
 
 		}
-		else if(attackTwo != -1){
+		else if (attackTwo != -1) {
 
 			groundAttackTwoLeft();
 
 		}
-		else if(attackThree != -1){
+		else if (attackThree != -1) {
 
 			groundAttackThreeLeft();
 
 		}
-		else if(airAttackTimer != -1){
+		else if (airAttackTimer != -1) {
 
 			airAttackLeft();
 
@@ -742,41 +753,42 @@ void player::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformG
 		}
 
 	}
-	else{
+	else {
 
-		if(walking){
+		if (walking) {
 
-			if(shielding){
+			if (shielding) {
 				xMove = 8*(1/timeFactor)/(METERS_TO_PIXELS);
 			}
-			else{
+			else {
 
 				xMove = 13*(1/timeFactor)/(METERS_TO_PIXELS);
 
 			}
 
 		}
-		else if(attackOne != -1){
+		else if (attackOne != -1) {
 
 			groundAttackOneRight();
 
 		}
-		else if(attackTwo != -1){
+		else if (attackTwo != -1) {
 
 			groundAttackTwoRight();
 
 		}
-		else if(attackThree != -1){
+		else if (attackThree != -1) {
 
 			groundAttackThreeRight();
 		}
-		else if(airAttackTimer != -1){
+		else if (airAttackTimer != -1) {
 
 			airAttackRight();
 		}
 	}
 
 	int xMoveInt = 0;
+
 	xMove = xMove * timeFactor;
 	xMove = xMove * METERS_TO_PIXELS;
 	xMove = xMove * attackPercent;
@@ -796,7 +808,7 @@ void player::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformG
 	future.parentName = name;
 
 
-	if (uniformGrid->findName(future, LEFT_WALL, pool) || uniformGrid->findName(future, RIGHT_WALL, pool)){
+	if (uniformGrid->findName(future, LEFT_WALL, pool) || uniformGrid->findName(future, RIGHT_WALL, pool)) {
 
 		futureX = x;
 
@@ -804,7 +816,7 @@ void player::handleStateChanges(vector<gameObject *> * objects, uGrid * uniformG
 
 }
 
-void player::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uGrid * uniformGrid){
+void player::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uGrid * uniformGrid) {
 
 	xMove = 0;
 
@@ -812,7 +824,7 @@ void player::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uG
 
 
 
-	if(attackOne == -1 && attackTwo == -1 && attackThree == -1 && (rightTriggerHandler == 1) && jumping == false){
+	if (attackOne == -1 && attackTwo == -1 && attackThree == -1 && (rightTriggerHandler == 1) && jumping == false) {
 
 		futureWalking = false;
 		futureShielding = false;
@@ -822,7 +834,7 @@ void player::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uG
 		futureShielding = false;
 
 	}
-	else if(attackOne >= 20 && attackOne < 50 && attackTwo == -1 && attackThree == -1 && (rightTriggerHandler == 3) && jumping == false){
+	else if (attackOne >= 20 && attackOne < 50 && attackTwo == -1 && attackThree == -1 && (rightTriggerHandler == 3) && jumping == false) {
 
 		futureWalking = false;
 		futureShielding = false;
@@ -832,7 +844,7 @@ void player::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uG
 		futureShielding = false;
 
 	}
-	else if(attackTwo >= 0 && attackTwo < 20 && attackThree == -1 && (rightTriggerHandler == 5) && jumping == false){
+	else if (attackTwo >= 0 && attackTwo < 20 && attackThree == -1 && (rightTriggerHandler == 5) && jumping == false) {
 
 		futureWalking = false;
 		futureShielding = false;
@@ -842,7 +854,7 @@ void player::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uG
 		futureShielding = false;
 
 	}
-	else if(jumping && rightTriggerHandler == 1){
+	else if (jumping && rightTriggerHandler == 1) {
 
 		getAttackTwoInfo();
 		futureAirAttack = true;
@@ -851,95 +863,103 @@ void player::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uG
 
 	}
 
-	if(rJoystick && lBumper){
+	if (rJoystick && lBumper) {
 
 		futureShielding = true;
 
 	}
-	else{
+	else {
 
 		futureShielding = false;
 
 	}
 
-	if(jumping){
+	if (jumping) {
 
 		handleJump();
 
 	}
-	if(shielding){
 
-		if(jumping && futureJumping){
+	if (shielding) {
+
+		if (jumping && futureJumping) {
 
 			handleShieldAir();
 
 		}
-		else if(futureBashing || shieldBashing){
+		else if (futureBashing || shieldBashing) {
 
-				handleShield();
+			handleShield();
 
-				switch(bashTimer){
-					case 0:
+			switch (bashTimer) {
+
+				case 0:
 					bashNum = 1;
 					break;
-					case 4:
+
+				case 4:
 					bashNum = 2;
 					break;
-					case 5:
+
+				case 5:
 					bashNum = 3;
 					break;
-					case 10:
+
+				case 10:
 					bashNum = 2;
 					break;
-					case 11:
+
+				case 11:
 					bashNum = 1;
 					break;
-					case 15:
+
+				case 15:
 					bashNum = 0;
 					futureBashing = false;
 					break;
-				}
-				bashTimer++;
+			}
+
+			bashTimer++;
 
 		}
-		else{
+		else {
 
 			handleShield();
-			
+
 		}
 
 
 
 
 	}
-	
-	if(direction == true){
-		if(walking){
-			if(shielding){
+
+	if (direction == true) {
+		if (walking) {
+			if (shielding) {
 				xMove = -8*(1/timeFactor)/(METERS_TO_PIXELS);
 			}
-			else{
+			else {
 
 				xMove = -13*(1/timeFactor)/(METERS_TO_PIXELS);
 
 			}
 		}
-		else if(attackOne != -1){
+		else if (attackOne != -1) {
 
 			groundAttackOneLeft();
 
 		}
-		else if(attackTwo != -1){
+		else if (attackTwo != -1) {
 
 			groundAttackTwoLeft();
 
 		}
-		else if(attackThree != -1){
+		else if (attackThree != -1) {
 
 			groundAttackThreeLeft();
 
 		}
-		else if(airAttackTimer != -1){
+		else if (airAttackTimer != -1) {
 
 			airAttackLeft();
 
@@ -947,41 +967,42 @@ void player::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uG
 		}
 
 	}
-	else{
+	else {
 
-		if(walking){
+		if (walking) {
 
-			if(shielding){
+			if (shielding) {
 				xMove = 8*(1/timeFactor)/(METERS_TO_PIXELS);
 			}
-			else{
+			else {
 
 				xMove = 13*(1/timeFactor)/(METERS_TO_PIXELS);
 
 			}
 
 		}
-		else if(attackOne != -1){
+		else if (attackOne != -1) {
 
 			groundAttackOneRight();
 
 		}
-		else if(attackTwo != -1){
+		else if (attackTwo != -1) {
 
 			groundAttackTwoRight();
 
 		}
-		else if(attackThree != -1){
+		else if (attackThree != -1) {
 
 			groundAttackThreeRight();
 		}
-		else if(airAttackTimer != -1){
+		else if (airAttackTimer != -1) {
 
 			airAttackRight();
 		}
 	}
-	
+
 	int xMoveInt = 0;
+
 	xMove = xMove * timeFactor;
 	xMove = xMove * METERS_TO_PIXELS;
 	xMove = xMove * attackPercent;
@@ -1000,16 +1021,16 @@ void player::handleStateChangesSingleThreaded(vector<gameObject *> * objects, uG
 	future.name = "future";
 	future.parentName = name;
 
-	
-	if (uniformGrid->findNameSingleThread(future, LEFT_WALL) || uniformGrid->findNameSingleThread(future, RIGHT_WALL)){
+
+	if (uniformGrid->findNameSingleThread(future, LEFT_WALL) || uniformGrid->findNameSingleThread(future, RIGHT_WALL)) {
 
 		futureX = x;
 
 	}
-	
+
 }
 
-void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * renderer, uGrid * uniformGrid){
+void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * renderer, uGrid * uniformGrid) {
 
 	attackOne = futureAttackOne;
 	attackTwo = futureAttackTwo;
@@ -1018,7 +1039,7 @@ void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * re
 	walking = futureWalking;
 	futureWalking = walking;
 
-	if(shielding && !futureShielding){
+	if (shielding && !futureShielding) {
 
 		image = swordSheet;
 		currentClip = 0;
@@ -1027,6 +1048,7 @@ void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * re
 	}
 
 	airAttackTimer = futureAirAttackTimer;
+
 	futureAirAttackTimer = airAttackTimer;
 
 	airAttack = futureAirAttack;
@@ -1051,31 +1073,34 @@ void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * re
 	striking = futureStriking;
 	futureStriking = striking;
 
-	if(shielding){
+	if (shielding) {
 
 
-		if(shieldBashing){
+		if (shieldBashing) {
 
-			switch(bashNum){
+			switch (bashNum) {
+
 				case 1:
-				image = bashSheet1;
-				break;
+					image = bashSheet1;
+					break;
+
 				case 2:
-				image = bashSheet2;
-				break;
+					image = bashSheet2;
+					break;
+
 				case 3:
-				image = bashSheet3;
-				break;
+					image = bashSheet3;
+					break;
 			}
 
 		}
-		else if(downShielding){
+		else if (downShielding) {
 
 			image = airShieldSheet;
 
 
 		}
-		else{
+		else {
 
 			image = shieldSheet;
 			bashTimer = 0;
@@ -1088,6 +1113,7 @@ void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * re
 
 
 		angleShield = angleRight;
+
 		futureY -= moveShieldPastVertical;
 		futureY += moveShieldFutureVertical;
 		futureX -= moveShieldPastHorizontal;
@@ -1097,49 +1123,49 @@ void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * re
 
 	}
 
-	if(attackOne == -1 && attackTwo == -1 && attackThree == -1 && airAttackTimer == -1){
+	if (attackOne == -1 && attackTwo == -1 && attackThree == -1 && airAttackTimer == -1) {
 
 
 
 	}
-	else{
+	else {
 
 		angleAttack = angleRight;
 
-		if(striking){
-			if(attackID == 1){
+		if (striking) {
+			if (attackID == 1) {
 
-				if(attackInfoFlipper == false){
+				if (attackInfoFlipper == false) {
 
 					getAttackOneInfo();
 					attackInfoFlipper = true;
 				}
-				else{
+				else {
 
 				}
 			}
-			else if(attackID == 2){
+			else if (attackID == 2) {
 
-				if(attackInfoFlipper == true){
+				if (attackInfoFlipper == true) {
 
 					getAttackTwoInfo();
 					attackInfoFlipper = false;
 				}
-				else{
+				else {
 
 
 
 				}
 
 			}
-			else if(attackID == 3){
+			else if (attackID == 3) {
 
-				if(attackInfoFlipper == false){
+				if (attackInfoFlipper == false) {
 
 					getAttackThreeInfo();
 					attackInfoFlipper = true;
 				}
-				else{
+				else {
 
 
 
@@ -1160,7 +1186,7 @@ void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * re
 			moveAttackPastVertical = moveAttackFutureVertical;
 			moveAttackPastHorizontal = moveAttackFutureHorizontal;
 		}
-		else{
+		else {
 
 			image = swordSheet;
 			futureY -= moveAttackPastVertical;
@@ -1169,13 +1195,13 @@ void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * re
 			moveAttackPastHorizontal = 0;
 		}
 
-		if(((angleAttack >= 0 && angleAttack <= 90) || (angleAttack >= 270 && angleAttack <= 360))){
+		if (((angleAttack >= 0 && angleAttack <= 90) || (angleAttack >= 270 && angleAttack <= 360))) {
 
 			direction = false;
 			futureDirection = false;
 
 		}
-		else{
+		else {
 
 			direction = true;
 			futureDirection = true;
@@ -1184,6 +1210,7 @@ void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * re
 
 
 		futureY -= moveShieldPastVertical;
+
 		moveShieldPastVertical = 0;
 		futureX -= moveShieldPastHorizontal;
 		moveShieldPastHorizontal = 0;
@@ -1198,6 +1225,7 @@ void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * re
 
 
 	}
+
 	direction = futureDirection;
 
 	move(futureX - x, futureY - y);
@@ -1206,25 +1234,26 @@ void player::enactStateChanges(vector<gameObject *> * objects, SDL_Renderer * re
 
 
 }
+
 //wormhole//
-void player::getAttackOneInfo(){
+void player::getAttackOneInfo() {
 
 
 
-	if(3 <= angleAttack && angleAttack < 357){
+	if (3 <= angleAttack && angleAttack < 357) {
 
-		if(angleAttack < 237){
+		if (angleAttack < 237) {
 
-			if(angleAttack < 177){
+			if (angleAttack < 177) {
 
-				if(angleAttack < 90){
+				if (angleAttack < 90) {
 
 
-					if(angleAttack < 21){
+					if (angleAttack < 21) {
 
-						if(angleAttack < 15){
+						if (angleAttack < 15) {
 
-							if(angleAttack < 9){
+							if (angleAttack < 9) {
 
 								//3 <= angle < 9
 
@@ -1235,7 +1264,7 @@ void player::getAttackOneInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//9 <= angle < 15
 
@@ -1248,7 +1277,7 @@ void player::getAttackOneInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//15 <= angle < 21
 
@@ -1262,9 +1291,9 @@ void player::getAttackOneInfo(){
 
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 27){
+						if (angleAttack < 27) {
 
 							//21 <= angle < 27
 
@@ -1277,7 +1306,7 @@ void player::getAttackOneInfo(){
 
 
 						}
-						else{
+						else {
 
 							//27 <= angle < 90
 
@@ -1292,14 +1321,14 @@ void player::getAttackOneInfo(){
 
 
 				}
-				else{
+				else {
 
-					if(angleAttack < 165){
+					if (angleAttack < 165) {
 
 
-						if(angleAttack < 159){
+						if (angleAttack < 159) {
 
-							if(angleAttack < 153){
+							if (angleAttack < 153) {
 
 								//90 <= angle 153
 
@@ -1312,7 +1341,7 @@ void player::getAttackOneInfo(){
 								moveAttackFutureHorizontal = 0;
 								//moveAttackFutureHorizontal = -35;
 							}
-							else{
+							else {
 
 								//153 <= angle < 159
 
@@ -1325,7 +1354,7 @@ void player::getAttackOneInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//159 <= angle < 165
 
@@ -1337,9 +1366,9 @@ void player::getAttackOneInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 171){
+						if (angleAttack < 171) {
 
 							//165 <= angle < 171
 
@@ -1349,7 +1378,7 @@ void player::getAttackOneInfo(){
 							moveAttackFutureHorizontal = 0;
 
 						}
-						else{
+						else {
 
 							//171 <= angle < 177
 
@@ -1365,16 +1394,16 @@ void player::getAttackOneInfo(){
 				}
 
 			}
-			else{
+			else {
 
 
-				if(angleAttack < 207){
+				if (angleAttack < 207) {
 
-					if(angleAttack < 195){
+					if (angleAttack < 195) {
 
-						if(angleAttack < 189){
+						if (angleAttack < 189) {
 
-							if(angleAttack < 183){
+							if (angleAttack < 183) {
 
 								//177 <= angle < 183
 
@@ -1385,7 +1414,7 @@ void player::getAttackOneInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//183 <= angle < 189
 
@@ -1398,7 +1427,7 @@ void player::getAttackOneInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//189 <= angle < 195
 
@@ -1411,9 +1440,9 @@ void player::getAttackOneInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 201){
+						if (angleAttack < 201) {
 
 							//195 <= angle < 201
 
@@ -1424,7 +1453,7 @@ void player::getAttackOneInfo(){
 							moveAttackFutureHorizontal = 0;
 
 						}
-						else{
+						else {
 
 							//201 <= angle < 207
 
@@ -1441,13 +1470,13 @@ void player::getAttackOneInfo(){
 					}
 
 				}
-				else{
+				else {
 
-					if(angleAttack < 225){
+					if (angleAttack < 225) {
 
-						if(angleAttack < 219){
+						if (angleAttack < 219) {
 
-							if(angleAttack < 213){
+							if (angleAttack < 213) {
 
 								//207 <= angle < 213
 
@@ -1459,7 +1488,7 @@ void player::getAttackOneInfo(){
 
 
 							}
-							else{
+							else {
 
 								//213 <= angle < 219
 
@@ -1472,7 +1501,7 @@ void player::getAttackOneInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//219 <= angle < 225
 
@@ -1485,9 +1514,9 @@ void player::getAttackOneInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 231){
+						if (angleAttack < 231) {
 
 							//225 <= angle < 231
 
@@ -1498,7 +1527,7 @@ void player::getAttackOneInfo(){
 							moveAttackFutureVertical = -15;
 							moveAttackFutureHorizontal = 0;
 						}
-						else{
+						else {
 
 							//231 <= angle < 237
 
@@ -1522,17 +1551,17 @@ void player::getAttackOneInfo(){
 
 
 		}
-		else{
+		else {
 
-			if(angleAttack < 297){
+			if (angleAttack < 297) {
 
-				if(angleAttack < 267){
+				if (angleAttack < 267) {
 
-					if(angleAttack < 255){
+					if (angleAttack < 255) {
 
-						if(angleAttack < 249){
+						if (angleAttack < 249) {
 
-							if(angleAttack < 243){
+							if (angleAttack < 243) {
 
 								//237 <= angle < 243
 
@@ -1543,7 +1572,7 @@ void player::getAttackOneInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//243 <= angle < 249
 
@@ -1556,7 +1585,7 @@ void player::getAttackOneInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//249 <= angle < 255
 
@@ -1570,9 +1599,9 @@ void player::getAttackOneInfo(){
 
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 261){
+						if (angleAttack < 261) {
 
 							//255 <= angle < 261
 
@@ -1583,7 +1612,7 @@ void player::getAttackOneInfo(){
 							moveAttackFutureHorizontal = 0;
 
 						}
-						else{
+						else {
 
 							//261 <= angle < 267
 
@@ -1599,13 +1628,13 @@ void player::getAttackOneInfo(){
 
 
 				}
-				else{
+				else {
 
-					if(angleAttack < 285){
+					if (angleAttack < 285) {
 
-						if(angleAttack < 279){
+						if (angleAttack < 279) {
 
-							if(angleAttack < 273){
+							if (angleAttack < 273) {
 
 								//267 <= angle < 273
 
@@ -1616,7 +1645,7 @@ void player::getAttackOneInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//273 <= angle < 279
 
@@ -1629,7 +1658,7 @@ void player::getAttackOneInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//279 <= angle < 285
 
@@ -1643,9 +1672,9 @@ void player::getAttackOneInfo(){
 
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 291){
+						if (angleAttack < 291) {
 
 							//285 <= angle < 291
 
@@ -1658,7 +1687,7 @@ void player::getAttackOneInfo(){
 
 
 						}
-						else{
+						else {
 
 							//291 <= angle < 297
 
@@ -1676,15 +1705,15 @@ void player::getAttackOneInfo(){
 
 
 			}
-			else{
+			else {
 
-				if(angleAttack < 327){
+				if (angleAttack < 327) {
 
-					if(angleAttack < 315){
+					if (angleAttack < 315) {
 
-						if(angleAttack < 309){
+						if (angleAttack < 309) {
 
-							if(angleAttack < 303){
+							if (angleAttack < 303) {
 
 
 								//297 <= angle < 303
@@ -1697,7 +1726,7 @@ void player::getAttackOneInfo(){
 
 
 							}
-							else{
+							else {
 
 								//303 <= angle < 309
 
@@ -1710,7 +1739,7 @@ void player::getAttackOneInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//309 <= angle < 315
 
@@ -1722,9 +1751,9 @@ void player::getAttackOneInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 321){
+						if (angleAttack < 321) {
 
 							//315 <= angle < 321
 
@@ -1736,7 +1765,7 @@ void player::getAttackOneInfo(){
 
 
 						}
-						else{
+						else {
 
 							//321 <= angle < 327
 
@@ -1753,13 +1782,13 @@ void player::getAttackOneInfo(){
 					}
 
 				}
-				else{
+				else {
 
-					if(angleAttack < 345){
+					if (angleAttack < 345) {
 
-						if(angleAttack < 339){
+						if (angleAttack < 339) {
 
-							if(angleAttack < 333){
+							if (angleAttack < 333) {
 
 								//327 <= angle < 333
 
@@ -1770,7 +1799,7 @@ void player::getAttackOneInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//333 <= angle < 339
 
@@ -1783,7 +1812,7 @@ void player::getAttackOneInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//339 <= angle < 345
 
@@ -1796,9 +1825,9 @@ void player::getAttackOneInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 351){
+						if (angleAttack < 351) {
 
 							//345 <= angle < 351
 
@@ -1809,7 +1838,7 @@ void player::getAttackOneInfo(){
 							moveAttackFutureHorizontal = 0;
 
 						}
-						else{
+						else {
 
 							//351 <= angle < 357
 
@@ -1832,7 +1861,7 @@ void player::getAttackOneInfo(){
 			}
 		}
 	}
-	else{
+	else {
 
 
 		//(357 <= angle && angle < 360) || (0 <= angle && angle < 3)
@@ -1847,23 +1876,24 @@ void player::getAttackOneInfo(){
 
 
 }
+
 //wormhole
-void player::getAttackTwoInfo(){
+void player::getAttackTwoInfo() {
 
-	if(3 <= angleAttack && angleAttack < 357){
+	if (3 <= angleAttack && angleAttack < 357) {
 
-		if(angleAttack < 237){
+		if (angleAttack < 237) {
 
-			if(angleAttack < 177){
+			if (angleAttack < 177) {
 
-				if(angleAttack < 90){
+				if (angleAttack < 90) {
 
 
-					if(angleAttack < 21){
+					if (angleAttack < 21) {
 
-						if(angleAttack < 15){
+						if (angleAttack < 15) {
 
-							if(angleAttack < 9){
+							if (angleAttack < 9) {
 
 								//3 <= angle < 9
 
@@ -1874,7 +1904,7 @@ void player::getAttackTwoInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//9 <= angle < 15
 
@@ -1887,7 +1917,7 @@ void player::getAttackTwoInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//15 <= angle < 21
 
@@ -1901,9 +1931,9 @@ void player::getAttackTwoInfo(){
 
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 27){
+						if (angleAttack < 27) {
 
 							//21 <= angle < 27
 
@@ -1915,7 +1945,7 @@ void player::getAttackTwoInfo(){
 
 
 						}
-						else{
+						else {
 
 							//27 <= angle < 90
 
@@ -1931,14 +1961,14 @@ void player::getAttackTwoInfo(){
 
 
 				}
-				else{
+				else {
 
-					if(angleAttack < 165){
+					if (angleAttack < 165) {
 
 
-						if(angleAttack < 159){
+						if (angleAttack < 159) {
 
-							if(angleAttack < 153){
+							if (angleAttack < 153) {
 
 								//90 <= angle 153
 
@@ -1948,7 +1978,7 @@ void player::getAttackTwoInfo(){
 								moveAttackFutureVertical = 20;
 								moveAttackFutureHorizontal = 0;
 							}
-							else{
+							else {
 
 								//153 <= angle < 159
 
@@ -1960,7 +1990,7 @@ void player::getAttackTwoInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//159 <= angle < 165
 
@@ -1973,9 +2003,9 @@ void player::getAttackTwoInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 171){
+						if (angleAttack < 171) {
 
 							//165 <= angle < 171
 
@@ -1986,7 +2016,7 @@ void player::getAttackTwoInfo(){
 							moveAttackFutureHorizontal = 0;
 
 						}
-						else{
+						else {
 
 							//171 <= angle < 177
 
@@ -2003,16 +2033,16 @@ void player::getAttackTwoInfo(){
 				}
 
 			}
-			else{
+			else {
 
 
-				if(angleAttack < 207){
+				if (angleAttack < 207) {
 
-					if(angleAttack < 195){
+					if (angleAttack < 195) {
 
-						if(angleAttack < 189){
+						if (angleAttack < 189) {
 
-							if(angleAttack < 183){
+							if (angleAttack < 183) {
 
 								//177 <= angle < 183
 
@@ -2022,7 +2052,7 @@ void player::getAttackTwoInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//183 <= angle < 189
 
@@ -2035,7 +2065,7 @@ void player::getAttackTwoInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//189 <= angle < 195
 
@@ -2048,9 +2078,9 @@ void player::getAttackTwoInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 201){
+						if (angleAttack < 201) {
 
 							//195 <= angle < 201
 
@@ -2061,7 +2091,7 @@ void player::getAttackTwoInfo(){
 							moveAttackFutureHorizontal = 0;
 
 						}
-						else{
+						else {
 
 							//201 <= angle < 207
 
@@ -2078,13 +2108,13 @@ void player::getAttackTwoInfo(){
 					}
 
 				}
-				else{
+				else {
 
-					if(angleAttack < 225){
+					if (angleAttack < 225) {
 
-						if(angleAttack < 219){
+						if (angleAttack < 219) {
 
-							if(angleAttack < 213){
+							if (angleAttack < 213) {
 
 								//207 <= angle < 213
 
@@ -2096,7 +2126,7 @@ void player::getAttackTwoInfo(){
 
 
 							}
-							else{
+							else {
 
 								//213 <= angle < 219
 
@@ -2109,7 +2139,7 @@ void player::getAttackTwoInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//219 <= angle < 225
 
@@ -2122,9 +2152,9 @@ void player::getAttackTwoInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 231){
+						if (angleAttack < 231) {
 
 							//225 <= angle < 231
 
@@ -2135,7 +2165,7 @@ void player::getAttackTwoInfo(){
 							moveAttackFutureVertical = -52;
 							moveAttackFutureHorizontal = 0;
 						}
-						else{
+						else {
 
 							//231 <= angle < 237
 
@@ -2160,17 +2190,17 @@ void player::getAttackTwoInfo(){
 
 
 		}
-		else{
+		else {
 
-			if(angleAttack < 297){
+			if (angleAttack < 297) {
 
-				if(angleAttack < 267){
+				if (angleAttack < 267) {
 
-					if(angleAttack < 255){
+					if (angleAttack < 255) {
 
-						if(angleAttack < 249){
+						if (angleAttack < 249) {
 
-							if(angleAttack < 243){
+							if (angleAttack < 243) {
 
 								//237 <= angle < 243
 
@@ -2181,7 +2211,7 @@ void player::getAttackTwoInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//243 <= angle < 249
 
@@ -2194,7 +2224,7 @@ void player::getAttackTwoInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//249 <= angle < 255
 
@@ -2208,9 +2238,9 @@ void player::getAttackTwoInfo(){
 
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 261){
+						if (angleAttack < 261) {
 
 							//255 <= angle < 261
 
@@ -2221,7 +2251,7 @@ void player::getAttackTwoInfo(){
 							moveAttackFutureHorizontal = 0;
 
 						}
-						else{
+						else {
 
 							//261 <= angle < 267
 
@@ -2237,13 +2267,13 @@ void player::getAttackTwoInfo(){
 
 
 				}
-				else{
+				else {
 
-					if(angleAttack < 285){
+					if (angleAttack < 285) {
 
-						if(angleAttack < 279){
+						if (angleAttack < 279) {
 
-							if(angleAttack < 273){
+							if (angleAttack < 273) {
 
 								//267 <= angle < 273
 
@@ -2254,7 +2284,7 @@ void player::getAttackTwoInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//273 <= angle < 279
 
@@ -2267,7 +2297,7 @@ void player::getAttackTwoInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//279 <= angle < 285
 
@@ -2281,9 +2311,9 @@ void player::getAttackTwoInfo(){
 
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 291){
+						if (angleAttack < 291) {
 
 							//285 <= angle < 291
 
@@ -2295,7 +2325,7 @@ void player::getAttackTwoInfo(){
 
 
 						}
-						else{
+						else {
 
 							//291 <= angle < 297
 
@@ -2313,15 +2343,15 @@ void player::getAttackTwoInfo(){
 
 
 			}
-			else{
+			else {
 
-				if(angleAttack < 327){
+				if (angleAttack < 327) {
 
-					if(angleAttack < 315){
+					if (angleAttack < 315) {
 
-						if(angleAttack < 309){
+						if (angleAttack < 309) {
 
-							if(angleAttack < 303){
+							if (angleAttack < 303) {
 
 
 								//297 <= angle < 303
@@ -2334,7 +2364,7 @@ void player::getAttackTwoInfo(){
 
 
 							}
-							else{
+							else {
 
 								//303 <= angle < 309
 
@@ -2347,7 +2377,7 @@ void player::getAttackTwoInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//309 <= angle < 315
 
@@ -2359,9 +2389,9 @@ void player::getAttackTwoInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 321){
+						if (angleAttack < 321) {
 
 							//315 <= angle < 321
 
@@ -2373,7 +2403,7 @@ void player::getAttackTwoInfo(){
 
 
 						}
-						else{
+						else {
 
 							//321 <= angle < 327
 
@@ -2391,13 +2421,13 @@ void player::getAttackTwoInfo(){
 					}
 
 				}
-				else{
+				else {
 
-					if(angleAttack < 345){
+					if (angleAttack < 345) {
 
-						if(angleAttack < 339){
+						if (angleAttack < 339) {
 
-							if(angleAttack < 333){
+							if (angleAttack < 333) {
 
 								//327 <= angle < 333
 
@@ -2408,7 +2438,7 @@ void player::getAttackTwoInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//333 <= angle < 339
 
@@ -2421,7 +2451,7 @@ void player::getAttackTwoInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//339 <= angle < 345
 
@@ -2434,9 +2464,9 @@ void player::getAttackTwoInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 351){
+						if (angleAttack < 351) {
 
 							//345 <= angle < 351
 
@@ -2447,7 +2477,7 @@ void player::getAttackTwoInfo(){
 							moveAttackFutureHorizontal = 0;
 
 						}
-						else{
+						else {
 
 							//351 <= angle < 357
 
@@ -2470,7 +2500,7 @@ void player::getAttackTwoInfo(){
 			}
 		}
 	}
-	else{
+	else {
 
 
 		//(357 <= angle && angle < 360) || (0 <= angle && angle < 3)
@@ -2486,23 +2516,24 @@ void player::getAttackTwoInfo(){
 
 
 }
+
 //wormhole
-void player::getAttackThreeInfo(){
+void player::getAttackThreeInfo() {
 
-	if(3 <= angleAttack && angleAttack < 357){
+	if (3 <= angleAttack && angleAttack < 357) {
 
-		if(angleAttack < 237){
+		if (angleAttack < 237) {
 
-			if(angleAttack < 177){
+			if (angleAttack < 177) {
 
-				if(angleAttack < 90){
+				if (angleAttack < 90) {
 
 
-					if(angleAttack < 21){
+					if (angleAttack < 21) {
 
-						if(angleAttack < 15){
+						if (angleAttack < 15) {
 
-							if(angleAttack < 9){
+							if (angleAttack < 9) {
 
 								//3 <= angle < 9
 
@@ -2513,7 +2544,7 @@ void player::getAttackThreeInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//9 <= angle < 15
 
@@ -2526,7 +2557,7 @@ void player::getAttackThreeInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//15 <= angle < 21
 
@@ -2540,9 +2571,9 @@ void player::getAttackThreeInfo(){
 
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 27){
+						if (angleAttack < 27) {
 
 							//21 <= angle < 27
 
@@ -2554,7 +2585,7 @@ void player::getAttackThreeInfo(){
 
 
 						}
-						else{
+						else {
 
 							//27 <= angle < 90
 
@@ -2570,14 +2601,14 @@ void player::getAttackThreeInfo(){
 
 
 				}
-				else{
+				else {
 
-					if(angleAttack < 165){
+					if (angleAttack < 165) {
 
 
-						if(angleAttack < 159){
+						if (angleAttack < 159) {
 
-							if(angleAttack < 153){
+							if (angleAttack < 153) {
 
 								//90 <= angle 153
 
@@ -2588,7 +2619,7 @@ void player::getAttackThreeInfo(){
 								moveAttackFutureVertical = 23;
 								moveAttackFutureHorizontal = 0;
 							}
-							else{
+							else {
 
 								//153 <= angle < 159
 
@@ -2601,7 +2632,7 @@ void player::getAttackThreeInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//159 <= angle < 165
 
@@ -2614,9 +2645,9 @@ void player::getAttackThreeInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 171){
+						if (angleAttack < 171) {
 
 							//165 <= angle < 171
 
@@ -2627,7 +2658,7 @@ void player::getAttackThreeInfo(){
 							moveAttackFutureHorizontal = 0;
 
 						}
-						else{
+						else {
 
 							//171 <= angle < 177
 
@@ -2643,16 +2674,16 @@ void player::getAttackThreeInfo(){
 				}
 
 			}
-			else{
+			else {
 
 
-				if(angleAttack < 207){
+				if (angleAttack < 207) {
 
-					if(angleAttack < 195){
+					if (angleAttack < 195) {
 
-						if(angleAttack < 189){
+						if (angleAttack < 189) {
 
-							if(angleAttack < 183){
+							if (angleAttack < 183) {
 
 								//177 <= angle < 183
 
@@ -2663,7 +2694,7 @@ void player::getAttackThreeInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//183 <= angle < 189
 
@@ -2676,7 +2707,7 @@ void player::getAttackThreeInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//189 <= angle < 195
 
@@ -2688,9 +2719,9 @@ void player::getAttackThreeInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 201){
+						if (angleAttack < 201) {
 
 							//195 <= angle < 201
 
@@ -2701,7 +2732,7 @@ void player::getAttackThreeInfo(){
 							moveAttackFutureHorizontal = 0;
 
 						}
-						else{
+						else {
 
 							//201 <= angle < 207
 
@@ -2718,13 +2749,13 @@ void player::getAttackThreeInfo(){
 					}
 
 				}
-				else{
+				else {
 
-					if(angleAttack < 225){
+					if (angleAttack < 225) {
 
-						if(angleAttack < 219){
+						if (angleAttack < 219) {
 
-							if(angleAttack < 213){
+							if (angleAttack < 213) {
 
 								//207 <= angle < 213
 
@@ -2736,7 +2767,7 @@ void player::getAttackThreeInfo(){
 
 
 							}
-							else{
+							else {
 
 								//213 <= angle < 219
 
@@ -2748,7 +2779,7 @@ void player::getAttackThreeInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//219 <= angle < 225
 
@@ -2761,9 +2792,9 @@ void player::getAttackThreeInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 231){
+						if (angleAttack < 231) {
 
 							//225 <= angle < 231
 
@@ -2774,7 +2805,7 @@ void player::getAttackThreeInfo(){
 							moveAttackFutureVertical = -52;
 							moveAttackFutureHorizontal = 0;
 						}
-						else{
+						else {
 
 							//231 <= angle < 237
 
@@ -2799,17 +2830,17 @@ void player::getAttackThreeInfo(){
 
 
 		}
-		else{
+		else {
 
-			if(angleAttack < 297){
+			if (angleAttack < 297) {
 
-				if(angleAttack < 267){
+				if (angleAttack < 267) {
 
-					if(angleAttack < 255){
+					if (angleAttack < 255) {
 
-						if(angleAttack < 249){
+						if (angleAttack < 249) {
 
-							if(angleAttack < 243){
+							if (angleAttack < 243) {
 
 								//237 <= angle < 243
 
@@ -2820,7 +2851,7 @@ void player::getAttackThreeInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//243 <= angle < 249
 
@@ -2833,7 +2864,7 @@ void player::getAttackThreeInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//249 <= angle < 255
 
@@ -2847,9 +2878,9 @@ void player::getAttackThreeInfo(){
 
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 261){
+						if (angleAttack < 261) {
 
 							//255 <= angle < 261
 
@@ -2860,7 +2891,7 @@ void player::getAttackThreeInfo(){
 							moveAttackFutureHorizontal = 0;
 
 						}
-						else{
+						else {
 
 							//261 <= angle < 267
 
@@ -2876,13 +2907,13 @@ void player::getAttackThreeInfo(){
 
 
 				}
-				else{
+				else {
 
-					if(angleAttack < 285){
+					if (angleAttack < 285) {
 
-						if(angleAttack < 279){
+						if (angleAttack < 279) {
 
-							if(angleAttack < 273){
+							if (angleAttack < 273) {
 
 								//267 <= angle < 273
 
@@ -2893,7 +2924,7 @@ void player::getAttackThreeInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//273 <= angle < 279
 
@@ -2906,7 +2937,7 @@ void player::getAttackThreeInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//279 <= angle < 285
 
@@ -2920,9 +2951,9 @@ void player::getAttackThreeInfo(){
 
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 291){
+						if (angleAttack < 291) {
 
 							//285 <= angle < 291
 
@@ -2934,7 +2965,7 @@ void player::getAttackThreeInfo(){
 
 
 						}
-						else{
+						else {
 
 							//291 <= angle < 297
 
@@ -2952,15 +2983,15 @@ void player::getAttackThreeInfo(){
 
 
 			}
-			else{
+			else {
 
-				if(angleAttack < 327){
+				if (angleAttack < 327) {
 
-					if(angleAttack < 315){
+					if (angleAttack < 315) {
 
-						if(angleAttack < 309){
+						if (angleAttack < 309) {
 
-							if(angleAttack < 303){
+							if (angleAttack < 303) {
 
 
 								//297 <= angle < 303
@@ -2973,7 +3004,7 @@ void player::getAttackThreeInfo(){
 
 
 							}
-							else{
+							else {
 
 								//303 <= angle < 309
 
@@ -2986,7 +3017,7 @@ void player::getAttackThreeInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//309 <= angle < 315
 
@@ -2998,9 +3029,9 @@ void player::getAttackThreeInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 321){
+						if (angleAttack < 321) {
 
 							//315 <= angle < 321
 
@@ -3012,7 +3043,7 @@ void player::getAttackThreeInfo(){
 
 
 						}
-						else{
+						else {
 
 							//321 <= angle < 327
 
@@ -3029,13 +3060,13 @@ void player::getAttackThreeInfo(){
 					}
 
 				}
-				else{
+				else {
 
-					if(angleAttack < 345){
+					if (angleAttack < 345) {
 
-						if(angleAttack < 339){
+						if (angleAttack < 339) {
 
-							if(angleAttack < 333){
+							if (angleAttack < 333) {
 
 								//327 <= angle < 333
 
@@ -3046,7 +3077,7 @@ void player::getAttackThreeInfo(){
 								moveAttackFutureHorizontal = 0;
 
 							}
-							else{
+							else {
 
 								//333 <= angle < 339
 
@@ -3059,7 +3090,7 @@ void player::getAttackThreeInfo(){
 							}
 
 						}
-						else{
+						else {
 
 							//339 <= angle < 345
 
@@ -3072,9 +3103,9 @@ void player::getAttackThreeInfo(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleAttack < 351){
+						if (angleAttack < 351) {
 
 							//345 <= angle < 351
 
@@ -3085,7 +3116,7 @@ void player::getAttackThreeInfo(){
 							moveAttackFutureHorizontal = 0;
 
 						}
-						else{
+						else {
 
 							//351 <= angle < 357
 
@@ -3107,7 +3138,7 @@ void player::getAttackThreeInfo(){
 			}
 		}
 	}
-	else{
+	else {
 
 
 		//(357 <= angle && angle < 360) || (0 <= angle && angle < 3)
@@ -3123,16 +3154,16 @@ void player::getAttackThreeInfo(){
 
 }
 
-void player::processInputs(){
+void player::processInputs() {
 
 	string * p = inputs.data();
 	int numInputs = inputs.size();
 
-	for (int i = 0 ; i < numInputs; i++){
+	for (int i = 0 ; i < numInputs; i++) {
 
-		if ((*p).compare("LEFT_TRIGGER_PRESS") == 0){
+		if ((*p).compare("LEFT_TRIGGER_PRESS") == 0) {
 
-			if(leftTriggerHandler % 2 == 0){
+			if (leftTriggerHandler % 2 == 0) {
 
 				leftTriggerHandler++;
 
@@ -3140,11 +3171,12 @@ void player::processInputs(){
 
 
 		}
-		if((*p).compare("LEFT_TRIGGER_RELEASE") == 0){
 
-			if(leftTriggerHandler % 2 != 0){
+		if ((*p).compare("LEFT_TRIGGER_RELEASE") == 0) {
 
-					leftTriggerHandler++;
+			if (leftTriggerHandler % 2 != 0) {
+
+				leftTriggerHandler++;
 
 
 			}
@@ -3152,9 +3184,9 @@ void player::processInputs(){
 		}
 
 
-		if ((*p).compare("RIGHT_TRIGGER_PRESS") == 0){
+		if ((*p).compare("RIGHT_TRIGGER_PRESS") == 0) {
 
-			if(rightTriggerHandler % 2 == 0){
+			if (rightTriggerHandler % 2 == 0) {
 
 				rightTriggerHandler++;
 
@@ -3162,32 +3194,34 @@ void player::processInputs(){
 
 
 		}
-		if((*p).compare("RIGHT_TRIGGER_RELEASE") == 0){
 
-			if(rightTriggerHandler % 2 != 0){
+		if ((*p).compare("RIGHT_TRIGGER_RELEASE") == 0) {
+
+			if (rightTriggerHandler % 2 != 0) {
 
 
-					rightTriggerHandler++;
+				rightTriggerHandler++;
 
 
 			}
 
 		}
 
-		if((*p).compare("RIGHT_BUMPER_PRESS") == 0){
+		if ((*p).compare("RIGHT_BUMPER_PRESS") == 0) {
 
-			if(attackOne == -1 && attackTwo == -1 && attackThree == -1){
+			if (attackOne == -1 && attackTwo == -1 && attackThree == -1) {
 
-				if(!jumping){
+				if (!jumping) {
 					futureJumping = true;
 					jumpTimer = 0;
 				}
 			}
 
 		}
-		if((*p).compare("JOYSTICK_RIGHT") == 0){
 
-			if(attackOne == -1 && attackTwo == -1 && attackThree == -1){
+		if ((*p).compare("JOYSTICK_RIGHT") == 0) {
+
+			if (attackOne == -1 && attackTwo == -1 && attackThree == -1) {
 
 				futureDirection = true;
 
@@ -3196,60 +3230,60 @@ void player::processInputs(){
 			}
 
 		}
-		else if((*p).compare("JOYSTICK_LEFT") == 0){
+		else if ((*p).compare("JOYSTICK_LEFT") == 0) {
 
-			if(attackOne == -1 && attackTwo == -1 && attackThree == -1){
+			if (attackOne == -1 && attackTwo == -1 && attackThree == -1) {
 				futureDirection = false;
 				futureWalking = true;
 			}
 		}
-		else if((*p).compare("JOYSTICK_RELEASE") == 0){
+		else if ((*p).compare("JOYSTICK_RELEASE") == 0) {
 
-			if(walking){
+			if (walking) {
 
 				futureWalking = false;
 
 			}
 
 		}
-		else if((*p).compare("JOYSTICK2_HELD") == 0){
+		else if ((*p).compare("JOYSTICK2_HELD") == 0) {
 
-			if(attackOne == -1 && attackTwo == -1 && attackThree == -1){
+			if (attackOne == -1 && attackTwo == -1 && attackThree == -1) {
 
 				rJoystick = true;
 
 			}
-			else{
+			else {
 
 				rJoystick = false;
 
 			}
 
 		}
-		else if((*p).compare("LEFT_BUMPER_PRESS") == 0){
+		else if ((*p).compare("LEFT_BUMPER_PRESS") == 0) {
 
-			if(attackOne == -1 && attackTwo == -1 && attackThree == -1){
+			if (attackOne == -1 && attackTwo == -1 && attackThree == -1) {
 
 				lBumper = true;
 
 			}
-			else{
+			else {
 
 				lBumper = false;
 
 			}
 		}
-		else if((*p).compare("LEFT_BUMPER_RELEASE") == 0){
+		else if ((*p).compare("LEFT_BUMPER_RELEASE") == 0) {
 
 			lBumper = false;
 
 		}
-		else if((*p).compare("JOYSTICK2_RELEASE") == 0){
+		else if ((*p).compare("JOYSTICK2_RELEASE") == 0) {
 
 			rJoystick = false;
 
 		}
-		else if((*p).compare("RIGHT_STICK_CLICK") == 0){
+		else if ((*p).compare("RIGHT_STICK_CLICK") == 0) {
 
 			futureBashing = true;
 
@@ -3261,23 +3295,23 @@ void player::processInputs(){
 
 }
 
-void player::handleShield(){
+void player::handleShield() {
 
-	if(3 <= angleShield && angleShield < 357){
-
-
-		if(angleShield < 237){
-
-			if(angleShield < 177){
-
-				if(angleShield < 90){
+	if (3 <= angleShield && angleShield < 357) {
 
 
-					if(angleShield < 21){
+		if (angleShield < 237) {
 
-						if(angleShield < 15){
+			if (angleShield < 177) {
 
-							if(angleShield < 9){
+				if (angleShield < 90) {
+
+
+					if (angleShield < 21) {
+
+						if (angleShield < 15) {
+
+							if (angleShield < 9) {
 
 								//3 <= angle < 9
 
@@ -3289,7 +3323,7 @@ void player::handleShield(){
 								clip = &frames[currentClip];
 
 							}
-							else{
+							else {
 
 								//9 <= angle < 15
 
@@ -3303,7 +3337,7 @@ void player::handleShield(){
 							}
 
 						}
-						else{
+						else {
 
 							//15 <= angle < 21
 
@@ -3318,9 +3352,9 @@ void player::handleShield(){
 
 
 					}
-					else{
+					else {
 
-						if(angleShield < 27){
+						if (angleShield < 27) {
 
 							//21 <= angle < 27
 
@@ -3334,7 +3368,7 @@ void player::handleShield(){
 
 
 						}
-						else{
+						else {
 
 							//27 <= angle < 90
 
@@ -3353,14 +3387,14 @@ void player::handleShield(){
 
 
 				}
-				else{
+				else {
 
-					if(angleShield < 165){
+					if (angleShield < 165) {
 
 
-						if(angleShield < 159){
+						if (angleShield < 159) {
 
-							if(angleShield < 153){
+							if (angleShield < 153) {
 
 								//90 <= angle 153
 
@@ -3373,7 +3407,7 @@ void player::handleShield(){
 								clip = &frames[currentClip];
 
 							}
-							else{
+							else {
 
 								//153 <= angle < 159
 
@@ -3387,7 +3421,7 @@ void player::handleShield(){
 							}
 
 						}
-						else{
+						else {
 
 							//159 <= angle < 165
 
@@ -3401,9 +3435,9 @@ void player::handleShield(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleShield < 171){
+						if (angleShield < 171) {
 
 							//165 <= angle < 171
 
@@ -3415,7 +3449,7 @@ void player::handleShield(){
 							clip = &frames[currentClip];
 
 						}
-						else{
+						else {
 
 							//171 <= angle < 177
 
@@ -3434,16 +3468,16 @@ void player::handleShield(){
 				}
 
 			}
-			else{
+			else {
 
 
-				if(angleShield < 207){
+				if (angleShield < 207) {
 
-					if(angleShield < 195){
+					if (angleShield < 195) {
 
-						if(angleShield < 189){
+						if (angleShield < 189) {
 
-							if(angleShield < 183){
+							if (angleShield < 183) {
 
 								//177 <= angle < 183
 
@@ -3455,7 +3489,7 @@ void player::handleShield(){
 								clip = &frames[currentClip];
 
 							}
-							else{
+							else {
 
 								//183 <= angle < 189
 
@@ -3469,7 +3503,7 @@ void player::handleShield(){
 							}
 
 						}
-						else{
+						else {
 
 							//189 <= angle < 195
 
@@ -3483,9 +3517,9 @@ void player::handleShield(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleShield < 201){
+						if (angleShield < 201) {
 
 							//195 <= angle < 201
 
@@ -3497,7 +3531,7 @@ void player::handleShield(){
 							clip = &frames[currentClip];
 
 						}
-						else{
+						else {
 
 							//201 <= angle < 207
 
@@ -3515,13 +3549,13 @@ void player::handleShield(){
 					}
 
 				}
-				else{
+				else {
 
-					if(angleShield < 225){
+					if (angleShield < 225) {
 
-						if(angleShield < 219){
+						if (angleShield < 219) {
 
-							if(angleShield < 213){
+							if (angleShield < 213) {
 
 								//207 <= angle < 213
 
@@ -3534,7 +3568,7 @@ void player::handleShield(){
 
 
 							}
-							else{
+							else {
 
 								//213 <= angle < 219
 
@@ -3548,7 +3582,7 @@ void player::handleShield(){
 							}
 
 						}
-						else{
+						else {
 
 							//219 <= angle < 225
 
@@ -3562,9 +3596,9 @@ void player::handleShield(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleShield < 231){
+						if (angleShield < 231) {
 
 							//225 <= angle < 231
 
@@ -3577,7 +3611,7 @@ void player::handleShield(){
 							clip = &frames[currentClip];
 
 						}
-						else{
+						else {
 
 							//231 <= angle < 237
 
@@ -3602,17 +3636,17 @@ void player::handleShield(){
 
 
 		}
-		else{
+		else {
 
-			if(angleShield < 297){
+			if (angleShield < 297) {
 
-				if(angleShield < 267){
+				if (angleShield < 267) {
 
-					if(angleShield < 255){
+					if (angleShield < 255) {
 
-						if(angleShield < 249){
+						if (angleShield < 249) {
 
-							if(angleShield < 243){
+							if (angleShield < 243) {
 
 								//237 <= angle < 243
 
@@ -3624,7 +3658,7 @@ void player::handleShield(){
 								clip = &frames[currentClip];
 
 							}
-							else{
+							else {
 
 								//243 <= angle < 249
 
@@ -3638,7 +3672,7 @@ void player::handleShield(){
 							}
 
 						}
-						else{
+						else {
 
 							//249 <= angle < 255
 
@@ -3653,9 +3687,9 @@ void player::handleShield(){
 
 
 					}
-					else{
+					else {
 
-						if(angleShield < 261){
+						if (angleShield < 261) {
 
 							//255 <= angle < 261
 
@@ -3667,7 +3701,7 @@ void player::handleShield(){
 							clip = &frames[currentClip];
 
 						}
-						else{
+						else {
 
 							//261 <= angle < 267
 
@@ -3684,13 +3718,13 @@ void player::handleShield(){
 
 
 				}
-				else{
+				else {
 
-					if(angleShield < 285){
+					if (angleShield < 285) {
 
-						if(angleShield < 279){
+						if (angleShield < 279) {
 
-							if(angleShield < 273){
+							if (angleShield < 273) {
 
 								//267 <= angle < 273
 
@@ -3702,7 +3736,7 @@ void player::handleShield(){
 
 
 							}
-							else{
+							else {
 
 								//273 <= angle < 279
 
@@ -3715,7 +3749,7 @@ void player::handleShield(){
 							}
 
 						}
-						else{
+						else {
 
 							//279 <= angle < 285
 
@@ -3729,9 +3763,9 @@ void player::handleShield(){
 
 
 					}
-					else{
+					else {
 
-						if(angleShield < 291){
+						if (angleShield < 291) {
 
 							//285 <= angle < 291
 
@@ -3743,7 +3777,7 @@ void player::handleShield(){
 
 
 						}
-						else{
+						else {
 
 							//291 <= angle < 297
 
@@ -3761,15 +3795,15 @@ void player::handleShield(){
 
 
 			}
-			else{
+			else {
 
-				if(angleShield < 327){
+				if (angleShield < 327) {
 
-					if(angleShield < 315){
+					if (angleShield < 315) {
 
-						if(angleShield < 309){
+						if (angleShield < 309) {
 
-							if(angleShield < 303){
+							if (angleShield < 303) {
 
 
 								//297 <= angle < 303
@@ -3782,7 +3816,7 @@ void player::handleShield(){
 
 
 							}
-							else{
+							else {
 
 								//303 <= angle < 309
 
@@ -3795,7 +3829,7 @@ void player::handleShield(){
 							}
 
 						}
-						else{
+						else {
 
 							//309 <= angle < 315
 
@@ -3807,9 +3841,9 @@ void player::handleShield(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleShield < 321){
+						if (angleShield < 321) {
 
 							//315 <= angle < 321
 
@@ -3821,7 +3855,7 @@ void player::handleShield(){
 
 
 						}
-						else{
+						else {
 
 							//321 <= angle < 327
 
@@ -3838,13 +3872,13 @@ void player::handleShield(){
 					}
 
 				}
-				else{
+				else {
 
-					if(angleShield < 345){
+					if (angleShield < 345) {
 
-						if(angleShield < 339){
+						if (angleShield < 339) {
 
-							if(angleShield < 333){
+							if (angleShield < 333) {
 
 								//327 <= angle < 333
 
@@ -3855,7 +3889,7 @@ void player::handleShield(){
 								clip = &frames[currentClip];
 
 							}
-							else{
+							else {
 
 								//333 <= angle < 339
 
@@ -3868,7 +3902,7 @@ void player::handleShield(){
 							}
 
 						}
-						else{
+						else {
 
 							//339 <= angle < 345
 
@@ -3881,9 +3915,9 @@ void player::handleShield(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleShield < 351){
+						if (angleShield < 351) {
 
 							//345 <= angle < 351
 
@@ -3894,7 +3928,7 @@ void player::handleShield(){
 							clip = &frames[currentClip];
 
 						}
-						else{
+						else {
 
 							//351 <= angle < 357
 
@@ -3914,7 +3948,7 @@ void player::handleShield(){
 		}
 
 	}
-	else{
+	else {
 
 
 		//(357 <= angle && angle < 360) || (0 <= angle && angle < 3)
@@ -3933,7 +3967,7 @@ void player::handleShield(){
 
 }
 
-void player::handleJump(){
+void player::handleJump() {
 	/*
 	switch(jumpTimer){
 		case 0:
@@ -4006,121 +4040,160 @@ void player::handleJump(){
 
 
 	*/
-	switch(jumpTimer){
+	switch (jumpTimer) {
+
 		case 0:
 			futureY = y - 11;
 			break;
+
 		case 1:
 			futureY = y - 11;
 			break;
+
 		case 2:
 			futureY = y - 16;
 			break;
+
 		case 3:
 			futureY = y - 16;
 			break;
+
 		case 4:
 			futureY = y - 15;
 			break;
+
 		case 5:
 			futureY = y - 15;
 			break;
+
 		case 6:
 			futureY = y - 14;
 			break;
+
 		case 7:
 			futureY = y - 14;
 			break;
+
 		case 8:
 			futureY = y - 12;
 			break;
+
 		case 9:
 			futureY = y - 12;
 			break;
+
 		case 10:
 			futureY = y - 12;
 			break;
+
 		case 11:
 			futureY = y - 12;
 			break;
+
 		case 12:
 			futureY = y - 11;
 			break;
+
 		case 13:
 			futureY = y - 11;
 			break;
+
 		case 14:
 			futureY = y - 9;
 			break;
+
 		case 15:
 			futureY = y - 9;
 			break;
+
 		case 16:
 			futureY = y - 9;
 			break;
+
 		case 17:
 			futureY = y - 9;
 			break;
+
 		case 18:
 			futureY = y - 8;
 			break;
+
 		case 19:
 			futureY = y - 8;
 			break;
+
 		case 20:
 			futureY = y;
 			break;
+
 		case 21:
 			futureY = y;
 			break;
+
 		case 23:
 			futureY = y + 8;
 			break;
+
 		case 24:
 			futureY = y + 8;
 			break;
+
 		case 25:
 			futureY = y + 9;
 			break;
+
 		case 26:
 			futureY = y + 9;
 			break;
+
 		case 27:
 			futureY = y + 11;
 			break;
+
 		case 28:
 			futureY = y + 11;
 			break;
+
 		case 29:
 			futureY = y + 11;
 			break;
+
 		case 30:
 			futureY = y + 11;
 			break;
+
 		case 31:
 			futureY = y + 13;
 			break;
+
 		case 32:
 			futureY = y + 13;
 			break;
+
 		case 33:
 			futureY = y + 13;
 			break;
+
 		case 34:
 			futureY = y + 13;
 			break;
+
 		case 35:
 			futureY = y + 14;
 			break;
+
 		case 36:
 			futureY = y + 14;
 			break;
+
 		case 37:
 			futureY = y + 15;
 			break;
+
 		case 38:
 			futureY = y + 15;
 			break;
+
 		case 39:
 			futureY = y + 46;
 			futureJumping = false;
@@ -4128,104 +4201,121 @@ void player::handleJump(){
 			rightTriggerHandler = 0;
 			break;
 	}
+
 	jumpTimer++;
 
 
 }
 
-void player::groundAttackOneLeft(){
+void player::groundAttackOneLeft() {
 
 	attackID = 1;
 
-	switch(attackOne){
+	switch (attackOne) {
+
 		case 0:
 			currentClip = 0;
 			clip = &frames[currentClip];
 			break;
+
 		case 5:
 			currentClip = 1;
 			clip = &frames[currentClip];
 			break;
+
 		case 10:
 			currentClip = 2;
 			clip = &frames[currentClip];
 			break;
+
 		case 15:
 			currentClip = 7;
 			clip = &frames[currentClip];
 			break;
+
 		case 20:
 			currentClip = 8;
 			clip = &frames[currentClip];
 			break;
+
 		case 25:
 			currentClip = 9;
 			clip = &frames[currentClip];
 			break;
+
 		case 30:
 			currentClip = 10;
 			clip = &frames[currentClip];
 			break;
+
 		case 35:
 
 			futureStriking = true;
 			clip = &frames[currentClip];
 			xMove = -200*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 40:
 			futureStriking = false;
 			currentClip = 12;
 			clip = &frames[currentClip];
 			break;
+
 		case 45:
 			currentClip = 12;
 			clip = &frames[currentClip];
 			break;
-		}
-		if(attackOne == 50){
+	}
 
-			if(attackTwo != 0){
+	if (attackOne == 50) {
 
-				currentClip = 0;
-				xMove = 200*(1/timeFactor)/(METERS_TO_PIXELS);
-				clip = &frames[currentClip];
-				rightTriggerHandler = 0;
-				attackInfoFlipper = false;
+		if (attackTwo != 0) {
 
-			}
-			futureAttackOne = -1;
+			currentClip = 0;
+			xMove = 200*(1/timeFactor)/(METERS_TO_PIXELS);
+			clip = &frames[currentClip];
+			rightTriggerHandler = 0;
+			attackInfoFlipper = false;
 
 		}
-		else{
 
-			futureAttackOne = attackOne + 1;
+		futureAttackOne = -1;
 
-		}
+	}
+	else {
+
+		futureAttackOne = attackOne + 1;
+
+	}
 
 }
 
-void player::groundAttackTwoLeft(){
+void player::groundAttackTwoLeft() {
 
 	attackID = 2;
 
-	switch(attackTwo){
+	switch (attackTwo) {
+
 		case 0:
 			currentClip = 13;
 			clip = &frames[currentClip];
 			xMove = -5*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 5:
 			currentClip = 14;
 			futureStriking = true;
 			clip = &frames[currentClip];
 			xMove = -17*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 10:
 
 			//currentClip = 15;
 			clip = &frames[currentClip];
 			xMove = -270*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 15:
 
 			futureStriking = false;
@@ -4233,144 +4323,169 @@ void player::groundAttackTwoLeft(){
 			clip = &frames[currentClip];
 			xMove = 286*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
-		}
-		if(attackTwo == 20){
+	}
 
-			if(attackThree != 0){
-				currentClip = 0;
-				clip = &frames[currentClip];
-				xMove = 206*(1/timeFactor)/(METERS_TO_PIXELS);
-				rightTriggerHandler = 0;
-				attackInfoFlipper = false;
+	if (attackTwo == 20) {
 
-			}
-			futureAttackTwo = -1;
-		}
-		else{
-
-			futureAttackTwo = attackTwo + 1;
-
-		}
-
-}
-
-void player::groundAttackThreeLeft(){
-
-		attackID = 3;
-		switch(attackThree){
-			case 0:
-				currentClip = 17;
-				clip = &frames[currentClip];
-				xMove = 206*(1/timeFactor)/(METERS_TO_PIXELS);
-				break;
-			case 5:
-				currentClip = 18;
-				clip = &frames[currentClip];
-				break;
-			case 10:
-				currentClip = 19;
-				clip = &frames[currentClip];
-				break;
-			case 15:
-				currentClip = 20;
-				clip = &frames[currentClip];
-				xMove = -90*(1/timeFactor)/(METERS_TO_PIXELS);
-				break;
-			case 20:
-				futureStriking = true;
-				currentClip = 21;
-				clip = &frames[currentClip];
-				xMove = -290*(1/timeFactor)/(METERS_TO_PIXELS);
-				break;
-			case 30:
-				futureStriking = false;
-				clip = &frames[currentClip];
-				xMove = 72*(1/timeFactor)/(METERS_TO_PIXELS);
-				break;
-			case 35:
-				currentClip = 23;
-				clip = &frames[currentClip];
-				xMove = 72*(1/timeFactor)/(METERS_TO_PIXELS);
-				break;
-			case 40:
-
-				currentClip = 24;
-				clip = &frames[currentClip];
-				xMove = 59*(1/timeFactor)/(METERS_TO_PIXELS);
-				break;
-			case 45:
-
-				//currentClip = 25;
-				clip = &frames[currentClip];
-				xMove = 59*(1/timeFactor)/(METERS_TO_PIXELS);
-				break;
-			case 50:
-
-				currentClip = 27;
-				clip = &frames[currentClip];
-				xMove = 59*(1/timeFactor)/(METERS_TO_PIXELS);
-				break;
-			case 55:
-				currentClip = 27;
-				clip = &frames[currentClip];
-				xMove = 59*(1/timeFactor)/(METERS_TO_PIXELS);
-				break;
-		}
-		if(attackThree == 60){
-
+		if (attackThree != 0) {
 			currentClip = 0;
 			clip = &frames[currentClip];
-			futureAttackThree = -1;
+			xMove = 206*(1/timeFactor)/(METERS_TO_PIXELS);
 			rightTriggerHandler = 0;
 			attackInfoFlipper = false;
 
 		}
-		else{
 
-			futureAttackThree = attackThree + 1;
+		futureAttackTwo = -1;
+	}
+	else {
 
-		}
+		futureAttackTwo = attackTwo + 1;
+
+	}
 
 }
 
-void player::groundAttackOneRight(){
+void player::groundAttackThreeLeft() {
+
+	attackID = 3;
+
+	switch (attackThree) {
+
+		case 0:
+			currentClip = 17;
+			clip = &frames[currentClip];
+			xMove = 206*(1/timeFactor)/(METERS_TO_PIXELS);
+			break;
+
+		case 5:
+			currentClip = 18;
+			clip = &frames[currentClip];
+			break;
+
+		case 10:
+			currentClip = 19;
+			clip = &frames[currentClip];
+			break;
+
+		case 15:
+			currentClip = 20;
+			clip = &frames[currentClip];
+			xMove = -90*(1/timeFactor)/(METERS_TO_PIXELS);
+			break;
+
+		case 20:
+			futureStriking = true;
+			currentClip = 21;
+			clip = &frames[currentClip];
+			xMove = -290*(1/timeFactor)/(METERS_TO_PIXELS);
+			break;
+
+		case 30:
+			futureStriking = false;
+			clip = &frames[currentClip];
+			xMove = 72*(1/timeFactor)/(METERS_TO_PIXELS);
+			break;
+
+		case 35:
+			currentClip = 23;
+			clip = &frames[currentClip];
+			xMove = 72*(1/timeFactor)/(METERS_TO_PIXELS);
+			break;
+
+		case 40:
+
+			currentClip = 24;
+			clip = &frames[currentClip];
+			xMove = 59*(1/timeFactor)/(METERS_TO_PIXELS);
+			break;
+
+		case 45:
+
+			//currentClip = 25;
+			clip = &frames[currentClip];
+			xMove = 59*(1/timeFactor)/(METERS_TO_PIXELS);
+			break;
+
+		case 50:
+
+			currentClip = 27;
+			clip = &frames[currentClip];
+			xMove = 59*(1/timeFactor)/(METERS_TO_PIXELS);
+			break;
+
+		case 55:
+			currentClip = 27;
+			clip = &frames[currentClip];
+			xMove = 59*(1/timeFactor)/(METERS_TO_PIXELS);
+			break;
+	}
+
+	if (attackThree == 60) {
+
+		currentClip = 0;
+		clip = &frames[currentClip];
+		futureAttackThree = -1;
+		rightTriggerHandler = 0;
+		attackInfoFlipper = false;
+
+	}
+	else {
+
+		futureAttackThree = attackThree + 1;
+
+	}
+
+}
+
+void player::groundAttackOneRight() {
 
 	attackID = 1;
-	switch(attackOne){
+
+	switch (attackOne) {
+
 		case 0:
 			currentClip = 32;
 			clip = &frames[currentClip];
 			break;
+
 		case 5:
 			currentClip = 31;
 			clip = &frames[currentClip];
 			break;
+
 		case 10:
 			currentClip = 30;
 			clip = &frames[currentClip];
 			break;
+
 		case 15:
 			currentClip = 35;
 			clip = &frames[currentClip];
 			break;
+
 		case 20:
 			currentClip = 34;
 			clip = &frames[currentClip];
 			break;
+
 		case 25:
 			currentClip = 33;
 			clip = &frames[currentClip];
 			break;
+
 		case 30:
 			currentClip = 40;
 			clip = &frames[currentClip];
 			break;
+
 		case 35:
 			futureStriking = true;
 			currentClip = 39;
 			clip = &frames[currentClip];
 			xMove = 50*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 45:
 			futureStriking = false;
 			currentClip = 38;
@@ -4378,9 +4493,10 @@ void player::groundAttackOneRight(){
 			break;
 
 	}
-	if(attackOne == 50){
 
-		if(attackTwo != 0){
+	if (attackOne == 50) {
+
+		if (attackTwo != 0) {
 
 			currentClip = 32;
 			xMove = -50*(1/timeFactor)/(METERS_TO_PIXELS);
@@ -4389,10 +4505,11 @@ void player::groundAttackOneRight(){
 			attackInfoFlipper = false;
 
 		}
+
 		futureAttackOne = -1;
 
 	}
-	else{
+	else {
 
 		futureAttackOne = attackOne + 1;
 
@@ -4402,106 +4519,125 @@ void player::groundAttackOneRight(){
 
 }
 
-void player::groundAttackTwoRight(){
+void player::groundAttackTwoRight() {
 	attackID = 2;
-	switch(attackTwo){
+
+	switch (attackTwo) {
+
 		case 0:
 			currentClip = 43;
 			clip = &frames[currentClip];
 			xMove = 5*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 5:
 			futureStriking = true;
 			currentClip = 42;
 			clip = &frames[currentClip];
 			xMove = 17*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 10:
 			currentClip = 41;
 			clip = &frames[currentClip];
 			xMove = 67*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 15:
 			futureStriking = false;
 			currentClip = 46;
 			clip = &frames[currentClip];
 			xMove = -71*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
-		}
-		if(attackTwo == 20){
+	}
 
-			if(attackThree != 0){
-				currentClip = 32;
-				clip = &frames[currentClip];
-				xMove = -68*(1/timeFactor)/(METERS_TO_PIXELS);
-				rightTriggerHandler = 0;
-				attackInfoFlipper = false;
+	if (attackTwo == 20) {
 
-			}
-			futureAttackTwo = -1;
-		}
-		else{
-
-			futureAttackTwo = attackTwo + 1;
-
+		if (attackThree != 0) {
+			currentClip = 32;
+			clip = &frames[currentClip];
+			xMove = -68*(1/timeFactor)/(METERS_TO_PIXELS);
+			rightTriggerHandler = 0;
+			attackInfoFlipper = false;
 
 		}
+
+		futureAttackTwo = -1;
+	}
+	else {
+
+		futureAttackTwo = attackTwo + 1;
+
+
+	}
 
 }
 
-void player::groundAttackThreeRight(){
+void player::groundAttackThreeRight() {
 	attackID = 3;
-	switch(attackThree){
+
+	switch (attackThree) {
+
 		case 0:
 			currentClip = 45;
 			clip = &frames[currentClip];
 			xMove = -62*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 5:
 			currentClip = 44;
 			clip = &frames[currentClip];
 			break;
+
 		case 10:
 			currentClip = 49;
 			clip = &frames[currentClip];
 			break;
+
 		case 15:
 			currentClip = 48;
 			clip = &frames[currentClip];
 			xMove = 22*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 20:
 			futureStriking = true;
 			currentClip = 47;
 			clip = &frames[currentClip];
 			xMove = 72*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 30:
 			futureStriking = false;
 			currentClip = 52;
 			clip = &frames[currentClip];
 			xMove = -18*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 35:
 			currentClip = 51;
 			clip = &frames[currentClip];
 			xMove = -18*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 40:
 			currentClip = 50;
 			clip = &frames[currentClip];
 			xMove = -16*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 45:
 			currentClip = 55;
 			clip = &frames[currentClip];
 			xMove = -16*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 50:
 			currentClip = 54;
 			clip = &frames[currentClip];
 			xMove = -16*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 55:
 			currentClip = 53;
 			clip = &frames[currentClip];
@@ -4509,30 +4645,31 @@ void player::groundAttackThreeRight(){
 			break;
 
 
-		}
-		if(attackThree == 60){
+	}
 
-			currentClip = 32;
-			clip = &frames[currentClip];
-			futureAttackThree = -1;
-			rightTriggerHandler = 0;
-			attackInfoFlipper = false;
+	if (attackThree == 60) {
 
-		}
-		else{
+		currentClip = 32;
+		clip = &frames[currentClip];
+		futureAttackThree = -1;
+		rightTriggerHandler = 0;
+		attackInfoFlipper = false;
 
-			futureAttackThree = attackThree + 1;
+	}
+	else {
 
-		}
+		futureAttackThree = attackThree + 1;
+
+	}
 
 
 }
 
-void player::handleShieldAir(){
+void player::handleShieldAir() {
 
 
 
-	if(51 <= angleShield && angleShield < 57){
+	if (51 <= angleShield && angleShield < 57) {
 
 		futureDownShielding = true;
 
@@ -4542,7 +4679,7 @@ void player::handleShieldAir(){
 		clip = &frames[currentClip];
 
 	}
-	else if(123 <= angleShield && angleShield < 129){
+	else if (123 <= angleShield && angleShield < 129) {
 
 		futureDownShielding = true;
 
@@ -4551,138 +4688,138 @@ void player::handleShieldAir(){
 		clip = &frames[currentClip];
 
 	}
-	else if(57 <= angleShield && angleShield < 123){
+	else if (57 <= angleShield && angleShield < 123) {
 
 		futureDownShielding = true;
 
-		if(angleShield < 93){
+		if (angleShield < 93) {
 
-		  if(angleShield < 75){
+			if (angleShield < 75) {
 
-		    if(angleShield < 69){
+				if (angleShield < 69) {
 
-		      if(angleShield < 63){
+					if (angleShield < 63) {
 
-		        //57 <= x < 63
-		        //60
+						//57 <= x < 63
+						//60
 						currentClip = 235;
 
 						clip = &frames[currentClip];
 
-		      }
-		      else{
+					}
+					else {
 
-		        // 63 <= x < 69
-		        //66
+						// 63 <= x < 69
+						//66
 						currentClip = 236;
 
 						clip = &frames[currentClip];
 
 
-		      }
+					}
 
-		    }
-		    else{
+				}
+				else {
 
-		      // 69 <= x < 75
-		      //72
+					// 69 <= x < 75
+					//72
 
 					currentClip = 231;
 
 					clip = &frames[currentClip];
 
-		    }
+				}
 
-		  }
-		  else{
+			}
+			else {
 
-		    if(angleShield < 87){
+				if (angleShield < 87) {
 
-		      if(angleShield < 81){
+					if (angleShield < 81) {
 
-		        // 75 <= x < 81
-		        //78
+						// 75 <= x < 81
+						//78
 
 						currentClip = 232;
 
 						clip = &frames[currentClip];
 
-		      }
-		      else{
+					}
+					else {
 
-		        // 81 <= x < 87
-		        //84
+						// 81 <= x < 87
+						//84
 
 						currentClip = 233;
 
 						clip = &frames[currentClip];
 
 
-		      }
+					}
 
 
-		    }
-		    else{
+				}
+				else {
 
-		      //87 <= x < 93
-		      //90
+					//87 <= x < 93
+					//90
 					currentClip = 230;
 
 					clip = &frames[currentClip];
 
-		    }
+				}
 
-		  }
+			}
 
 		}
-		else{
+		else {
 
-		  if(angleShield < 111){
+			if (angleShield < 111) {
 
-		    if(angleShield < 105){
+				if (angleShield < 105) {
 
-		      if(angleShield < 99){
+					if (angleShield < 99) {
 
-		        // 93 <= x < 99
-		        //96
+						// 93 <= x < 99
+						//96
 
 						currentClip = 229;
 
 						clip = &frames[currentClip];
 
-		      }
-		      else{
+					}
+					else {
 
-		        // 99 <= x < 105
-		        //102
+						// 99 <= x < 105
+						//102
 
 						currentClip = 228;
 
 						clip = &frames[currentClip];
 
-		      }
+					}
 
 
-		    }
-		    else{
+				}
+				else {
 
-		      // 105 <= x < 111
-		      //108
+					// 105 <= x < 111
+					//108
 
 					currentClip = 227;
 
 					clip = &frames[currentClip];
 
-		    }
+				}
 
 
-		  }
-		  else{
+			}
+			else {
 
-		    if(angleShield < 117){
+				if (angleShield < 117) {
 
-		      //111 <= x < 117
-		      //114
+					//111 <= x < 117
+					//114
 
 
 					currentClip = 226;
@@ -4691,40 +4828,40 @@ void player::handleShieldAir(){
 
 
 
-		    }
-		    else{
+				}
+				else {
 
-		      //117 <= x < 123
-		      //120
+					//117 <= x < 123
+					//120
 
 					currentClip = 225;
 
 					clip = &frames[currentClip];
 
-		    }
+				}
 
-		  }
+			}
 
 		}
 
 
 	}
-	else if(3 <= angleShield && angleShield < 357){
+	else if (3 <= angleShield && angleShield < 357) {
 
 		futureDownShielding = false;
 
-		if(angleShield < 237){
+		if (angleShield < 237) {
 
-			if(angleShield < 177){
+			if (angleShield < 177) {
 
-				if(angleShield < 90){
+				if (angleShield < 90) {
 
 
-					if(angleShield < 21){
+					if (angleShield < 21) {
 
-						if(angleShield < 15){
+						if (angleShield < 15) {
 
-							if(angleShield < 9){
+							if (angleShield < 9) {
 
 								//3 <= angle < 9
 
@@ -4736,7 +4873,7 @@ void player::handleShieldAir(){
 								clip = &frames[currentClip];
 
 							}
-							else{
+							else {
 
 								//9 <= angle < 15
 
@@ -4750,7 +4887,7 @@ void player::handleShieldAir(){
 							}
 
 						}
-						else{
+						else {
 
 							//15 <= angle < 21
 
@@ -4765,9 +4902,9 @@ void player::handleShieldAir(){
 
 
 					}
-					else{
+					else {
 
-						if(angleShield < 27){
+						if (angleShield < 27) {
 
 							//21 <= angle < 27
 
@@ -4781,7 +4918,7 @@ void player::handleShieldAir(){
 
 
 						}
-						else{
+						else {
 
 							//27 <= angle < 90
 
@@ -4800,14 +4937,14 @@ void player::handleShieldAir(){
 
 
 				}
-				else{
+				else {
 
-					if(angleShield < 165){
+					if (angleShield < 165) {
 
 
-						if(angleShield < 159){
+						if (angleShield < 159) {
 
-							if(angleShield < 153){
+							if (angleShield < 153) {
 
 								//90 <= angle 153
 
@@ -4820,7 +4957,7 @@ void player::handleShieldAir(){
 								clip = &frames[currentClip];
 
 							}
-							else{
+							else {
 
 								//153 <= angle < 159
 
@@ -4834,7 +4971,7 @@ void player::handleShieldAir(){
 							}
 
 						}
-						else{
+						else {
 
 							//159 <= angle < 165
 
@@ -4848,9 +4985,9 @@ void player::handleShieldAir(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleShield < 171){
+						if (angleShield < 171) {
 
 							//165 <= angle < 171
 
@@ -4862,7 +4999,7 @@ void player::handleShieldAir(){
 							clip = &frames[currentClip];
 
 						}
-						else{
+						else {
 
 							//171 <= angle < 177
 
@@ -4881,16 +5018,16 @@ void player::handleShieldAir(){
 				}
 
 			}
-			else{
+			else {
 
 
-				if(angleShield < 207){
+				if (angleShield < 207) {
 
-					if(angleShield < 195){
+					if (angleShield < 195) {
 
-						if(angleShield < 189){
+						if (angleShield < 189) {
 
-							if(angleShield < 183){
+							if (angleShield < 183) {
 
 								//177 <= angle < 183
 
@@ -4902,7 +5039,7 @@ void player::handleShieldAir(){
 								clip = &frames[currentClip];
 
 							}
-							else{
+							else {
 
 								//183 <= angle < 189
 
@@ -4916,7 +5053,7 @@ void player::handleShieldAir(){
 							}
 
 						}
-						else{
+						else {
 
 							//189 <= angle < 195
 
@@ -4930,9 +5067,9 @@ void player::handleShieldAir(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleShield < 201){
+						if (angleShield < 201) {
 
 							//195 <= angle < 201
 
@@ -4944,7 +5081,7 @@ void player::handleShieldAir(){
 							clip = &frames[currentClip];
 
 						}
-						else{
+						else {
 
 							//201 <= angle < 207
 
@@ -4962,13 +5099,13 @@ void player::handleShieldAir(){
 					}
 
 				}
-				else{
+				else {
 
-					if(angleShield < 225){
+					if (angleShield < 225) {
 
-						if(angleShield < 219){
+						if (angleShield < 219) {
 
-							if(angleShield < 213){
+							if (angleShield < 213) {
 
 								//207 <= angle < 213
 
@@ -4981,7 +5118,7 @@ void player::handleShieldAir(){
 
 
 							}
-							else{
+							else {
 
 								//213 <= angle < 219
 
@@ -4995,7 +5132,7 @@ void player::handleShieldAir(){
 							}
 
 						}
-						else{
+						else {
 
 							//219 <= angle < 225
 
@@ -5009,9 +5146,9 @@ void player::handleShieldAir(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleShield < 231){
+						if (angleShield < 231) {
 
 							//225 <= angle < 231
 
@@ -5024,7 +5161,7 @@ void player::handleShieldAir(){
 							clip = &frames[currentClip];
 
 						}
-						else{
+						else {
 
 							//231 <= angle < 237
 
@@ -5049,17 +5186,17 @@ void player::handleShieldAir(){
 
 
 		}
-		else{
+		else {
 
-			if(angleShield < 297){
+			if (angleShield < 297) {
 
-				if(angleShield < 267){
+				if (angleShield < 267) {
 
-					if(angleShield < 255){
+					if (angleShield < 255) {
 
-						if(angleShield < 249){
+						if (angleShield < 249) {
 
-							if(angleShield < 243){
+							if (angleShield < 243) {
 
 								//237 <= angle < 243
 
@@ -5071,7 +5208,7 @@ void player::handleShieldAir(){
 								clip = &frames[currentClip];
 
 							}
-							else{
+							else {
 
 								//243 <= angle < 249
 
@@ -5085,7 +5222,7 @@ void player::handleShieldAir(){
 							}
 
 						}
-						else{
+						else {
 
 							//249 <= angle < 255
 
@@ -5100,9 +5237,9 @@ void player::handleShieldAir(){
 
 
 					}
-					else{
+					else {
 
-						if(angleShield < 261){
+						if (angleShield < 261) {
 
 							//255 <= angle < 261
 
@@ -5114,7 +5251,7 @@ void player::handleShieldAir(){
 							clip = &frames[currentClip];
 
 						}
-						else{
+						else {
 
 							//261 <= angle < 267
 
@@ -5131,13 +5268,13 @@ void player::handleShieldAir(){
 
 
 				}
-				else{
+				else {
 
-					if(angleShield < 285){
+					if (angleShield < 285) {
 
-						if(angleShield < 279){
+						if (angleShield < 279) {
 
-							if(angleShield < 273){
+							if (angleShield < 273) {
 
 								//267 <= angle < 273
 
@@ -5149,7 +5286,7 @@ void player::handleShieldAir(){
 
 
 							}
-							else{
+							else {
 
 								//273 <= angle < 279
 
@@ -5162,7 +5299,7 @@ void player::handleShieldAir(){
 							}
 
 						}
-						else{
+						else {
 
 							//279 <= angle < 285
 
@@ -5176,9 +5313,9 @@ void player::handleShieldAir(){
 
 
 					}
-					else{
+					else {
 
-						if(angleShield < 291){
+						if (angleShield < 291) {
 
 							//285 <= angle < 291
 
@@ -5190,7 +5327,7 @@ void player::handleShieldAir(){
 
 
 						}
-						else{
+						else {
 
 							//291 <= angle < 297
 
@@ -5208,15 +5345,15 @@ void player::handleShieldAir(){
 
 
 			}
-			else{
+			else {
 
-				if(angleShield < 327){
+				if (angleShield < 327) {
 
-					if(angleShield < 315){
+					if (angleShield < 315) {
 
-						if(angleShield < 309){
+						if (angleShield < 309) {
 
-							if(angleShield < 303){
+							if (angleShield < 303) {
 
 
 								//297 <= angle < 303
@@ -5229,7 +5366,7 @@ void player::handleShieldAir(){
 
 
 							}
-							else{
+							else {
 
 								//303 <= angle < 309
 
@@ -5242,7 +5379,7 @@ void player::handleShieldAir(){
 							}
 
 						}
-						else{
+						else {
 
 							//309 <= angle < 315
 
@@ -5254,9 +5391,9 @@ void player::handleShieldAir(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleShield < 321){
+						if (angleShield < 321) {
 
 							//315 <= angle < 321
 
@@ -5268,7 +5405,7 @@ void player::handleShieldAir(){
 
 
 						}
-						else{
+						else {
 
 							//321 <= angle < 327
 
@@ -5285,13 +5422,13 @@ void player::handleShieldAir(){
 					}
 
 				}
-				else{
+				else {
 
-					if(angleShield < 345){
+					if (angleShield < 345) {
 
-						if(angleShield < 339){
+						if (angleShield < 339) {
 
-							if(angleShield < 333){
+							if (angleShield < 333) {
 
 								//327 <= angle < 333
 
@@ -5302,7 +5439,7 @@ void player::handleShieldAir(){
 								clip = &frames[currentClip];
 
 							}
-							else{
+							else {
 
 								//333 <= angle < 339
 
@@ -5315,7 +5452,7 @@ void player::handleShieldAir(){
 							}
 
 						}
-						else{
+						else {
 
 							//339 <= angle < 345
 
@@ -5328,9 +5465,9 @@ void player::handleShieldAir(){
 						}
 
 					}
-					else{
+					else {
 
-						if(angleShield < 351){
+						if (angleShield < 351) {
 
 							//345 <= angle < 351
 
@@ -5341,7 +5478,7 @@ void player::handleShieldAir(){
 							clip = &frames[currentClip];
 
 						}
-						else{
+						else {
 
 							//351 <= angle < 357
 
@@ -5361,7 +5498,7 @@ void player::handleShieldAir(){
 		}
 
 	}
-	else{
+	else {
 
 
 		//(357 <= angle && angle < 360) || (0 <= angle && angle < 3)
@@ -5380,26 +5517,30 @@ void player::handleShieldAir(){
 
 }
 
-void player::airAttackLeft(){
+void player::airAttackLeft() {
 
-	switch(airAttackTimer){
+	switch (airAttackTimer) {
+
 		case 0:
 			currentClip = 13;
 			clip = &frames[currentClip];
 			xMove = -5*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 5:
 			currentClip = 14;
 			futureStriking = true;
 			clip = &frames[currentClip];
 			xMove = -17*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 10:
 
 			//currentClip = 15;
 			clip = &frames[currentClip];
 			xMove = -270*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 15:
 
 			futureStriking = false;
@@ -5407,125 +5548,131 @@ void player::airAttackLeft(){
 			clip = &frames[currentClip];
 			xMove = 286*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
-		}
-		if(airAttackTimer == 20){
+	}
+
+	if (airAttackTimer == 20) {
 
 
-				currentClip = 0;
-				clip = &frames[currentClip];
-				xMove = 206*(1/timeFactor)/(METERS_TO_PIXELS);
-				rightTriggerHandler = 0;
-				attackInfoFlipper = false;
+		currentClip = 0;
+		clip = &frames[currentClip];
+		xMove = 206*(1/timeFactor)/(METERS_TO_PIXELS);
+		rightTriggerHandler = 0;
+		attackInfoFlipper = false;
 
 
 
-			futureAirAttackTimer = -1;
-		}
-		else{
+		futureAirAttackTimer = -1;
+	}
+	else {
 
-			futureAirAttackTimer = airAttackTimer + 1;
+		futureAirAttackTimer = airAttackTimer + 1;
 
-		}
+	}
 
 
 }
 
-void player::airAttackRight(){
+void player::airAttackRight() {
 
-	switch(airAttackTimer){
+	switch (airAttackTimer) {
+
 		case 0:
 			currentClip = 43;
 			clip = &frames[currentClip];
 			xMove = 5*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 5:
 			futureStriking = true;
 			currentClip = 42;
 			clip = &frames[currentClip];
 			xMove = 17*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 10:
 			currentClip = 41;
 			clip = &frames[currentClip];
 			xMove = 67*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
+
 		case 15:
 			futureStriking = false;
 			currentClip = 46;
 			clip = &frames[currentClip];
 			xMove = -71*(1/timeFactor)/(METERS_TO_PIXELS);
 			break;
-		}
-		if(airAttackTimer == 20){
+	}
+
+	if (airAttackTimer == 20) {
 
 
-				currentClip = 32;
-				clip = &frames[currentClip];
-				xMove = -68*(1/timeFactor)/(METERS_TO_PIXELS);
-				rightTriggerHandler = 0;
-				attackInfoFlipper = false;
+		currentClip = 32;
+		clip = &frames[currentClip];
+		xMove = -68*(1/timeFactor)/(METERS_TO_PIXELS);
+		rightTriggerHandler = 0;
+		attackInfoFlipper = false;
 
 
-			futureAirAttackTimer = -1;
-		}
-		else{
+		futureAirAttackTimer = -1;
+	}
+	else {
 
-			futureAirAttackTimer = airAttackTimer + 1;
+		futureAirAttackTimer = airAttackTimer + 1;
 
 
-		}
+	}
 
 }
 
-void getJoystickInfo(float * radiusLeft, float * angleLeft, int xDir, int yDir){
+void getJoystickInfo(float * radiusLeft, float * angleLeft, int xDir, int yDir) {
 
 	*radiusLeft = (float)sqrt(abs((long)(xDir*xDir) + (long)(yDir*yDir)));
 
 
 
-	if(xDir == 0){
+	if (xDir == 0) {
 
-		if(yDir > 0){
+		if (yDir > 0) {
 
 			*angleLeft = 90;
 
 		}
-		else if(yDir < 0){
+		else if (yDir < 0) {
 
 			*angleLeft = 270;
 
 		}
-		else if(yDir == 0){
+		else if (yDir == 0) {
 
 			*angleLeft = 0;
 
 		}
 
 	}
-	else if(yDir == 0){
+	else if (yDir == 0) {
 
-		if(xDir > 0){
+		if (xDir > 0) {
 
 			*angleLeft = 0;
 
 		}
-		else if(xDir < 0){
+		else if (xDir < 0) {
 
 			*angleLeft = 180;
 
 		}
 
 	}
-	else{
+	else {
 
-		if(xDir * -1 < 0 && yDir * -1 < 0){
+		if (xDir * -1 < 0 && yDir * -1 < 0) {
 
 			*angleLeft = atan((double)((double)yDir)/(double)xDir) * 180 / PI;
 
 			//cout << "Angle: " << *angle << endl;
 
 		}
-		else if(xDir * -1 > 0 && yDir * -1 < 0){
+		else if (xDir * -1 > 0 && yDir * -1 < 0) {
 
 
 			*angleLeft = atan((double)((double)yDir)/(double)xDir) * 180 / PI;
@@ -5533,7 +5680,7 @@ void getJoystickInfo(float * radiusLeft, float * angleLeft, int xDir, int yDir){
 			*angleLeft = 180 - abs(*angleLeft);
 
 		}
-		else if(xDir * -1 > 0 && yDir * -1 > 0){
+		else if (xDir * -1 > 0 && yDir * -1 > 0) {
 
 
 			*angleLeft = atan((double)((double)yDir)/(double)xDir) * 180 / PI;
@@ -5541,7 +5688,7 @@ void getJoystickInfo(float * radiusLeft, float * angleLeft, int xDir, int yDir){
 			*angleLeft += 180;
 
 		}
-		else if(xDir * -1 < 0 && yDir * -1 > 0){
+		else if (xDir * -1 < 0 && yDir * -1 > 0) {
 
 
 			*angleLeft = atan((double)((double)yDir)/(double)xDir) * 180 / PI;
@@ -5556,7 +5703,7 @@ void getJoystickInfo(float * radiusLeft, float * angleLeft, int xDir, int yDir){
 
 }
 
-void player::printDebugInformation(){
+void player::printDebugInformation() {
 
 	cout << endl;
 	cout << endl;
@@ -5620,95 +5767,96 @@ void player::printDebugInformation(){
 
 }
 
-void player::extractClipsFromXML(string xmlFileName, int prevIndex){
+void player::extractClipsFromXML(string xmlFileName, int prevIndex) {
 
 	string line;
-  ifstream options(xmlFileName);
-  int index = prevIndex;
-  char c;
+	ifstream options(xmlFileName);
+	int index = prevIndex;
+	char c;
 	int tempX = 0;
 	int tempY = 0;
 	int tempWidth = 0;
 	int tempHeight = 0;
-  while(options.get(c)){
+
+	while (options.get(c)) {
 
 
-    if(c == '<'){
+		if (c == '<') {
 
-      while(c != '>'){
-
-        line += c;
-        options.get(c);
-
-      }
-
-    }
-
-    if(line.compare("<X") == 0){
-
-
-      line.clear();
-			options.get(c);
-
-      while(c != '\n'){
+			while (c != '>') {
 
 				line += c;
 				options.get(c);
 
 			}
 
-      tempX = atoi(line.c_str());
+		}
+
+		if (line.compare("<X") == 0) {
 
 
-
-    }
-    else if(line.compare("<Y") == 0){
-
-      line.clear();
+			line.clear();
 			options.get(c);
 
-      while(c != '\n'){
+			while (c != '\n') {
 
 				line += c;
 				options.get(c);
 
 			}
 
-      tempY = atoi(line.c_str());
+			tempX = atoi(line.c_str());
 
 
 
-    }
-    else if(line.compare("<Width") == 0){
+		}
+		else if (line.compare("<Y") == 0) {
 
-      line.clear();
+			line.clear();
 			options.get(c);
 
-      while(c != '\n'){
+			while (c != '\n') {
 
 				line += c;
 				options.get(c);
 
 			}
 
-      tempWidth = atoi(line.c_str());
+			tempY = atoi(line.c_str());
 
 
 
-    }
-    else if(line.compare("<Height") == 0){
+		}
+		else if (line.compare("<Width") == 0) {
 
-      line.clear();
+			line.clear();
 			options.get(c);
 
-      while(c != '\n'){
+			while (c != '\n') {
 
 				line += c;
 				options.get(c);
 
 			}
 
-      tempHeight = atoi(line.c_str());
+			tempWidth = atoi(line.c_str());
+
+
+
+		}
+		else if (line.compare("<Height") == 0) {
+
+			line.clear();
+			options.get(c);
+
+			while (c != '\n') {
+
+				line += c;
+				options.get(c);
+
+			}
+
+			tempHeight = atoi(line.c_str());
 
 			frames[index].x = tempX;
 			frames[index].y = tempY;
@@ -5717,16 +5865,17 @@ void player::extractClipsFromXML(string xmlFileName, int prevIndex){
 
 			index++;
 
-    }
-    else{
+		}
+		else {
 
 
-      line.clear();
-    }
+			line.clear();
+		}
 
-  }
+	}
 
 
 
 
 }
+
