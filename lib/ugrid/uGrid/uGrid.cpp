@@ -967,8 +967,6 @@ bool uGrid::findName(hitbox & source, int ID, thread_pool * pool) {
 	int y = source.top;
 	int width = source.right - x;
 	int height = source.bottom - y;
-	hitbox * p;
-	int vSize;
 	int xPlusWidth = x + width;
 	int yPlusHeight = y + height;
 
@@ -1004,7 +1002,6 @@ bool uGrid::findNameSingleThread(hitbox & source, int ID) {
 	int width = source.right - x;
 	int height = source.bottom - y;
 	hitbox * p;
-	int vSize;
 	int xPlusWidth = x + width;
 	int yPlusHeight = y + height;
 
@@ -1083,7 +1080,7 @@ void uGrid::printGridInfo() {
 
 			p = uniformGrid[i][j].data();
 
-			for (int k = 0; k < uniformGrid[i][j].size(); k++) {
+			for (size_t k = 0; k < uniformGrid[i][j].size(); k++) {
 
 				cout << p->name << endl;
 				p++;
@@ -1248,7 +1245,7 @@ string uGrid::getGridInfo() {
 
 			p = uniformGrid[i][j].data();
 
-			for (int k = 0; k < uniformGrid[i][j].size(); k++) {
+			for (size_t k = 0; k < uniformGrid[i][j].size(); k++) {
 
 				info += p->name;
 				info += "_";
