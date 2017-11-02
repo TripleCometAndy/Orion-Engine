@@ -136,7 +136,6 @@ bool checkOptions(int * FPS, bool * fullscreen, bool * debugMode, bool * logKeys
 	string line;
 	ifstream options("Options.txt");
 	stringstream s;
-	int buffer;
 
 	if (options.is_open()) {
 
