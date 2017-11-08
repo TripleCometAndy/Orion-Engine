@@ -4,50 +4,57 @@
 int main(int argc, char **argv) {
 
 
-	clock_t begin = clock();
+
 	//Options//
 	int FPS = 60;
-	bool fullScreen = false;
-	bool debugMode = false;
-	bool keylogger = false;
-	bool debugSingleStep = false;
-	bool debugDecouple = false;
-	bool singleThread = false;
+	bool fullScreen = false; //true if game will run in fullscreen
+	bool debugMode = false; //true if debugMode
+	bool keylogger = false; //true if the keylogger will be run
+	bool debugSingleStep = false; //true if debug mode will happen manually, one frame at a time
+	bool debugDecouple = false; //debug mode with no SDL interaction
+	bool singleThread = false; //game runs with a single thread. No thread pool
 
+	//screen dimensions if not fullscreen//
+	int screenWidth = 0;
+	int screenHeight = 0;
 
-	int screenWidth = 1360;
-	int screenHeight = 768;
-
-
+	//Read Options from Options.txt. Returns true if Options.txt exists//
 	if (checkOptions(&FPS, &fullScreen, &debugMode, &keylogger, &debugSingleStep, &debugDecouple, &singleThread)) {
-
+		//set screen resolution for fullscreen
 		if (fullScreen) {
+
+			//TODO. ADD This Into "LinuxFunctions.h"
+			Display* disp = XOpenDisplay(NULL);
+			Screen*  scrn = DefaultScreenOfDisplay(disp);
+			screenHeight = scrn->height;
+			screenWidth  = scrn->width;
 
 			//Windows//
 
-			//Display* disp = XOpenDisplay(NULL);
-			//Screen*  scrn = DefaultScreenOfDisplay(disp);
-			//screenHeight = scrn->height;
-			//screenWidth  = scrn->width;
+
 
 			//setScreenDimension(&screenWidth, &screenHeight);
 
-			screenWidth = 1920;
-			screenHeight = 1280;
+
 
 		}
 		else {
 
-
+			screenWidth = 1360;
+			screenHeight = 768;
 
 		}
 
 	}
-	else {
+	else { //Options.txt doesn't exist. Use default values//
 
 		FPS = 60;
-
+		screenWidth = 1360;
+		screenHeight = 768;
 	}
+
+	//The Orion Engine uses different modes for loops based on initial settings (debug, keylog, etc).
+	//Intended loop is entered here//
 
 	if (debugMode == false && keylogger == false && debugSingleStep == false && debugDecouple == false) {
 
@@ -82,11 +89,7 @@ int main(int argc, char **argv) {
 
 	}
 
-	clock_t end = clock();
 
-	double elapsed_secs = double(end - begin)/CLOCKS_PER_SEC;
-	cout << "Elapsed Secs: " << elapsed_secs << endl;
 
 	return 0;
 }
-
